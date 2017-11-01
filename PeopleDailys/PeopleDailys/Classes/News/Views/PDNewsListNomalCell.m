@@ -60,6 +60,7 @@
     UILabel *timeLab = [[UILabel alloc]init];
     timeLab.font = PD_Font(11);
     timeLab.textColor = [UIColor getColor:@"aaaaaa"];
+    timeLab.numberOfLines = 1;
     self.timeLab = timeLab;
     [self.contentView addSubview:timeLab];
 //    [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,6 +69,10 @@
 //        make.bottom.equalTo(self.contentView).offset(-PD_Fit(MARGIN_BASE));
 //    }];
     
+//    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.leading.trailing.equalTo(self);
+//        make.bottom.equalTo(timeLab).offset(PD_Fit(MARGIN_BASE));
+//    }];
 }
 
 
@@ -98,7 +103,7 @@
         [self.timeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleLab.mas_bottom).offset(PD_Fit(MARGIN_BASE));
             make.leading.equalTo(self.titleLab);
-            make.bottom.equalTo(self.contentView).offset(-PD_Fit(MARGIN_BASE));
+//            make.bottom.equalTo(self.contentView).offset(-PD_Fit(MARGIN_BASE));
         }];
     }else if (image_list >= 3){//图片在下方
         imgCount = 3;

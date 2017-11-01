@@ -20,12 +20,17 @@
 @implementation PDNewsListController{
     BOOL _topIsFinished;
     BOOL _nomalIsFinished;
+    BOOL _isCurrentView;
     NSString *_TimeStamp;
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ZCSliderViewClick:) name:@"ZCSliderViewClickNotification" object:nil];
+    
+
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 100;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -33,20 +38,40 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[PDNewsListNomalCell class] forCellReuseIdentifier:@"PDNewsListNomalCellID"];
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self loadData];
-}
-
--(void)loadData{
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     
+    if ([self isNeedToRefresh] && _isCurrentView) {
+        [self loadData];
+    }
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+-(BOOL)isNeedToRefresh{
     //刷新时间间隔小于规定时间间隔则不刷新数据
     NSString *nowTimeStamp = [NSString getNowTimeTimeStamp2];
     NSInteger timeInterval = 1 * 60 ;
     if (nowTimeStamp.integerValue - _TimeStamp.integerValue <= timeInterval) {
         [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@不刷新",self.title] duration:3];
-        return;
+        return NO;
+    }else{
+        return YES;
     }
+}
+-(void)ZCSliderViewClick:(NSNotification*)noti{
+    
+    //判断是否为当前控制器
+    NSString *info = [noti object];
+    PD_NSLog(@"接收 object传递的消息：%@",info);
+    _isCurrentView = [info isEqualToString:self.title];
+    PD_NSLog(@"当前TableView  %d",_isCurrentView);
+    
+}
+#pragma mark
+#pragma mark loadData
+-(void)loadData{
+    
     
     [SVProgressHUD show];
     //获取置顶新闻列表

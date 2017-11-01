@@ -73,7 +73,9 @@
 #pragma mark ZCSliderViewDelegate代理方法
 -(void)ZCSliderView:(ZCSliderView *)sliderView didSelectItemAtIndex:(NSInteger)index{
     
-    UIViewController *vc  =  self.childViewControllers[index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZCSliderViewClickNotification" object:[NSString stringWithFormat:@"%@",self.sliderArr[index]]];
+
+    PDNewsListController *vc  =  self.childViewControllers[index];
     if (!vc.view.superview) {
         vc.view.frame = CGRectMake(index * self.scrollView.width, 0, self.scrollView.width, self.scrollView.height);
         [self.scrollView addSubview:vc.view];

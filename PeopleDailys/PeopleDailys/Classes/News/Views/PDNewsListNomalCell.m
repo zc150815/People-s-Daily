@@ -103,7 +103,7 @@
         [self.timeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleLab.mas_bottom).offset(PD_Fit(MARGIN_BASE));
             make.leading.equalTo(self.titleLab);
-//            make.bottom.equalTo(self.contentView).offset(-PD_Fit(MARGIN_BASE));
+            make.bottom.equalTo(self.contentView).offset(-PD_Fit(MARGIN_BASE));
         }];
     }else if (image_list >= 3){//图片在下方
         imgCount = 3;

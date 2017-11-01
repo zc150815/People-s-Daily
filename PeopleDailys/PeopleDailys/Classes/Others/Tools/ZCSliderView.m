@@ -33,7 +33,7 @@
         
         _showSlider = YES;
         _ZC_SliderColor = [UIColor redColor];
-        _ZC_SliderHeight = PD_Fit(1);
+        _ZC_SliderHeight = PD_Fit(3);
         
         _ZC_BorderColor = [UIColor getColor:@"cccccc"];
         _ZC_BorderWidth = PD_Fit(1);

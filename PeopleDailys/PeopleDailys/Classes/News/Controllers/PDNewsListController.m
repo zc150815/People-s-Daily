@@ -30,7 +30,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ZCSliderViewClick:) name:@"ZCSliderViewClickNotification" object:nil];
     
-
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 100;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -38,8 +37,8 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[PDNewsListNomalCell class] forCellReuseIdentifier:@"PDNewsListNomalCellID"];
 }
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     
     if ([self isNeedToRefresh] && _isCurrentView) {
         [self loadData];
@@ -48,6 +47,9 @@
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
+
+
+#pragma mark - 判断方法
 -(BOOL)isNeedToRefresh{
     //刷新时间间隔小于规定时间间隔则不刷新数据
     NSString *nowTimeStamp = [NSString getNowTimeTimeStamp2];
@@ -68,10 +70,9 @@
     PD_NSLog(@"当前TableView  %d",_isCurrentView);
     
 }
-#pragma mark
-#pragma mark loadData
+
+#pragma mark - 获取新闻数据
 -(void)loadData{
-    
     
     [SVProgressHUD show];
     //获取置顶新闻列表
@@ -143,8 +144,14 @@
     }];
 }
 
-#pragma mark
-#pragma mark UITableView代理方法
+-(void)loadMoreData{
+    
+}
+-(void)loadUpdatedData{
+    
+}
+
+#pragma mark - UITableView代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.topNewsArr.count+self.nomalNewsArr.count;
 }
@@ -164,8 +171,7 @@
     return cell;
 }
 
-#pragma mark
-#pragma mark setter/getter方法
+#pragma mark - setter/getter方法
 
 -(NSMutableArray *)topNewsArr{
     if (!_topNewsArr) {

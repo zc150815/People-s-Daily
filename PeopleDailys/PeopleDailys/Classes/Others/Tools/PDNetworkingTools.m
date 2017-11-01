@@ -57,16 +57,32 @@
 }
 #pragma mark
 #pragma mark News
+//获取置顶新闻
 -(void)getChannelTopNewsDataWithType:(NSString*)type callBack:(callBack)callBack{
     NSString*url = @"api/news/get_totop_picNews";
     NSDictionary *params = @{@"type":type};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 
 }
+//获取频道新闻
 -(void)getChannelNomalNewsDataWithType:(NSString*)type callBack:(callBack)callBack{
     NSString*url = @"api/news/get_normal_news";
     NSDictionary *params = @{@"type":type};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
+//获取频道更多新闻
+-(void)getChannelNomalNewsMoreDataWithType:(NSString *)type lastTime:(NSString*)lastTime callBack:(callBack)callBack{
+    NSString*url = @"api/news/get_pull_news";
+    NSDictionary *params = @{@"type":type,@"last_time":lastTime};
+    [self requestWithRequestType:GET url:url params:params callBack:callBack];
+}
+////获取频道最新新闻
+-(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type lastTime:(NSString*)lastTime callBack:(callBack)callBack{
+    NSString*url = @"api/news/get_each_news";
+    NSDictionary *params = @{@"type":type};
+    [self requestWithRequestType:GET url:url params:params callBack:callBack];
+
+}
+
 
 @end

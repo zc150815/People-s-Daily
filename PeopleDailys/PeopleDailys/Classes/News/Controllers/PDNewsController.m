@@ -41,7 +41,7 @@
     self.sliderView.delegate = self;
     [self.view addSubview:sliderView];
     
-    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(sliderView.frame), self.view.width, self.view.height-sliderView.height - 66)];
+    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(sliderView.frame), self.view.width, self.view.height-sliderView.height - PD_TabBarHeight - PD_NavHeight)];
     scrollView.delegate = self;
     scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     scrollView.pagingEnabled = YES;

@@ -23,7 +23,8 @@
 #define PD_RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define PD_RandomColor PD_RGBColor(arc4random() % 256, arc4random() % 256, arc4random() % 256)
 
-
+#define PD_TabBarHeight ((PDTabBarController*)[UIApplication sharedApplication].keyWindow.rootViewController).tabBar.frame.size.height
+#define PD_NavHeight self.navigationController.navigationBar.frame.size.height
 
 /****************************其他**************************************/
 

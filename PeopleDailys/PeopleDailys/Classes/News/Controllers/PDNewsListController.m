@@ -126,16 +126,12 @@
         _TimeStamp = [NSString getNowTimeTimeStamp2];
         if (_topIsFinished) [SVProgressHUD dismiss];
         PD_NSLog(@"%@",response);
-        PDNewsModel *dataModel;
-        if ([response isKindOfClass:[NSDictionary class]]) {
-            dataModel = [PDNewsModel mj_objectWithKeyValues:response];
-        }
-        if (dataModel.status != 200) {
+        if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];
             return;
         }
         
-        NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:dataModel.data];
+        NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:response[DATA]];
         if (!dataArr.count) {
             [[PDPublicTools sharedPublicTools]showMessage:@"没有普通新闻" duration:3];
             return;

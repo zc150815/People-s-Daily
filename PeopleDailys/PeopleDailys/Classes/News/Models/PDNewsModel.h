@@ -12,6 +12,10 @@
 
 @interface PDNewsModel : PDMainModel
 
+@property (nonatomic, strong) PDNewsModel *data;
+@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, strong) NSArray *news;
+
 
 @property (nonatomic,copy) NSString *channel;
 @property (nonatomic,copy) NSString *comment_num;
@@ -25,8 +29,8 @@
 @property (nonatomic,copy) NSString *desc;
 @property (nonatomic,copy) NSString *news_id;
 @property (nonatomic,copy) NSString *url;
-
-
+@property (nonatomic,copy) NSString *return_time;
+@property (nonatomic,copy) NSString *return_last_time;
 
 
 @end

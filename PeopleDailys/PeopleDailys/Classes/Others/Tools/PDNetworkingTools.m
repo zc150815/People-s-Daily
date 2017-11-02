@@ -77,7 +77,7 @@
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
 ////获取频道最新新闻
--(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type lastTime:(NSString*)lastTime callBack:(callBack)callBack{
+-(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type callBack:(callBack)callBack{
     NSString*url = @"api/news/get_each_news";
     NSDictionary *params = @{@"type":type};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];

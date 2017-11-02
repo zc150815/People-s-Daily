@@ -88,7 +88,7 @@
     
     
     self.titleLab.text = model.title;
-    self.timeLab.text = model.pub_time;
+    self.timeLab.text = model.pub_time.length?model.pub_time:model.return_time;
     
     NSInteger image_list = model.image_list.integerValue;
     if (image_list == 0) { //无图

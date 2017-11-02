@@ -10,4 +10,5 @@
 
 @implementation PDNewsModel
 
+
 @end

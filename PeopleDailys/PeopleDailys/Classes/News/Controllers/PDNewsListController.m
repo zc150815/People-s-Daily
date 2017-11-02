@@ -130,19 +130,24 @@
         _TimeStamp = [NSString getNowTimeTimeStamp2];
         if (_topIsFinished) [SVProgressHUD dismiss];
         PD_NSLog(@"%@",response);
-        
-        if ([response[STATUS] integerValue] != 200) {
+        PDNewsModel *dataModel;
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            dataModel = [PDNewsModel mj_objectWithKeyValues:response];
+        }
+        if (dataModel.status != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];
             return;
         }
         
-        NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:response[DATA]];
+        NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:dataModel.data];
         if (!dataArr.count) {
             [[PDPublicTools sharedPublicTools]showMessage:@"没有普通新闻" duration:3];
             return;
         }else{
             [self.nomalNewsArr addObjectsFromArray:dataArr];
             [self.tableView reloadData];
+            PDNewsModel *model = dataArr.lastObject;
+            _lastTime = model.return_time;
         }
     }];
 }

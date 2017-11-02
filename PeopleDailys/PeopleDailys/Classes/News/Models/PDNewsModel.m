@@ -10,5 +10,7 @@
 
 @implementation PDNewsModel
 
-
++(NSDictionary *)mj_replacedKeyFromPropertyName{
+    return @{@"Final":@"final"};
+}
 @end

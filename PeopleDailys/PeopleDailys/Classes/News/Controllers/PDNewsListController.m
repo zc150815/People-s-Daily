@@ -23,7 +23,9 @@
     BOOL _isCurrentView;
     NSString *_TimeStamp;
     NSString *_lastTime;
-    
+    NSString *_original;
+    NSString *_Final;
+    NSInteger _refreshTime;
 }
 
 - (void)viewDidLoad {
@@ -38,13 +40,18 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[PDNewsListNomalCell class] forCellReuseIdentifier:@"PDNewsListNomalCellID"];
     
-    self.tableView.mj_footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    self.tableView.mj_footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNomalNewsMoreData)];
+    
+    self.tableView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadUpdatedData)];
+    
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
     if ([self isNeedToRefresh] && _isCurrentView) {
-        [self loadData];
+        [self loadStickyNewsData];
+        [self loadNomalNewsData];
     }
 }
 -(void)dealloc{
@@ -52,7 +59,8 @@
 }
 
 
-#pragma mark - 判断方法
+#pragma mark -
+#pragma mark 判断是否需要刷新
 -(BOOL)isNeedToRefresh{
     //刷新时间间隔小于规定时间间隔则不刷新数据
     NSString *nowTimeStamp = [NSString getNowTimeTimeStamp2];
@@ -73,30 +81,33 @@
 //    PD_NSLog(@"当前TableView  %d",_isCurrentView);
     
 }
-#pragma mark
-#pragma mark - 数据处理方法
 
-
-
-#pragma mark - 获取新闻数据
--(void)loadData{
+#pragma mark -
+#pragma mark 获取置顶新闻
+-(void)loadStickyNewsData{
     
     [SVProgressHUD show];
     //获取置顶新闻列表
     [[PDNetworkingTools sharedNetWorkingTools]getChannelTopNewsDataWithType:self.title callBack:^(id response, NSError *error) {
+        
         if (error) {
             [SVProgressHUD dismiss];
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
             PD_NSLog(@"error===%@",error);
             return;
         }
-        //判断普通新闻是否加载完毕
-        _topIsFinished = YES;
-        _TimeStamp = [NSString getNowTimeTimeStamp2];
-        if (_nomalIsFinished) [SVProgressHUD dismiss];
-        PD_NSLog(@"%@",response);
+        _topIsFinished = YES;   //记录置顶新闻获取完毕
+        _TimeStamp = [NSString getNowTimeTimeStamp2];   //记录当前时间戳
         
-
+        //判断普通新闻是否加载完毕
+        if (_nomalIsFinished){
+            [SVProgressHUD dismiss];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+        }
+//        PD_NSLog(@"%@",response);
+        
+        
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@置顶==201",self.title] duration:3];
             return;
@@ -111,8 +122,11 @@
             [self.tableView reloadData];
         }
     }];
-    
-    //获取普通新闻列表
+}
+#pragma mark 获取普通新闻
+-(void)loadNomalNewsData{
+
+    [SVProgressHUD show];
     [[PDNetworkingTools sharedNetWorkingTools]getChannelNomalNewsDataWithType:self.title callBack:^(id response, NSError *error) {
         
         if (error) {
@@ -122,10 +136,18 @@
             return ;
         }
         
-        _nomalIsFinished = YES;
-        _TimeStamp = [NSString getNowTimeTimeStamp2];
-        if (_topIsFinished) [SVProgressHUD dismiss];
+        _nomalIsFinished = YES; //记录普通新闻获取完毕
+        _TimeStamp = [NSString getNowTimeTimeStamp2];   //获取当前时间戳
+        
+        //判断置顶新闻是否加载完毕
+        if (_topIsFinished){
+            [SVProgressHUD dismiss];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+        }
+        
         PD_NSLog(@"%@",response);
+        
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];
             return;
@@ -139,31 +161,43 @@
             [self.nomalNewsArr addObjectsFromArray:dataArr];
             [self.tableView reloadData];
             PDNewsModel *model = dataArr.lastObject;
-            _lastTime = model.return_time;
+            
+            if (model.return_time.length) {
+                _lastTime = model.return_time;
+                _Final = model.return_time;
+            }
+
+            PDNewsModel *originalModel = dataArr.firstObject;
+            if (originalModel.return_time.length) {
+                _original = originalModel.return_time;
+            }
         }
     }];
 }
 
-//获取更多新闻
--(void)loadMoreData{
+#pragma mark 获取更多新闻
+-(void)loadNomalNewsMoreData{
     
-    [SVProgressHUD show];
     [[PDNetworkingTools sharedNetWorkingTools]getChannelNomalNewsMoreDataWithType:self.title lastTime:_lastTime callBack:^(id response, NSError *error) {
+        
         if (error) {
-            [SVProgressHUD dismiss];
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
             PD_NSLog(@"error===%@",error);
             return;
         }
     
-        _nomalIsFinished = YES;
-        _TimeStamp = [NSString getNowTimeTimeStamp2];
-        if (_topIsFinished) [SVProgressHUD dismiss];
+        _nomalIsFinished = YES; //记录普通新闻加载完毕
+        _TimeStamp = [NSString getNowTimeTimeStamp2];   //记录当前时间戳
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+
         PD_NSLog(@"%@",response);
+        
         PDNewsModel *dataModel;
         if ([response isKindOfClass:[NSDictionary class]]) {
             dataModel = [PDNewsModel mj_objectWithKeyValues:response];
         }
+        
         if (dataModel.status != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
@@ -174,25 +208,34 @@
         if (!dataArr.count) {
             [[PDPublicTools sharedPublicTools]showMessage:@"没有更多新闻" duration:3];
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            return;
         }else{
-            _lastTime = dataModel.data.return_last_time;
+            
+            if (dataModel.data.return_last_time.length) {
+                _lastTime = dataModel.data.return_last_time;
+            }
+            
             [self.nomalNewsArr addObjectsFromArray:dataArr];
             [self.tableView reloadData];
-            [self.tableView.mj_footer endRefreshing];
         }
     }];
     
 }
 
-//获取最新新闻
+#pragma mark 获取最新新闻
 -(void)loadUpdatedData{
+    
+    if(_refreshTime > 3){
+        // 已经下拉刷新了5次了，都还是旧数据，那么重新获取之前第一次的数据
+        _refreshTime = 0;
+        _original = @"0";
+        _Final = @"0";
+    }
     
     [self.topNewsArr removeAllObjects];
     [self.nomalNewsArr removeAllObjects];
     
     [SVProgressHUD show];
-    [[PDNetworkingTools sharedNetWorkingTools]getChannelNomalNewsUpdatedDataWithType:self.title callBack:^(id response, NSError *error) {
+    [[PDNetworkingTools sharedNetWorkingTools]getChannelNomalNewsUpdatedDataWithType:self.title original:_original final:_Final callBack:^(id response, NSError *error) {
         if (error) {
             [SVProgressHUD dismiss];
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
@@ -201,6 +244,45 @@
         }
         
         PD_NSLog(@"%@",response);
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+
+        
+        PDNewsModel *dataModel;
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            dataModel = [PDNewsModel mj_objectWithKeyValues:response];
+        }
+        if (dataModel.status != 200) {
+            [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@最新==201",self.title] duration:3];
+            return;
+        }
+        
+        //置顶新闻
+        NSArray *topArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:dataModel.data.top_news];
+        if (!topArr.count) {
+            [[PDPublicTools sharedPublicTools]showMessage:@"没有最新置顶新闻" duration:3];
+        }else{
+            [self.topNewsArr addObjectsFromArray:topArr];
+        }
+        //普通新闻
+        NSArray *nomalArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:dataModel.data.news];
+        if (!nomalArr.count) {
+            [[PDPublicTools sharedPublicTools]showMessage:@"没有最新置顶新闻" duration:3];
+        }else{
+            [self.nomalNewsArr addObjectsFromArray:nomalArr];
+        }
+        
+        if (dataModel.data.Final.length){
+            _Final = dataModel.data.Final;
+            _lastTime = dataModel.data.Final;
+        }
+        if (dataModel.data.original.length){
+            _original = dataModel.data.original;
+        }
+        [self.tableView reloadData];
+        _refreshTime++;
+        
     }];
 }
 
@@ -225,7 +307,7 @@
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    if (self.nomalNewsArr.count && indexPath.row == self.topNewsArr.count+self.nomalNewsArr.count-1 && !tableView.mj_footer.isRefreshing) {
+    if (self.nomalNewsArr.count && indexPath.row == self.topNewsArr.count+self.nomalNewsArr.count-2 && !tableView.mj_footer.isRefreshing) {
         [tableView.mj_footer beginRefreshing];
     }
 }

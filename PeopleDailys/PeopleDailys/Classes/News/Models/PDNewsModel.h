@@ -15,6 +15,7 @@
 @property (nonatomic, strong) PDNewsModel *data;
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, strong) NSArray *news;
+@property (nonatomic, strong) NSArray *top_news;
 
 
 @property (nonatomic,copy) NSString *channel;
@@ -31,6 +32,9 @@
 @property (nonatomic,copy) NSString *url;
 @property (nonatomic,copy) NSString *return_time;
 @property (nonatomic,copy) NSString *return_last_time;
+@property (nonatomic,copy) NSString *original;
+@property (nonatomic,copy) NSString *Final;
+@property (nonatomic,copy) NSString *plus_refresh;
 
 
 @end

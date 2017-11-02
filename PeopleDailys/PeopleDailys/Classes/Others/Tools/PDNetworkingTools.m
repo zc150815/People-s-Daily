@@ -76,12 +76,13 @@
     NSDictionary *params = @{@"type":type,@"last_time":lastTime};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
-////获取频道最新新闻
--(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type callBack:(callBack)callBack{
+//获取频道最新新闻
+-(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type original:(NSString*)original final:(NSString*)final callBack:(callBack)callBack{
     NSString*url = @"api/news/get_each_news";
-    NSDictionary *params = @{@"type":type};
+    NSDictionary *params = @{@"type":type,@"final":final,@"original":original};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 
+    
 }
 
 

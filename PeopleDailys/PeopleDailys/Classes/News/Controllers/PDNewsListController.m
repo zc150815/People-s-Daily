@@ -75,16 +75,12 @@
 }
 #pragma mark
 #pragma mark - 数据处理方法
-////获取最后一条新闻的时间
-//-(void)getLastTime:(NSArray*)array{
-//    PDNewsModel *model = array.lastObject;
-//    _lastTime = model.return_last_time;
-//}
+
+
 
 #pragma mark - 获取新闻数据
 -(void)loadData{
     
-    _lastTime = @"0";
     [SVProgressHUD show];
     //获取置顶新闻列表
     [[PDNetworkingTools sharedNetWorkingTools]getChannelTopNewsDataWithType:self.title callBack:^(id response, NSError *error) {
@@ -231,12 +227,12 @@
 
     return cell;
 }
-//-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    if (indexPath.row == (self.topNewsArr.count+self.nomalNewsArr.count - 1)&& !tableView.mj_footer.isRefreshing) {
-//        [tableView.mj_footer beginRefreshing];
-//    }
-//}
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    if (self.nomalNewsArr.count && indexPath.row == self.topNewsArr.count+self.nomalNewsArr.count-1 && !tableView.mj_footer.isRefreshing) {
+        [tableView.mj_footer beginRefreshing];
+    }
+}
 
 
 

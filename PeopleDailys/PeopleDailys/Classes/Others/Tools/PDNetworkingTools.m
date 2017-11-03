@@ -82,8 +82,13 @@
     NSDictionary *params = @{@"type":type,@"final":final,@"original":original};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 
-    
 }
 
+//获取新闻详情
+-(void)getNewsDetailDataWithID:(NSString*)ID callBack:(callBack)callBack{
+    NSString*url = @"api/article/news_detail";
+    NSDictionary *params = @{@"id":ID};
+    [self requestWithRequestType:GET url:url params:params callBack:callBack];
+}
 
 @end

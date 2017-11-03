@@ -9,6 +9,7 @@
 #import "PDNewsListController.h"
 #import "PDNewsModel.h"
 #import "PDNewsListNomalCell.h"
+#import "PDNewsDetailController.h"
 
 @interface PDNewsListController ()
 
@@ -311,7 +312,19 @@
         [tableView.mj_footer beginRefreshing];
     }
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    PDNewsModel *model;
+    if (self.topNewsArr.count && indexPath.row < self.topNewsArr.count) {
+        model = self.topNewsArr[indexPath.row];
+    }else{
+        model = self.nomalNewsArr[indexPath.row-self.topNewsArr.count];
+    }
+    
+    PDNewsDetailController *detailVC = [[PDNewsDetailController alloc]init];
+    detailVC.ID = model.ID;
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
 
 
 #pragma mark - setter/getter方法

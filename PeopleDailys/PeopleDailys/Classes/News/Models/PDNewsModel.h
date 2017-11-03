@@ -10,14 +10,14 @@
 #import "PDMainModel.h"
 
 
-@interface PDNewsModel : PDMainModel
+@interface PDNewsModel : NSObject
 
 @property (nonatomic, strong) PDNewsModel *data;
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, strong) NSArray *news;
 @property (nonatomic, strong) NSArray *top_news;
 
-
+@property (nonatomic,copy) NSString *ID;
 @property (nonatomic,copy) NSString *channel;
 @property (nonatomic,copy) NSString *comment_num;
 @property (nonatomic,copy) NSString *contenttype;
@@ -35,6 +35,11 @@
 @property (nonatomic,copy) NSString *original;
 @property (nonatomic,copy) NSString *Final;
 @property (nonatomic,copy) NSString *plus_refresh;
+
+@property (nonatomic,copy) NSString *content;//内容
+@property (nonatomic,copy) NSString *source_url;
+@property (nonatomic,copy) NSString *authors;
+@property (nonatomic,copy) NSString *source;
 
 
 @end

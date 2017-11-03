@@ -18,10 +18,52 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
 
+//    [self testSetupUI];
+    
     [self setupUI];
+    [self setupNavigationItem];
 }
 
+#pragma mark - setupUI
 -(void)setupUI{
+    
+    UIButton *userInfo = [UIButton buttonWithType:UIButtonTypeCustom];
+    [userInfo setBackgroundColor:[UIColor getColor:COLOR_BASE]];
+    UIImage *userImg = [UIImage scaleFromImage:[UIImage imageNamed:@"default_head"] toSize:CGSizeMake(PD_Fit(60), PD_Fit(60))];
+    [userInfo setImage:[[UIImage alloc]drawCircleImageWithImage:userImg WithCornerRadius:userImg.size.width] forState:UIControlStateNormal];
+    [userInfo setTitle:@"用户名" forState:UIControlStateNormal];
+    userInfo.titleLabel.font = PD_Font(15);
+    userInfo.frame = CGRectMake(0, 0, self.view.width, PD_Fit(100));
+    userInfo.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    userInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [userInfo setTitleEdgeInsets:UIEdgeInsetsMake(userInfo.imageView.frame.size.height+PD_Fit(15),-userInfo.imageView.frame.size.width, 0.0,0.0)];//文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
+    [userInfo setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -userInfo.titleLabel.bounds.size.width)];//图片距离右边框距离减少图片的宽度，其它不边
+    [self.view addSubview:userInfo];
+    
+    
+}
+-(void)setupNavigationItem{
+    
+    //logout按钮
+    UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [logoutBtn setTitle:@"Logout" forState:UIControlStateNormal];
+    [logoutBtn setTitleColor:[UIColor getColor:@"f69f99"] forState:UIControlStateNormal];
+    logoutBtn.titleLabel.font = PD_Font(15);
+    logoutBtn.adjustsImageWhenHighlighted = NO;
+    logoutBtn.bounds = CGRectMake(0, 0, 27, 27);
+    [logoutBtn addTarget:self action:@selector(logoutButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:logoutBtn];
+}
+
+
+#pragma mark - ButtonClickMethod
+-(void)logoutButtonClick{
+    
+    [[PDPublicTools sharedPublicTools] showMessage:@"Logout successful" duration:3];
+}
+
+#pragma mark - test
+-(void)testSetupUI{
     
     UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     shareBtn.frame = CGRectMake(0, 0, 100, 50);

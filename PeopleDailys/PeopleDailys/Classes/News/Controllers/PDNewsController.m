@@ -9,6 +9,9 @@
 #import "PDNewsController.h"
 #import "ZCSliderView.h"
 #import "PDNewsListController.h"
+#import "PDSearchController.h"
+
+
 @interface PDNewsController ()<UIScrollViewDelegate,ZCSliderViewDelegate>
 
 @property (nonatomic, strong) ZCSliderView *sliderView;
@@ -27,10 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupUI];
-    [self loadSortingData];
+    [self setupUI];     //布局加载
+    [self setupNavigationItem]; //按钮加载
+    [self loadSortingData]; //数据加载
 }
 
+#pragma mark - setupUI
 -(void)setupUI{
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -51,8 +56,25 @@
     [self.view addSubview:scrollView];
     
 }
+
+-(void)setupNavigationItem{
+    //搜索按钮
+    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchBtn setImage:[UIImage scaleFromImage:[UIImage imageNamed:@"search"] toSize:CGSizeMake(21, 21)] forState:UIControlStateNormal];
+    [searchBtn sizeToFit];
+    searchBtn.adjustsImageWhenHighlighted = NO;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:searchBtn];
+    [searchBtn addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //LOGO
+    UIImage *logoImg = [UIImage imageNamed:@"logo"];
+    UIImageView *logoView = [[UIImageView alloc]initWithImage:[UIImage scaleFromImage:logoImg toSize:CGSizeMake(0.5*logoImg.size.width, logoImg.size.height*0.5)]];
+    self.navigationItem.titleView = logoView;
+}
+
+#pragma mark - loadData
 -(void)loadSortingData{
-    self.sliderArr = @[@"Top News",@"China",@"World",@"Business",@"Opinions",@"Travel",@"Photos",@"Video",@"Services",@"Culture",@"Sports",@"Features",@"Tech",@"Lifestyle",@"LOL",@"Health",@"Entertainment",@"Fashion",@"Auto"];
+    self.sliderArr = @[@"Top News",@"China",@"World",@"Business",@"Opinions",@"Travel",@"Photos",@"Services",@"Culture",@"Sports",@"Features",@"Tech",@"Lifestyle",@"LOL",@"Health",@"Entertainment",@"Fashion",@"Auto"];
     self.sliderView.sliderArr = self.sliderArr;
     self.scrollView.contentSize = CGSizeMake(self.view.width*self.sliderArr.count, 0);
     
@@ -69,8 +91,8 @@
         [self addChildViewController:vc];
     }
 }
-#pragma mark
-#pragma mark ZCSliderViewDelegate代理方法
+
+#pragma mark - ZCSliderViewDelegateMethod
 -(void)ZCSliderView:(ZCSliderView *)sliderView didSelectItemAtIndex:(NSInteger)index{
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZCSliderViewClickNotification" object:[NSString stringWithFormat:@"%@",self.sliderArr[index]]];
@@ -83,15 +105,15 @@
     self.scrollView.contentOffset = CGPointMake(index * self.scrollView.width, 0);
 
 }
-#pragma mark
-#pragma mark UIScrollView代理方法
+
+#pragma mark - UIScrollViewDelegateMethod
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     NSInteger index = scrollView.contentOffset.x / scrollView.width;
     self.sliderView.index = index;
 }
 
-#pragma mark
-#pragma mark 懒加载
+
+#pragma mark - LazyMethod
 -(NSArray *)dataArr{
     if (!_dataArr) {
         _dataArr = [NSArray new];
@@ -103,5 +125,10 @@
         _sliderArr = [NSArray new];
     }
     return _sliderArr;
+}
+#pragma mark - ButtonClickMethod
+//搜索按钮点击事件
+-(void)searchButtonClick:(UIButton*)sender{
+    [self.navigationController pushViewController:[[PDSearchController alloc]init] animated:YES];
 }
 @end

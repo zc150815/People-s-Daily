@@ -36,4 +36,8 @@ typedef void (^callBack)(id response,NSError* error);
 -(void)getChannelNomalNewsMoreDataWithType:(NSString *)type lastTime:(NSString*)lastTime callBack:(callBack)callBack;
 //获取频道最新新闻
 -(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type original:(NSString*)original final:(NSString*)final callBack:(callBack)callBack;
+
+//获取新闻详情
+-(void)getNewsDetailDataWithID:(NSString*)ID callBack:(callBack)callBack;
+
 @end

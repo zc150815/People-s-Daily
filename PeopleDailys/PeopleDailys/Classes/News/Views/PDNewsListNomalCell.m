@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UILabel *titleLab;
 @property (nonatomic, strong) UIView *imgView;
 @property (nonatomic, strong) UILabel *timeLab;
+@property (nonatomic, strong) UIButton *commentBtn;
 
 @end
 
@@ -73,6 +74,23 @@
 //        make.top.leading.trailing.equalTo(self);
 //        make.bottom.equalTo(timeLab).offset(PD_Fit(MARGIN_BASE));
 //    }];
+    
+    
+    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [commentBtn setTitleColor:[UIColor getColor:@"aaaaaa"] forState:UIControlStateNormal];
+    commentBtn.titleLabel.font = PD_Font(11);
+    [commentBtn setTitle:@"..." forState:UIControlStateNormal];
+    [commentBtn setImage:[UIImage scaleFromImage:[UIImage imageNamed:@"comment"] toSize:CGSizeMake(PD_Fit(11), PD_Fit(11))] forState:UIControlStateNormal];
+    commentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, PD_Fit(5), 0, -PD_Fit(5));
+    commentBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
+    commentBtn.userInteractionEnabled = NO;
+    self.commentBtn = commentBtn;
+    [self.contentView addSubview:commentBtn];
+    [commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(timeLab.mas_trailing).offset(PD_Fit(10));
+        make.centerY.equalTo(timeLab);
+    }];
+    
 }
 
 
@@ -89,7 +107,8 @@
     
     self.titleLab.text = model.title;
     self.timeLab.text = model.pub_time.length?model.pub_time:model.return_time;
-    
+    [self.commentBtn setTitle:model.comment_num?model.comment_num:@"0" forState:UIControlStateNormal];
+
     NSInteger image_list = model.image_list.integerValue;
     if (image_list == 0) { //无图
         imgCount = 0;

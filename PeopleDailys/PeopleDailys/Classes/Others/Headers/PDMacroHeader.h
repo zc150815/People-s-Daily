@@ -18,7 +18,9 @@
 #define Font_(f) [UIFont systemFontOfSize:f]
 #define PD_ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define PD_ScreenHeight [UIScreen mainScreen].bounds.size.height
-#define PD_Fit(x) (PD_ScreenHeight*((x)/PD_Iphone6Height))
+//#define PD_Fit(x) (PD_ScreenHeight*((x)/PD_Iphone6Height))
+#define PD_Fit(x) x
+
 #define PD_FitH(x) (PD_ScreenWidth*((x)/PD_Iphone6Width))
 #define PD_RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define PD_RandomColor PD_RGBColor(arc4random() % 256, arc4random() % 256, arc4random() % 256)

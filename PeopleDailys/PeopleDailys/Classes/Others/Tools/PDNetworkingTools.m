@@ -91,4 +91,20 @@
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
 
+
+#pragma mark - Search
+//搜索新闻
+-(void)searchNewsWithSearchString:(NSString*)search page:(NSInteger)page callBack:(callBack)callBack{
+    NSString*url = @"api/news/search";
+    NSDictionary *params = @{@"search":search,@"page":@(page)};
+    [self requestWithRequestType:GET url:url params:params callBack:callBack];
+}
+
+
+#pragma mark - Me
+-(void)getArticleDataWithMark:(NSString*)mark CallBack:(callBack)callBack{
+    NSString*url = @"api/article/article";
+    NSDictionary *params = @{@"mark":mark};
+    [self requestWithRequestType:GET url:url params:params callBack:callBack];
+}
 @end

@@ -9,9 +9,10 @@
 #import "PDNewsDetailController.h"
 #import "PDNewsModel.h"
 #import "PDNewsDetailToolsView.h"
+#import "ZCCoverScreenView.h"
 
 
-@interface PDNewsDetailController ()<PDNewsDetailToolsViewDelegate,UIWebViewDelegate>
+@interface PDNewsDetailController ()<PDNewsDetailToolsViewDelegate,UIWebViewDelegate,ZCCoverScreenViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) PDNewsDetailToolsView *toolsView;
@@ -26,7 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    _textFontSize = 15;
+
     [self setupUI];
 }
 
@@ -43,8 +45,6 @@
     sizeChangeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [sizeChangeBtn addTarget:self action:@selector(changeFontSizeButtonClick) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:sizeChangeBtn];
-    
-    
     
 
     PDNewsDetailToolsView *toolsView = [[PDNewsDetailToolsView alloc]initWithFrame:CGRectMake(0, self.view.height-PD_Fit(50), self.view.width, PD_Fit(50))];
@@ -68,7 +68,6 @@
     webView.allowsInlineMediaPlayback = YES;
     webView.mediaPlaybackRequiresUserAction = NO;
     self.webView = webView;
-    
     [self.view addSubview:webView];
     
     [self loadData];
@@ -84,13 +83,12 @@
         }
         
         PD_NSLog(@"%@",response);
-        PDNewsModel *model;
         if ([response isKindOfClass:[NSDictionary class]]) {
-            model = [PDNewsModel mj_objectWithKeyValues:response];
+            _model = [PDNewsModel mj_objectWithKeyValues:response];
         }
         
         
-        [self loadDataWithModel:model];
+        [self loadDataWithModel:_model];
         
 //        [self loadDataWithURL:model.data.url];
     }];
@@ -114,27 +112,6 @@
 #pragma mark - 新闻网页布局
 -(NSString*)NomalNewsWebLayoutWithModel:(PDNewsModel*)model{
     
-//    NSString *htmlString = [NSString stringWithFormat:
-//                            @"<html> \n"
-//                            "<head> \n"
-//                            "<style type=\"text/css\"> \n"
-//                            "body {font-size:20px;}\n"
-//                            "</style> \n"
-//                            "</head> \n"
-//                            "<body>%@"
-//                            "<script type='text/javascript'>"
-//                            "window.onload = function(){\n"
-//                            "var $img = document.getElementsByTagName('img');\n"
-//                            "for(var p in  $img){\n"
-//                            " $img[p].style.width = '100%%';\n"
-//                            "$img[p].style.height ='auto'\n"
-//                            "}\n"
-//                            "}"
-//                            "</script>"
-//                            "</body>"
-//                            "</html>",model.data.content];
-    
-    
     NSString *htmlString = [NSString stringWithFormat:@"<html>\n"
                             "<head>\n"
                             "<meta charset=\"UTF-8\"/>"
@@ -146,7 +123,7 @@
                             "<style>"
                             "body{"
                                 "font-family: Arial, Helvetica, sans-serif;"
-                                "font-size: 16px;"
+                                "font-size: %@px;"
                                 "font-weight: normal;"
                                 "word-wrap: break-word;"
                                 "-webkit-user-select: auto;"
@@ -186,26 +163,22 @@
                             "<body>"
                             "<div class=\"content\">"
                             "<div class=\"title\">%@"
-                            //<!-- 标题 -->
-                            //Xi Jinping to attend the 25th APEC Economic Leaders' Meeting and pay state visits to Vietnam and the Laos
+                            //标题
                             "</div>"
                             "<div class=\"info\">"
                             "<span class=\"author\">%@"
-                            //<!-- 作者 -->
-                           // Yang Wanli
+                            //作者
                             "</span>"
                             "<span class=\"time\">%@"
-                            //<!-- 时间 -->
-                            //2017-11-03 09:05:31
+                            //时间
                             "</span><span class=\"source\">| From:%@"
-                            //<!-- "| From:" + 来源 -->
-//                            | From:People's Daily app
+                            //来源
                             "</span>"
                             "</div>"
                             
                             "<div class=\"main\" id=\"main\">%@"
-//                            <!-- 内容 -->
-//                            <!-- 内容 end -->
+                            //内容
+                            //内容 end
                             "</div>"
                             "</div>"
                             "<script>"
@@ -222,7 +195,7 @@
                             "</script>"
                             "</body>"
                             "</html>"
-                            "",model.data.title,model.data.authors,model.data.pub_time,model.data.source,model.data.content];
+                            "",[NSString stringWithFormat:@"%f",_textFontSize],model.data.title,model.data.authors,model.data.pub_time,model.data.source,model.data.content];
     return htmlString;
 }
 
@@ -256,8 +229,18 @@
     }
 }
 
+#pragma mark - ZCCoverScreenViewDelegate代理方法
+-(void)ZCCoverScreenView:(ZCCoverScreenView *)view textFontSizeDidChangedWithFontSize:(CGFloat)fontSize{
+    
+    _textFontSize = fontSize;
+    [self loadDataWithModel:_model];
+}
 #pragma mark - 改变字体大小方法
 -(void)changeFontSizeButtonClick{
     [[PDPublicTools sharedPublicTools]showMessage:@"改变文字大小" duration:3];
+    
+    [ZCCoverScreenView CS_ContentTextFontSizeChooseWithMaxSize:20 minSize:10 currentSize:_textFontSize];
+    [ZCCoverScreenView sharedCoverScreenView].delegate = self;
+    [ZCCoverScreenView show];
 }
 @end

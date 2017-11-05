@@ -40,7 +40,7 @@
     //标题
     UILabel *titleLab = [[UILabel alloc]init];
     titleLab.textColor = [UIColor getColor:@"333333"];
-    titleLab.font = [UIFont systemFontOfSize:TITLELAB_FONTSIZE];
+    titleLab.font = PD_Font(TITLELAB_FONTSIZE);
     titleLab.numberOfLines = 2;
     self.titleLab = titleLab;
     [self.contentView addSubview:titleLab];
@@ -65,7 +65,7 @@
     
     
     UILabel *timeLab = [[UILabel alloc]init];
-    timeLab.font = PD_Font(11);
+    timeLab.font = PD_Font(TIMELAB_FONTSIZE);
     timeLab.textColor = [UIColor getColor:@"aaaaaa"];
     timeLab.numberOfLines = 1;
     self.timeLab = timeLab;
@@ -84,7 +84,7 @@
     
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [commentBtn setTitleColor:[UIColor getColor:@"aaaaaa"] forState:UIControlStateNormal];
-    commentBtn.titleLabel.font = PD_Font(11);
+    commentBtn.titleLabel.font = PD_Font(TIMELAB_FONTSIZE);
     [commentBtn setTitle:@"..." forState:UIControlStateNormal];
     [commentBtn setImage:[UIImage scaleFromImage:[UIImage imageNamed:@"comment"] toSize:CGSizeMake(PD_Fit(11), PD_Fit(11))] forState:UIControlStateNormal];
     commentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, PD_Fit(5), 0, -PD_Fit(5));
@@ -105,18 +105,19 @@
     self.titleLab.y = TITLELAB_MARGIN_TOP;
     self.timeLab.x = self.titleLab.x;
     [self.titleLab sizeToFit];
+    [self.timeLab sizeToFit];
     
     
     NSInteger image_list = _model.image_list.integerValue;
     if (image_list == 0) { //无图
         self.imgView.hidden = YES;
         self.titleLab.width = self.width - 2*TITLELAB_MARGIN_LEADING;
+        [self.titleLab sizeToFit];
         
         self.timeLab.y = CGRectGetMaxY(self.titleLab.frame)+TIMELAB_MARGIN_TOP;
-        [self.timeLab sizeToFit];
         
     }else if (image_list >= 3){//图片在下方
-        
+    
         self.imgView.hidden = NO;
         self.titleLab.width = self.width - 2*TITLELAB_MARGIN_LEADING;
         [self.titleLab sizeToFit];
@@ -140,6 +141,7 @@
 
 -(void)setModel:(PDNewsModel *)model{
     _model = model;
+    
     //图片数量
     NSInteger imgCount = 0;
     //图片宽度
@@ -150,50 +152,43 @@
     
     self.titleLab.text = model.title;
     [self.titleLab sizeToFit];
+    self.timeLab.text = model.pub_time.length?model.pub_time:(model.return_time?model.return_time:model.create_time);
     
-    self.timeLab.text = model.pub_time.length?model.pub_time:model.return_time;
     [self.commentBtn setTitle:model.comment_num?model.comment_num:@"0" forState:UIControlStateNormal];
     
-    //    NSInteger image_list = model.image_list.integerValue;
-    //    if (image_list == 0) { //无图
-    //        imgCount = 0;
-    //        self.imgView.hidden = YES;
-    //
-    //    }else if (image_list >= 3){//图片在下方
-    //        imgCount = 3;
-    //        imgWith = (PD_ScreenWidth - 2 * PD_Fit(MARGIN_LITTLE) - 2 * PD_Fit(MARGIN_BASE)) / imgCount;
-    //        imgHeight = imgWith / 120 * 80;
-    //        //
-    //        self.imgView.hidden = NO;
-    //
-    //    }else{//图片在右端
-    //        self.imgView.hidden = NO;
-    //
-    //        [self.imgView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    //        NSArray *imgArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:model.image_list_detail];
-    //
-    //        if (imgCount == 3) {
-    //            for (NSInteger i = 0; i < imgCount; i++) {
-    //
-    //                PDNewsModel *model = imgArr[i];
-    //                UIImageView *picView = [[UIImageView alloc]init];
-    //                picView.contentMode = UIViewContentModeScaleAspectFill;
-    //                picView.clipsToBounds = YES;
-    //                [picView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.url]] placeholderImage:[UIImage imageNamed:@"default"]];
-    //                [self.imgView addSubview:picView];
-    //            }
-    //
-    //        }else if (imgCount == 1){
-    //            UIImageView *picView = [[UIImageView alloc]init];
-    //            picView.contentMode = UIViewContentModeScaleAspectFill;
-    //            picView.clipsToBounds = YES;
-    //            PDNewsModel *model = imgArr[0];
-    //            [picView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.url]] placeholderImage:[UIImage imageNamed:@"default"]];
-    //
-    //            [self.imgView addSubview:picView];
-    //
-    //        }
-    //    }
+    NSInteger image_list = model.image_list.integerValue;
+    if (image_list == 0) { //无图
+        self.imgView.hidden = YES;
+        imgCount = 0;
+        
+    }else if (image_list >= 3){//图片在下方
+        self.imgView.hidden = NO;
+        imgCount = 3;
+        imgWith = (self.width - 2 * IMAGEVIEW_MARGIN_LEADING - 2 * PICTURE_MARGIN) / 3;
+        imgHeight = imgWith / IMAGEVIEW_WIDTH_SINGLE * IMAGEVIEW_HEIGHT_SINGLE;
+        
+    }else{//图片在右端
+        self.imgView.hidden = NO;
+        imgCount = 1;
+        imgWith = IMAGEVIEW_WIDTH_SINGLE;
+        imgHeight = IMAGEVIEW_HEIGHT_SINGLE;
+    }
+    
+    
+    [self.imgView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    for (NSInteger i = 0; i < imgCount; i++) {
+        
+        NSArray *imgArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:model.image_list_detail];
+        PDNewsModel *model = imgArr[i];
+        UIImageView *picView = [[UIImageView alloc]init];
+        picView.contentMode = UIViewContentModeScaleAspectFill;
+        picView.clipsToBounds = YES;
+        [picView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.url]] placeholderImage:[UIImage imageNamed:@"default"]];
+        CGFloat imgX = (imgCount==1)?0:i*(imgWith+PICTURE_MARGIN);
+    
+        picView.frame = CGRectMake(imgX, 0, imgWith, imgHeight);
+        [self.imgView addSubview:picView];
+    }
 }
 @end
 

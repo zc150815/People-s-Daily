@@ -37,6 +37,9 @@
 		678957B81FA32EBE00D03685 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B71FA32EB700D03685 /* JavaScriptCore.framework */; };
 		678957BA1FA32ECD00D03685 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B91FA32EC900D03685 /* ImageIO.framework */; };
 		678957BC1FA32ED800D03685 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957BB1FA32ED800D03685 /* libsqlite3.tbd */; };
+		67E3365A1FAEDE7D00DFC519 /* ZCCoverScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E336591FAEDE7D00DFC519 /* ZCCoverScreenView.m */; };
+		67E3365D1FAF01D400DFC519 /* PDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E3365C1FAF01D400DFC519 /* PDWebViewController.m */; };
+		67E336601FAF112700DFC519 /* PDSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E3365F1FAF112700DFC519 /* PDSettingsController.m */; };
 		67E9CE281FA19AB200E9273F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9CE271FA19AB200E9273F /* main.m */; };
 		67E9CE2B1FA19AB200E9273F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9CE2A1FA19AB200E9273F /* AppDelegate.m */; };
 		67E9CE2E1FA19AB200E9273F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9CE2D1FA19AB200E9273F /* ViewController.m */; };
@@ -110,6 +113,12 @@
 		678957B91FA32EC900D03685 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		678957BB1FA32ED800D03685 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		678957BD1FA6BE6900D03685 /* PDParameterHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDParameterHeader.h; sourceTree = "<group>"; };
+		67E336581FAEDE7D00DFC519 /* ZCCoverScreenView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCCoverScreenView.h; sourceTree = "<group>"; };
+		67E336591FAEDE7D00DFC519 /* ZCCoverScreenView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCCoverScreenView.m; sourceTree = "<group>"; };
+		67E3365B1FAF01D400DFC519 /* PDWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDWebViewController.h; sourceTree = "<group>"; };
+		67E3365C1FAF01D400DFC519 /* PDWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDWebViewController.m; sourceTree = "<group>"; };
+		67E3365E1FAF112700DFC519 /* PDSettingsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDSettingsController.h; sourceTree = "<group>"; };
+		67E3365F1FAF112700DFC519 /* PDSettingsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDSettingsController.m; sourceTree = "<group>"; };
 		67E9CE231FA19AB200E9273F /* PeopleDailys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeopleDailys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E9CE271FA19AB200E9273F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		67E9CE291FA19AB200E9273F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -332,6 +341,15 @@
 			path = Required;
 			sourceTree = "<group>";
 		};
+		67E336571FADFEFA00DFC519 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				67E336581FAEDE7D00DFC519 /* ZCCoverScreenView.h */,
+				67E336591FAEDE7D00DFC519 /* ZCCoverScreenView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		67E9CE1A1FA19AB200E9273F = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +417,8 @@
 			children = (
 				67E9CE831FA1A8C900E9273F /* PDMeController.h */,
 				67E9CE841FA1A8C900E9273F /* PDMeController.m */,
+				67E3365E1FAF112700DFC519 /* PDSettingsController.h */,
+				67E3365F1FAF112700DFC519 /* PDSettingsController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -465,7 +485,7 @@
 			children = (
 				67E9CE471FA19DE700E9273F /* Controllers */,
 				67E9CE481FA19DE700E9273F /* Models */,
-				67E9CE491FA19DE700E9273F /* Views */,
+				67E336571FADFEFA00DFC519 /* Views */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -479,6 +499,8 @@
 				67E9CE871FA1A93C00E9273F /* PDNavigationController.m */,
 				6789576D1FA3014300D03685 /* PDSearchController.h */,
 				6789576E1FA3014300D03685 /* PDSearchController.m */,
+				67E3365B1FAF01D400DFC519 /* PDWebViewController.h */,
+				67E3365C1FAF01D400DFC519 /* PDWebViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -490,13 +512,6 @@
 				9D8A8F651FA85D3100A116A9 /* PDMainModel.m */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		67E9CE491FA19DE700E9273F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		67E9CE511FA19EFF00E9273F /* Others */ = {
@@ -712,6 +727,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67E3365A1FAEDE7D00DFC519 /* ZCCoverScreenView.m in Sources */,
 				67E9CE721FA1A2CA00E9273F /* NSAttributedString+ZCExtension.m in Sources */,
 				67E9CE2E1FA19AB200E9273F /* ViewController.m in Sources */,
 				678957721FA30C0700D03685 /* PDNewsListController.m in Sources */,
@@ -720,10 +736,12 @@
 				67E9CE821FA1A8BB00E9273F /* PDNewsController.m in Sources */,
 				9D8381CF1FAC0DD700407C70 /* PDNewsDetailToolsView.m in Sources */,
 				67E9CE851FA1A8C900E9273F /* PDMeController.m in Sources */,
+				67E336601FAF112700DFC519 /* PDSettingsController.m in Sources */,
 				67E9CE711FA1A2CA00E9273F /* Foundation+Log.m in Sources */,
 				9D8A8F661FA85D3100A116A9 /* PDMainModel.m in Sources */,
 				67E9CE881FA1A93C00E9273F /* PDNavigationController.m in Sources */,
 				67E9CE741FA1A2CA00E9273F /* NSString+Hash.m in Sources */,
+				67E3365D1FAF01D400DFC519 /* PDWebViewController.m in Sources */,
 				9D9D5E041FAB311B00022EFD /* PDNewsDetailController.m in Sources */,
 				67E9CE2B1FA19AB200E9273F /* AppDelegate.m in Sources */,
 				9D8A8F6F1FA9988600A116A9 /* PDNewsListNomalCell.m in Sources */,

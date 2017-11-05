@@ -39,16 +39,16 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ZCSliderViewClick:) name:@"ZCSliderViewClickNotification" object:nil];
     
-    //    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    //    self.tableView.estimatedRowHeight = 100;
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.showsHorizontalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[PDNewsListNomalCell class] forCellReuseIdentifier:@"PDNewsListNomalCellID"];
     
-    self.tableView.mj_footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNomalNewsMoreData)];
-    
-    self.tableView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadUpdatedData)];
+    if (!_isSearchPage) {
+        self.tableView.mj_footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNomalNewsMoreData)];
+        
+        self.tableView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadUpdatedData)];
+    }
     
     
 }
@@ -56,7 +56,11 @@
     [super viewWillAppear:animated];
     
     if ([self isNeedToRefresh] && _isCurrentView) {
+        [self.topNewsArr removeAllObjects];
+        [self.topNewsLayoutArr removeAllObjects];
         [self loadStickyNewsData];
+        [self.nomalNewsArr removeAllObjects];
+        [self.nomalNewsLayoutArr removeAllObjects];
         [self loadNomalNewsData];
     }
 }
@@ -70,9 +74,9 @@
 -(BOOL)isNeedToRefresh{
     //刷新时间间隔小于规定时间间隔则不刷新数据
     NSString *nowTimeStamp = [NSString getNowTimeTimeStamp2];
-    NSInteger timeInterval = 1 * 60 ;
+    NSInteger timeInterval = 15 * 60 ;
     if (nowTimeStamp.integerValue - _TimeStamp.integerValue <= timeInterval) {
-        [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@不刷新",self.title] duration:3];
+//        [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@不刷新",self.title] duration:3];
         return NO;
     }else{
         return YES;
@@ -111,7 +115,7 @@
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
         }
-        //        PD_NSLog(@"%@",response);
+        PD_NSLog(@"%@",response);
         
         
         if ([response[STATUS] integerValue] != 200) {
@@ -153,7 +157,7 @@
             [self.tableView.mj_footer endRefreshing];
         }
         
-        //        PD_NSLog(@"%@",response);
+                PD_NSLog(@"%@",response);
         
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];
@@ -307,6 +311,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PDNewsListNomalCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PDNewsListNomalCellID" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (self.topNewsArr.count && indexPath.row < self.topNewsArr.count) {
         
         PDNewsModel *model = self.topNewsArr[indexPath.row];

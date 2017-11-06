@@ -27,4 +27,6 @@
 
 
 +(void)CS_ContentTextFontSizeChooseWithMaxSize:(CGFloat)maxSize minSize:(CGFloat)minSize currentSize:(CGFloat)currentSize;
++(void)CS_AddCommentWithUserInfo:(NSArray*)info;
+
 @end

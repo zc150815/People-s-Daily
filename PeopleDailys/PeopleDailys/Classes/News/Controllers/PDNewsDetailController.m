@@ -257,7 +257,8 @@
         }
             break;
         case PDNewsDetailToolsViewToolTypeSendComment:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"发表评论" duration:3];
+            [ZCCoverScreenView CS_AddCommentWithUserInfo:nil];
+            [ZCCoverScreenView show];
         }
             break;
         default:

@@ -27,9 +27,7 @@
     self.window.rootViewController = [[PDTabBarController alloc]init];
     [self.window makeKeyAndVisible];
     
-    
-    
-    [self initShareSDK];
+
     
     return YES;
 }
@@ -60,54 +58,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
--(void)initShareSDK{
-    NSArray *activeArr = @[@(SSDKPlatformTypeSinaWeibo),@(SSDKPlatformTypeWechat),@(SSDKPlatformTypeQQ)
-                           //,@(SSDKPlatformTypeFacebook),@(SSDKPlatformTypeTwitter)
-                           ];
-    [ShareSDK registerActivePlatforms:activeArr onImport:^(SSDKPlatformType platformType) {
-        switch (platformType) {
-            case SSDKPlatformTypeSinaWeibo://新浪微博
-                [ShareSDKConnector connectWeibo:[WeiboSDK class]];
-                break;
-            case SSDKPlatformTypeWechat://微信
-                [ShareSDKConnector connectWeChat:[WXApi class]];
-                break;
-            case SSDKPlatformTypeQQ://QQ
-                [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
-                break;
-            case SSDKPlatformTypeFacebook://Facebook
-//                [[PDPublicTools sharedPublicTools]showMessage:@"Facebook" duration:3];
-                break;
-            case SSDKPlatformTypeTwitter://Twitter
-//                [[PDPublicTools sharedPublicTools]showMessage:@"Twitter" duration:3];
-                break;
-            default:
-                break;
-        }
-    } onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
-        switch (platformType) {
-            case SSDKPlatformTypeSinaWeibo://新浪微博
-                [appInfo SSDKSetupSinaWeiboByAppKey:Appkey_Weibo appSecret:AppSecret_Weibo redirectUri:RedirectURL_Weibo authType:RedirectURL_Weibo];
-                break;
-            case SSDKPlatformTypeWechat://微信
-                [appInfo SSDKSetupWeChatByAppId:@"" appSecret:@""];
-                break;
-            case SSDKPlatformTypeQQ://QQ
-                [appInfo SSDKSetupTencentWeiboByAppKey:@"" appSecret:@"" redirectUri:@""];
-                break;
-            case SSDKPlatformTypeFacebook://Facebook
-                [appInfo SSDKSetupFacebookByApiKey:@""
-                                         appSecret:@""
-                                       displayName:@""
-                                          authType:SSDKAuthTypeBoth];
-                break;
-            case SSDKPlatformTypeTwitter://Twitter
-                [appInfo SSDKSetupTwitterByConsumerKey:@"" consumerSecret:@"" redirectUri:@""];
-                 break;
-            default:
-                break;
-        }
-    }];
-}
+
 
 @end

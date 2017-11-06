@@ -40,6 +40,9 @@
 @property (nonatomic,copy) NSString *source_url;
 @property (nonatomic,copy) NSString *authors;
 @property (nonatomic,copy) NSString *source;
+@property (nonatomic,copy) NSString *is_collect;
+@property (nonatomic,copy) NSString *format_time;
+
 
 
 @end

@@ -60,37 +60,48 @@
 //获取置顶新闻
 -(void)getChannelTopNewsDataWithType:(NSString*)type callBack:(callBack)callBack{
     NSString*url = @"api/news/get_totop_picNews";
-    NSDictionary *params = @{@"type":type};
+    NSDictionary *params = @{@"type":type,@"device_id":PhoneIDNum};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 
 }
 //获取频道新闻
 -(void)getChannelNomalNewsDataWithType:(NSString*)type callBack:(callBack)callBack{
     NSString*url = @"api/news/get_normal_news";
-    NSDictionary *params = @{@"type":type};
+    NSDictionary *params = @{@"type":type,@"device_id":PhoneIDNum};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
 //获取频道更多新闻
 -(void)getChannelNomalNewsMoreDataWithType:(NSString *)type lastTime:(NSString*)lastTime callBack:(callBack)callBack{
     NSString*url = @"api/news/get_pull_news";
-    NSDictionary *params = @{@"type":type,@"last_time":lastTime};
+    NSDictionary *params = @{@"type":type,@"last_time":lastTime,@"device_id":PhoneIDNum};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
 //获取频道最新新闻
 -(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type original:(NSString*)original final:(NSString*)final callBack:(callBack)callBack{
     NSString*url = @"api/news/get_each_news";
-    NSDictionary *params = @{@"type":type,@"final":final,@"original":original};
+    NSDictionary *params = @{@"type":type,@"final":final,@"original":original,@"device_id":PhoneIDNum};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 
+    
 }
 
 //获取新闻详情
+-(void)getNewsAttriDataWithID:(NSString*)ID callBack:(callBack)callBack{
+    NSString*url = @"api/article/news_attr";
+    NSDictionary *params = @{@"id":ID,@"deviceId":PhoneIDNum};
+    [self requestWithRequestType:GET url:url params:params callBack:callBack];
+}
 -(void)getNewsDetailDataWithID:(NSString*)ID callBack:(callBack)callBack{
     NSString*url = @"api/article/news_detail";
     NSDictionary *params = @{@"id":ID};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
-
+//收藏新闻
+-(void)collectNewsWithID:(NSString*)ID isCollect:(NSString*)isCollect callBack:(callBack)callBack{
+    NSString*url = @"api/article/news_collect";
+    NSDictionary *params = @{@"nid":ID,@"is_collect":isCollect,@"deviceId":PhoneIDNum};
+    [self requestWithRequestType:POST url:url params:params callBack:callBack];
+}
 
 #pragma mark - Search
 //搜索新闻
@@ -107,4 +118,17 @@
     NSDictionary *params = @{@"mark":mark};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
+//获取收藏列表
+-(void)getCollectionDataWithPage:(NSInteger)page CallBack:(callBack)callBack{
+    NSString*url = @"api/article/user_collection";
+    NSDictionary *params = @{@"deviceId":PhoneIDNum,@"uid:":@(0),@"token":@"",@"p":@(page)};
+    [self requestWithRequestType:GET url:url params:params callBack:callBack];
+}
+//获取通知列表
+-(void)getNotificationDataWithPage:(NSInteger)page CallBack:(callBack)callBack{
+    NSString*url = @"api/article/get_message";
+    NSDictionary *params = @{@"deviceId":PhoneIDNum,@"uid:":@(0),@"token":@"",@"p":@(page),@"version":@(1)};
+    [self requestWithRequestType:GET url:url params:params callBack:callBack];
+}
+
 @end

@@ -11,6 +11,8 @@
 
 
 #define SystemVersion [[[UIDevice currentDevice] systemVersion] floatValue]
+//#define PhoneIDNum [[[UIDevice currentDevice] identifierForVendor] UUIDString]
+
 /****************************适配**************************************/
 #define PD_Iphone6Width 375.0
 #define PD_Iphone6Height 667.0

@@ -9,6 +9,8 @@
 #import "PDMeController.h"
 #import "PDWebViewController.h"
 #import "PDSettingsController.h"
+#import "PDCollectionsController.h"
+#import "PDNotificationController.h"
 
 @interface PDMeController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -146,6 +148,14 @@
         PDSettingsController *settingVC = [[PDSettingsController alloc]init];
         settingVC.title = titleStr;
         [self.navigationController pushViewController:settingVC animated:YES];
+    }else if ([titleStr containsString:@"Collections"]){
+        PDCollectionsController *collectionVC = [[PDCollectionsController alloc]init];
+        collectionVC.title = titleStr;
+        [self.navigationController pushViewController:collectionVC animated:YES];
+    }else if ([titleStr containsString:@"Notification"]){
+        PDNotificationController *notifVC = [[PDNotificationController alloc]init];
+        notifVC.title = titleStr;
+        [self.navigationController pushViewController:notifVC animated:YES];
     }
     
 }

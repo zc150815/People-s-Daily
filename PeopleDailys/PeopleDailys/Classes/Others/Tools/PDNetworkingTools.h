@@ -39,10 +39,20 @@ typedef void (^callBack)(id response,NSError* error);
 
 //获取新闻详情
 -(void)getNewsDetailDataWithID:(NSString*)ID callBack:(callBack)callBack;
+-(void)getNewsAttriDataWithID:(NSString*)ID callBack:(callBack)callBack;
+
+//收藏新闻
+-(void)collectNewsWithID:(NSString*)ID isCollect:(NSString*)isCollect callBack:(callBack)callBack;
+
+
 #pragma mark - Search
 //搜索新闻
 -(void)searchNewsWithSearchString:(NSString*)search page:(NSInteger)page callBack:(callBack)callBack;
 
 #pragma mark - Me
 -(void)getArticleDataWithMark:(NSString*)mark CallBack:(callBack)callBack;
+//获取收藏列表
+-(void)getCollectionDataWithPage:(NSInteger)page CallBack:(callBack)callBack;
+//获取通知列表
+-(void)getNotificationDataWithPage:(NSInteger)page CallBack:(callBack)callBack;
 @end

@@ -92,6 +92,24 @@
         
 //        [self loadDataWithURL:model.data.url];
     }];
+    
+    [[PDNetworkingTools sharedNetWorkingTools]getNewsAttriDataWithID:self.ID callBack:^(id response, NSError *error) {
+        if (error) {
+            [SVProgressHUD dismiss];
+            [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+            PD_NSLog(@"error===%@",error);
+            return;
+        }
+        
+        PD_NSLog(@"%@",response);
+        PDNewsModel *model;
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            model = [PDNewsModel mj_objectWithKeyValues:response];
+            self.toolsView.isCollection = model.data.is_collect.boolValue;
+        }
+        
+    }];
+    
 }
 
 //加载标签
@@ -213,7 +231,25 @@
         }
             break;
         case PDNewsDetailToolsViewToolTypeCollection:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"收藏" duration:3];
+            [[PDNetworkingTools sharedNetWorkingTools]collectNewsWithID:self.ID isCollect:sender.isSelected?@"1":@"0" callBack:^(id response, NSError *error) {
+                if (error) {
+                    [SVProgressHUD dismiss];
+                    [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+                    PD_NSLog(@"error===%@",error);
+                    return;
+                }
+                
+                PD_NSLog(@"%@",response);
+                PDNewsModel *model;
+                if ([response isKindOfClass:[NSDictionary class]]) {
+                    model = [PDNewsModel mj_objectWithKeyValues:response];
+                }
+                if (model.status != 200) {
+                    [[PDPublicTools sharedPublicTools]showMessage:@"收藏失败" duration:3];
+                }else{
+                    sender.selected = !sender.isSelected;
+                }
+            }];
         }
             break;
         case PDNewsDetailToolsViewToolTypeComment:{

@@ -109,7 +109,7 @@
     fontSlider.minimumValue = minSize;
     fontSlider.maximumValue = maxSize;
     fontSlider.value = currentSize;
-    fontSlider.continuous = YES;
+    fontSlider.continuous = NO;
     fontSlider.x = CGRectGetMaxX(fontLab.frame) + PD_Fit(15);
     fontSlider.centerY = self.mainView.height/2;
     fontSlider.width = self.mainView.width - PD_Fit(15) - fontSlider.x;
@@ -119,6 +119,7 @@
 }
 
 -(void)changeTextFontSize:(UISlider*)sender{
+    
     if ([self.delegate respondsToSelector:@selector(ZCCoverScreenView:textFontSizeDidChangedWithFontSize:)]&&self.delegate) {
         [self.delegate ZCCoverScreenView:self textFontSizeDidChangedWithFontSize:sender.value];
     }

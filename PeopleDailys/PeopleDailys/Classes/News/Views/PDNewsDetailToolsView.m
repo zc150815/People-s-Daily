@@ -46,11 +46,12 @@
     }];
     
     UIButton *collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    collectionBtn.adjustsImageWhenHighlighted = NO;
+    [collectionBtn setAdjustsImageWhenHighlighted:NO];
     collectionBtn.tag = 200;
     [collectionBtn setImage:[UIImage scaleFromImage:[UIImage imageNamed:@"collection_off"] toSize:CGSizeMake(PD_Fit(18), PD_Fit(18))] forState:UIControlStateNormal];
     [collectionBtn setImage:[UIImage scaleFromImage:[UIImage imageNamed:@"collection_on"] toSize:CGSizeMake(PD_Fit(18), PD_Fit(18))] forState:UIControlStateSelected];
     [collectionBtn addTarget:self action:@selector(PDNewsDetailToolsViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [collectionBtn addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllTouchEvents];
     self.collectionBtn = collectionBtn;
     [self addSubview:collectionBtn];
     [collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -61,6 +62,7 @@
     
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     commentBtn.adjustsImageWhenHighlighted = NO;
+    commentBtn.showsTouchWhenHighlighted = NO;
     commentBtn.tag = 300;
     [commentBtn setImage:[UIImage scaleFromImage:[UIImage imageNamed:@"comment"] toSize:CGSizeMake(PD_Fit(18), PD_Fit(18))] forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(PDNewsDetailToolsViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -74,6 +76,7 @@
     
     UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sendBtn.adjustsImageWhenHighlighted = NO;
+    sendBtn.showsTouchWhenHighlighted = NO;
     sendBtn.tag = 400;
     [sendBtn setTitle:@"Your comments" forState:UIControlStateNormal];
     [sendBtn setTitleColor:[UIColor getColor:@"aaaaaa"] forState:UIControlStateNormal];
@@ -107,5 +110,8 @@
     _isCollection = isCollection;
     
     self.collectionBtn.selected = isCollection;
+}
+- (void)preventFlicker:(UIButton *)button {
+    button.highlighted = NO;
 }
 @end

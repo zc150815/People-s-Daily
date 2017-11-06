@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67356A4F1FB0B28D0084DF7B /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67356A4A1FB0B28C0084DF7B /* README.txt */; };
+		67356A501FB0B28D0084DF7B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A4C1FB0B28D0084DF7B /* libWeChatSDK.a */; };
+		67356A521FB0B3690084DF7B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A511FB0B3690084DF7B /* libsqlite3.0.tbd */; };
+		67356A541FB0B3760084DF7B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A531FB0B3760084DF7B /* libc++.tbd */; };
+		67356A561FB0B3860084DF7B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A551FB0B37F0084DF7B /* Security.framework */; };
+		67356A581FB0B3990084DF7B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A571FB0B3960084DF7B /* CFNetwork.framework */; };
 		6789576F1FA3014300D03685 /* PDSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6789576E1FA3014300D03685 /* PDSearchController.m */; };
 		678957721FA30C0700D03685 /* PDNewsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678957711FA30C0700D03685 /* PDNewsListController.m */; };
 		678957AC1FA32E0500D03685 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957AB1FA32DF500D03685 /* SystemConfiguration.framework */; };
@@ -57,6 +63,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		67356A4A1FB0B28C0084DF7B /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		67356A4B1FB0B28C0084DF7B /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		67356A4C1FB0B28D0084DF7B /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		67356A4D1FB0B28D0084DF7B /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		67356A4E1FB0B28D0084DF7B /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		67356A511FB0B3690084DF7B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		67356A531FB0B3760084DF7B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		67356A551FB0B37F0084DF7B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		67356A571FB0B3960084DF7B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6789576D1FA3014300D03685 /* PDSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDSearchController.h; sourceTree = "<group>"; };
 		6789576E1FA3014300D03685 /* PDSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDSearchController.m; sourceTree = "<group>"; };
 		678957701FA30C0700D03685 /* PDNewsListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsListController.h; sourceTree = "<group>"; };
@@ -153,11 +168,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				678957BA1FA32ECD00D03685 /* ImageIO.framework in Frameworks */,
-				678957B81FA32EBE00D03685 /* JavaScriptCore.framework in Frameworks */,
+				67356A581FB0B3990084DF7B /* CFNetwork.framework in Frameworks */,
 				678957B01FA32E2200D03685 /* CoreTelephony.framework in Frameworks */,
-				678957AE1FA32E1300D03685 /* QuartzCore.framework in Frameworks */,
+				67356A561FB0B3860084DF7B /* Security.framework in Frameworks */,
 				678957AC1FA32E0500D03685 /* SystemConfiguration.framework in Frameworks */,
+				678957BA1FA32ECD00D03685 /* ImageIO.framework in Frameworks */,
+				67356A521FB0B3690084DF7B /* libsqlite3.0.tbd in Frameworks */,
+				67356A541FB0B3760084DF7B /* libc++.tbd in Frameworks */,
+				678957B81FA32EBE00D03685 /* JavaScriptCore.framework in Frameworks */,
+				678957AE1FA32E1300D03685 /* QuartzCore.framework in Frameworks */,
+				67356A501FB0B28D0084DF7B /* libWeChatSDK.a in Frameworks */,
 				678957B61FA32EA700D03685 /* libstdc++.tbd in Frameworks */,
 				678957B41FA32E9B00D03685 /* libz.tbd in Frameworks */,
 				678957BC1FA32ED800D03685 /* libsqlite3.tbd in Frameworks */,
@@ -176,6 +196,26 @@
 				BE4DAC07A65FCA2A6B78BCD2 /* Pods-PeopleDailys.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		67356A481FB0B25B0084DF7B /* ThirdSDK */ = {
+			isa = PBXGroup;
+			children = (
+				67356A491FB0B2710084DF7B /* Wechat */,
+			);
+			path = ThirdSDK;
+			sourceTree = "<group>";
+		};
+		67356A491FB0B2710084DF7B /* Wechat */ = {
+			isa = PBXGroup;
+			children = (
+				67356A4C1FB0B28D0084DF7B /* libWeChatSDK.a */,
+				67356A4A1FB0B28C0084DF7B /* README.txt */,
+				67356A4B1FB0B28C0084DF7B /* WechatAuthSDK.h */,
+				67356A4D1FB0B28D0084DF7B /* WXApi.h */,
+				67356A4E1FB0B28D0084DF7B /* WXApiObject.h */,
+			);
+			path = Wechat;
 			sourceTree = "<group>";
 		};
 		67E336571FADFEFA00DFC519 /* Views */ = {
@@ -366,6 +406,7 @@
 				67E9CE531FA19FA200E9273F /* Headers */,
 				67E9CE551FA1A0BC00E9273F /* Tools */,
 				67E9CE5A1FA1A2CA00E9273F /* Category */,
+				67356A481FB0B25B0084DF7B /* ThirdSDK */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -426,6 +467,10 @@
 		C5661263DF2F5EA05E09007A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67356A571FB0B3960084DF7B /* CFNetwork.framework */,
+				67356A551FB0B37F0084DF7B /* Security.framework */,
+				67356A531FB0B3760084DF7B /* libc++.tbd */,
+				67356A511FB0B3690084DF7B /* libsqlite3.0.tbd */,
 				678957BB1FA32ED800D03685 /* libsqlite3.tbd */,
 				678957B91FA32EC900D03685 /* ImageIO.framework */,
 				678957B71FA32EB700D03685 /* JavaScriptCore.framework */,
@@ -505,6 +550,7 @@
 			files = (
 				67E9CE361FA19AB200E9273F /* LaunchScreen.storyboard in Resources */,
 				67E9CE331FA19AB200E9273F /* Assets.xcassets in Resources */,
+				67356A4F1FB0B28D0084DF7B /* README.txt in Resources */,
 				67E9CE311FA19AB200E9273F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -751,6 +797,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/WeChatSDK",
+					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Wechat",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ronglian.www.People-s-Daily";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -782,6 +829,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/WeChatSDK",
+					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Wechat",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ronglian.www.People-s-Daily";
 				PRODUCT_NAME = "$(TARGET_NAME)";

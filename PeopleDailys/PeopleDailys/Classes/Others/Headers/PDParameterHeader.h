@@ -39,6 +39,8 @@ static NSString * const DATA = @"data";//data
 //static NSString * const PhoneIDNum= @"1AAEF0C8D8C";//PHONEID
 static NSString * const PhoneIDNum= @"861414032240161";//PHONEID
 
+static NSString * const WECHATAPPID = @"wxafd7241729c55e32";//WECHATAPPID
+static NSString * const WECHATAPPSECRET = @"fb1202c6eedec8c7594578c462235814";//WECHATAPPSECRET
 
 
 #endif /* PDParameterHeader_h */

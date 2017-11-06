@@ -83,7 +83,7 @@ typedef enum : NSUInteger {
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [logoutBtn setTitle:@"Log out" forState:UIControlStateNormal];
     [logoutBtn setTitleColor:[UIColor getColor:@"f69f99"] forState:UIControlStateNormal];
-    logoutBtn.titleLabel.font = PD_Font(15);
+    logoutBtn.titleLabel.font = PD_Font(17);
     logoutBtn.adjustsImageWhenHighlighted = NO;
     logoutBtn.bounds = CGRectMake(0, 0, 27, 27);
     [logoutBtn addTarget:self action:@selector(logoutButtonClick) forControlEvents:UIControlEventTouchUpInside];

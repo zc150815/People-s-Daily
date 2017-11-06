@@ -14,5 +14,5 @@
 #import "Masonry.h"
 #import "SVProgressHUD.h"
 
-
+#import "WXApi.h"
 #endif /* PDThirdHeader_h */

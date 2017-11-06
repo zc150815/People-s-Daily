@@ -27,7 +27,7 @@
     self.window.rootViewController = [[PDTabBarController alloc]init];
     [self.window makeKeyAndVisible];
     
-
+    [WXApi registerApp:WECHATAPPID];
     
     return YES;
 }
@@ -59,5 +59,22 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [WXApi handleOpenURL:url delegate:self];
+}
 
+-(void)onReq:(BaseReq *)req{
+    
+    [[PDPublicTools sharedPublicTools]showMessage:@"req" duration:3];
+    PD_NSLog(@"req = %@",req);
+}
+-(void)onResp:(BaseResp *)resp{
+    [[PDPublicTools sharedPublicTools]showMessage:@"resp" duration:3];
+    PD_NSLog(@"req = %@",resp);
+
+
+}
 @end

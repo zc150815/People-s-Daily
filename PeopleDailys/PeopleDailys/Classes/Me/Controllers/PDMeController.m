@@ -12,6 +12,14 @@
 #import "PDCollectionsController.h"
 #import "PDNotificationController.h"
 
+
+typedef enum : NSUInteger {
+    LoginBtnTypeWechat = 999,
+    LoginBtnTypeSina,
+    LoginBtnTypeTwitter,
+    LoginBtnTypeFacebook,
+} LoginBtnType;
+
 @interface PDMeController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UIButton *userInfo;
@@ -28,15 +36,7 @@
     [super viewDidLoad];
     
     [self setupUI]; //添加布局
-    [self setupLogoutItem]; //添加logout按钮
     [self loadData];
-}
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-
-    if (self.loginView) {
-        self.tableView.contentOffset = CGPointMake(0, -_loginView.height+self.tableView.y);
-    }
 }
 
 #pragma mark - setupUI
@@ -45,6 +45,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIButton *userInfo = [UIButton buttonWithType:UIButtonTypeCustom];
+    userInfo.adjustsImageWhenHighlighted = NO;
     [userInfo setBackgroundColor:[UIColor getColor:COLOR_BASE]];
     UIImage *userImg = [UIImage scaleFromImage:[UIImage imageNamed:@"default_head"] toSize:CGSizeMake(PD_Fit(60), PD_Fit(60))];
     [userInfo setImage:[[UIImage alloc]drawCircleImageWithImage:userImg WithCornerRadius:userImg.size.width] forState:UIControlStateNormal];
@@ -73,6 +74,7 @@
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
+    [self setupLoginView];
 }
 
 //添加logout按钮
@@ -98,14 +100,62 @@
     loginView.layer.shadowRadius = 5;
     loginView.layer.shadowOpacity = 0.5;
     loginView.layer.shadowOffset = CGSizeMake(0.5, 0.5);
-    loginView.height = 200;
+    loginView.height = 250;
     self.loginView = loginView;
     [self.view addSubview:loginView];
     
     
+    UIButton *log_wx = [UIButton buttonWithType:UIButtonTypeCustom];
+    log_wx.tag = LoginBtnTypeWechat;
+    log_wx.adjustsImageWhenHighlighted = NO;
+    UIImage *wxImg =[UIImage scaleFromImage:[UIImage imageNamed:@"wechat"] toSize:CGSizeMake(PD_Fit(45), PD_Fit(45))];
+    [log_wx setImage:wxImg forState:UIControlStateNormal];
+    [log_wx setTitle:@"Please Sign In" forState:UIControlStateNormal];
+    log_wx.titleLabel.font = PD_Font(13);
+    [log_wx setTitleColor:[UIColor getColor:@"333333"] forState:UIControlStateNormal];
+    log_wx.frame = CGRectMake(0, PD_Fit(25), loginView.width, wxImg.size.height);
+    [log_wx addTarget:self action:@selector(loginButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    log_wx.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    log_wx.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [log_wx setTitleEdgeInsets:UIEdgeInsetsMake(log_wx.imageView.frame.size.height+PD_Fit(20),-log_wx.imageView.frame.size.width, 0.0,0.0)];//文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
+    [log_wx setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -log_wx.titleLabel.bounds.size.width)];//图片距离右边框距离减少图片的宽度，其它不边
+    [loginView addSubview:log_wx];
     
-    self.tableView.contentOffset = CGPointMake(0, -_loginView.height+self.tableView.y);
-
+    UIView *lines = [[UIView alloc]initWithFrame:CGRectMake(PD_Fit(15), loginView.height/2+PD_Fit(15), loginView.width-2*PD_Fit(15), 1)];
+    lines.backgroundColor = [UIColor getColor:@"e6e6e6"];
+    lines.alpha = 0.5;
+    [loginView addSubview:lines];
+    
+    UILabel *words = [[UILabel alloc]init];
+    words.text = @"Or";
+    words.font = PD_Font(17);
+    words.textAlignment = NSTextAlignmentCenter;
+    words.textColor = [UIColor getColor:@"888888"];
+    words.backgroundColor = [UIColor whiteColor];
+    words.bounds = CGRectMake(0, 0, PD_Fit(50), PD_Fit(30));
+    words.center = lines.center;
+    [loginView addSubview:words];
+    
+    
+    NSArray *imgArr = @[@"sina",@"twitter",@"facebook"];
+    CGFloat btnWith = PD_Fit(40);
+    CGFloat margin = (loginView.width - imgArr.count*btnWith)/(imgArr.count+1);
+    for (NSInteger i = 0; i < imgArr.count; i++) {
+        NSString *imgStr = imgArr[i];
+        
+        UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        loginBtn.tag = LoginBtnTypeSina+i;
+        loginBtn.adjustsImageWhenHighlighted = NO;
+        UIImage *btnImg = [UIImage scaleFromImage:[UIImage imageNamed:imgStr] toSize:CGSizeMake(btnWith, btnWith)];
+        [loginBtn setImage:btnImg forState:UIControlStateNormal];
+        loginBtn.bounds = CGRectMake(0, 0, btnImg.size.width, btnImg.size.height);
+        loginBtn.center = CGPointMake(margin+i*(margin+btnWith)+btnWith/2, (loginView.height-CGRectGetMaxY(words.frame))/2+CGRectGetMaxY(words.frame));
+        [loginBtn addTarget:self action:@selector(loginButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [loginView addSubview:loginBtn];
+    }
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(loginView.height-self.tableView.y, 0, 0, 0);
+    
 }
 
 //获取数据
@@ -164,94 +214,40 @@
     
     [[PDPublicTools sharedPublicTools] showMessage:@"Logout successful" duration:3];
     [self setupLoginView];
-    self.tableView.contentOffset = CGPointMake(0, -_loginView.height+self.tableView.y);
     self.navigationItem.rightBarButtonItem = nil;
 
 }
-
-
-
-//#pragma mark - test
-//-(void)testSetupUI{
-//
-//    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    shareBtn.frame = CGRectMake(0, 0, 100, 50);
-//    [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
-//    [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [shareBtn addTarget:self action:@selector(shareButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:shareBtn];
-//
-//    UIButton *wx_loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    wx_loginBtn.frame = CGRectMake(0, 100, 100, 50);
-//    [wx_loginBtn setTitle:@"微信登录" forState:UIControlStateNormal];
-//    [wx_loginBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [wx_loginBtn addTarget:self action:@selector(wx_loginBtnButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:wx_loginBtn];
-//
-//    UIButton *wb_loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    wb_loginBtn.frame = CGRectMake(0, 200, 100, 50);
-//    [wb_loginBtn setTitle:@"读取缓存" forState:UIControlStateNormal];
-//    [wb_loginBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [wb_loginBtn addTarget:self action:@selector(wb_loginBtnButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:wb_loginBtn];
-//
-//}
-//-(void)shareButtonClick:(UIButton*)sender{
-//    //1、创建分享参数
-//    NSArray* imageArray = @[[UIImage imageNamed:@"temp2"]];
-//    if (imageArray) {
-//
-//        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-//        [shareParams SSDKSetupShareParamsByText:@"分享内容"
-//                                         images:imageArray
-//                                            url:[NSURL URLWithString:@"http://mob.com"]
-//                                          title:@"分享标题"
-//                                           type:SSDKContentTypeAuto];
-//        //有的平台要客户端分享需要加此方法，例如微博
-//        [shareParams SSDKEnableUseClientShare];
-//        //2、分享（可以弹出我们的分享菜单和编辑界面）
-//        [ShareSDK showShareActionSheet:nil
-//         //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
-//                                 items:nil
-//                           shareParams:shareParams
-//                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-//
-//                       switch (state) {
-//                           case SSDKResponseStateSuccess:
-//                           {
-//                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-//                                                                                   message:nil
-//                                                                                  delegate:nil
-//                                                                         cancelButtonTitle:@"确定"
-//                                                                         otherButtonTitles:nil];
-//                               [alertView show];
-//                               break;
-//                           }
-//                           case SSDKResponseStateFail:
-//                           {
-//                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
-//                                                                               message:[NSString stringWithFormat:@"%@",error]
-//                                                                              delegate:nil
-//                                                                     cancelButtonTitle:@"OK"
-//                                                                     otherButtonTitles:nil, nil];
-//                               [alert show];
-//                               break;
-//                           }
-//                           default:
-//                               break;
-//                       }
-//                   }
-//         ];}
-//
-//}
-//-(void)wx_loginBtnButtonClick:(UIButton*)sender{
-//
-//
-//}
-//-(void)wb_loginBtnButtonClick:(UIButton*)sender{
-//
-//    NSString *cache = [[PDPublicTools sharedPublicTools] loadSystemCache];
-//
-//    [[PDPublicTools sharedPublicTools]showMessage:cache duration:5];
-//}
+-(void)loginButtonClick:(UIButton*)sender{
+    
+    switch (sender.tag) {
+        case LoginBtnTypeWechat:{
+            [[PDPublicTools sharedPublicTools]showMessage:@"微信登录" duration:3];
+        }
+            break;
+        case LoginBtnTypeSina:{
+            [[PDPublicTools sharedPublicTools]showMessage:@"新浪登录" duration:3];
+        }
+            break;
+        case LoginBtnTypeTwitter:{
+            [[PDPublicTools sharedPublicTools]showMessage:@"Twitter登录" duration:3];
+        }
+            break;
+        case LoginBtnTypeFacebook:{
+            [[PDPublicTools sharedPublicTools]showMessage:@"Facebook登录" duration:3];
+        }
+            break;
+        default:
+            break;
+    }
+    [self loginSuccessful];
+    
+}
+-(void)loginSuccessful{
+    
+    [self setupLogoutItem]; //添加logout按钮
+    [self.loginView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.loginView removeFromSuperview];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+}
 @end

@@ -39,7 +39,7 @@
             return;
         }
         
-        PD_NSLog(@"%@",response);
+//        PD_NSLog(@"%@",response);
         NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:response[DATA]];
         if (!dataArr.count) {
             [[PDPublicTools sharedPublicTools]showMessage:@"没有收藏或更多收藏" duration:3];

@@ -56,8 +56,15 @@
 		9D8381D21FB0295C00407C70 /* PDCollectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8381D11FB0295C00407C70 /* PDCollectionsController.m */; };
 		9D8381D51FB0412800407C70 /* PDNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8381D41FB0412800407C70 /* PDNotificationController.m */; };
 		9D8381D81FB0495500407C70 /* PDNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8381D71FB0495500407C70 /* PDNotificationCell.m */; };
+		9D8381E11FB161E800407C70 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E01FB161E100407C70 /* CoreText.framework */; };
+		9D8381E31FB161FB00407C70 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E21FB161F400407C70 /* UIKit.framework */; };
+		9D8381E51FB1620D00407C70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E41FB1620800407C70 /* Foundation.framework */; };
+		9D8381E71FB1622100407C70 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E61FB1621B00407C70 /* CoreGraphics.framework */; };
+		9D83820A1FB17AAE00407C70 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D8382071FB17AAE00407C70 /* WeiboSDK.bundle */; };
 		9D8A8F661FA85D3100A116A9 /* PDMainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8A8F651FA85D3100A116A9 /* PDMainModel.m */; };
 		9D8A8F6F1FA9988600A116A9 /* PDNewsListNomalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8A8F6E1FA9988600A116A9 /* PDNewsListNomalCell.m */; };
+		9D9783F51FB189EE00E5E54F /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8382051FB17AAE00407C70 /* libWeiboSDK.a */; };
+		9D9783F71FB18A6E00E5E54F /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9783F61FB18A4B00E5E54F /* Photos.framework */; };
 		9D9D5E041FAB311B00022EFD /* PDNewsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */; };
 		F6DED7AAB780A7F9E1F4F186 /* libPods-PeopleDailys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA79F5CFA6236F8C2A41E7CE /* libPods-PeopleDailys.a */; };
 /* End PBXBuildFile section */
@@ -152,10 +159,19 @@
 		9D8381D41FB0412800407C70 /* PDNotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNotificationController.m; sourceTree = "<group>"; };
 		9D8381D61FB0495500407C70 /* PDNotificationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNotificationCell.h; sourceTree = "<group>"; };
 		9D8381D71FB0495500407C70 /* PDNotificationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNotificationCell.m; sourceTree = "<group>"; };
+		9D8381E01FB161E100407C70 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		9D8381E21FB161F400407C70 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9D8381E41FB1620800407C70 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9D8381E61FB1621B00407C70 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9D8382051FB17AAE00407C70 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
+		9D8382061FB17AAE00407C70 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
+		9D8382071FB17AAE00407C70 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
+		9D8382081FB17AAE00407C70 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		9D8A8F641FA85D3100A116A9 /* PDMainModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDMainModel.h; sourceTree = "<group>"; };
 		9D8A8F651FA85D3100A116A9 /* PDMainModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDMainModel.m; sourceTree = "<group>"; };
 		9D8A8F6D1FA9988600A116A9 /* PDNewsListNomalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsListNomalCell.h; sourceTree = "<group>"; };
 		9D8A8F6E1FA9988600A116A9 /* PDNewsListNomalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNewsListNomalCell.m; sourceTree = "<group>"; };
+		9D9783F61FB18A4B00E5E54F /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		9D9D5E021FAB311B00022EFD /* PDNewsDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsDetailController.h; sourceTree = "<group>"; };
 		9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNewsDetailController.m; sourceTree = "<group>"; };
 		BE4DAC07A65FCA2A6B78BCD2 /* Pods-PeopleDailys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeopleDailys.release.xcconfig"; path = "Pods/Target Support Files/Pods-PeopleDailys/Pods-PeopleDailys.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +184,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D9783F71FB18A6E00E5E54F /* Photos.framework in Frameworks */,
+				9D9783F51FB189EE00E5E54F /* libWeiboSDK.a in Frameworks */,
+				9D8381E71FB1622100407C70 /* CoreGraphics.framework in Frameworks */,
+				9D8381E51FB1620D00407C70 /* Foundation.framework in Frameworks */,
+				9D8381E31FB161FB00407C70 /* UIKit.framework in Frameworks */,
+				9D8381E11FB161E800407C70 /* CoreText.framework in Frameworks */,
 				67356A581FB0B3990084DF7B /* CFNetwork.framework in Frameworks */,
 				678957B01FA32E2200D03685 /* CoreTelephony.framework in Frameworks */,
 				67356A561FB0B3860084DF7B /* Security.framework in Frameworks */,
@@ -201,6 +223,7 @@
 		67356A481FB0B25B0084DF7B /* ThirdSDK */ = {
 			isa = PBXGroup;
 			children = (
+				9D8382041FB17AAE00407C70 /* Weibo */,
 				67356A491FB0B2710084DF7B /* Wechat */,
 			);
 			path = ThirdSDK;
@@ -464,9 +487,25 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		9D8382041FB17AAE00407C70 /* Weibo */ = {
+			isa = PBXGroup;
+			children = (
+				9D8382051FB17AAE00407C70 /* libWeiboSDK.a */,
+				9D8382061FB17AAE00407C70 /* WBHttpRequest.h */,
+				9D8382071FB17AAE00407C70 /* WeiboSDK.bundle */,
+				9D8382081FB17AAE00407C70 /* WeiboSDK.h */,
+			);
+			path = Weibo;
+			sourceTree = "<group>";
+		};
 		C5661263DF2F5EA05E09007A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D9783F61FB18A4B00E5E54F /* Photos.framework */,
+				9D8381E61FB1621B00407C70 /* CoreGraphics.framework */,
+				9D8381E41FB1620800407C70 /* Foundation.framework */,
+				9D8381E21FB161F400407C70 /* UIKit.framework */,
+				9D8381E01FB161E100407C70 /* CoreText.framework */,
 				67356A571FB0B3960084DF7B /* CFNetwork.framework */,
 				67356A551FB0B37F0084DF7B /* Security.framework */,
 				67356A531FB0B3760084DF7B /* libc++.tbd */,
@@ -550,6 +589,7 @@
 			files = (
 				67E9CE361FA19AB200E9273F /* LaunchScreen.storyboard in Resources */,
 				67E9CE331FA19AB200E9273F /* Assets.xcassets in Resources */,
+				9D83820A1FB17AAE00407C70 /* WeiboSDK.bundle in Resources */,
 				67356A4F1FB0B28D0084DF7B /* README.txt in Resources */,
 				67E9CE311FA19AB200E9273F /* Main.storyboard in Resources */,
 			);
@@ -778,26 +818,46 @@
 			baseConfigurationReference = F9C3DCE1A15443A52952395F /* Pods-PeopleDailys.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: 15210303747@139.com (U8A3N375P7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 15210303747@139.com (U8A3N375P7)";
 				DEVELOPMENT_TEAM = 4HZ888B2D6;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/Required",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/Optional",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformConnector",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/QQSDK",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/Required",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = PeopleDailys/Classes/Others/PrefixHeader.pch;
 				INFOPLIST_FILE = PeopleDailys/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Wechat",
+					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Weibo",
+					"$(SRCROOT)",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"MJExtension\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"SDWebImage\"",
+					"-l\"SVProgressHUD\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ronglian.www.People-s-Daily";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -810,26 +870,46 @@
 			baseConfigurationReference = BE4DAC07A65FCA2A6B78BCD2 /* Pods-PeopleDailys.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: 15210303747@139.com (U8A3N375P7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 15210303747@139.com (U8A3N375P7)";
 				DEVELOPMENT_TEAM = 4HZ888B2D6;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/Required",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/Optional",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformConnector",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/QQSDK",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/Required",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = PeopleDailys/Classes/Others/PrefixHeader.pch;
 				INFOPLIST_FILE = PeopleDailys/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
-					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/Tools/ShareSDK/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Wechat",
+					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Weibo",
+					"$(SRCROOT)",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"MJExtension\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"SDWebImage\"",
+					"-l\"SVProgressHUD\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ronglian.www.People-s-Daily";
 				PRODUCT_NAME = "$(TARGET_NAME)";

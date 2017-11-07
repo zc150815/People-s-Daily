@@ -11,6 +11,7 @@
 #import "PDSettingsController.h"
 #import "PDCollectionsController.h"
 #import "PDNotificationController.h"
+#import "AppDelegate.h"
 
 
 typedef enum : NSUInteger {
@@ -20,7 +21,7 @@ typedef enum : NSUInteger {
     LoginBtnTypeFacebook,
 } LoginBtnType;
 
-@interface PDMeController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PDMeController ()<UITableViewDelegate,UITableViewDataSource,WBHttpRequestDelegate>
 
 @property (nonatomic, strong) UIButton *userInfo;
 @property (nonatomic, strong) UITableView *tableView;
@@ -209,12 +210,29 @@ typedef enum : NSUInteger {
     }
     
 }
+#pragma mark - 登录/登出
+- (void)loginWithSina{
+    
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = SINAREDIRECTURL;
+    request.scope = @"all";
+    request.userInfo = @{@"SSO_From": @"PDMeController",
+                         @"Other_Info_1": @"loginWithSina",};
+    [WeiboSDK sendRequest:request];
+}
+- (void)logoutWithSina{
+    
+    [WeiboSDK logOutWithToken:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN] delegate:self withTag:@"SinaUser"];
+}
+
 #pragma mark - ButtonClickMethod
 -(void)logoutButtonClick{
     
-    [[PDPublicTools sharedPublicTools] showMessage:@"Logout successful" duration:3];
-    [self setupLoginView];
-    self.navigationItem.rightBarButtonItem = nil;
+//    [[PDPublicTools sharedPublicTools] showMessage:@"Logout successful" duration:3];
+//    [self setupLoginView];
+//    self.navigationItem.rightBarButtonItem = nil;
+    [self logoutWithSina];
+    
 
 }
 -(void)loginButtonClick:(UIButton*)sender{
@@ -225,7 +243,7 @@ typedef enum : NSUInteger {
         }
             break;
         case LoginBtnTypeSina:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"新浪登录" duration:3];
+            [self loginWithSina];
         }
             break;
         case LoginBtnTypeTwitter:{
@@ -234,13 +252,16 @@ typedef enum : NSUInteger {
             break;
         case LoginBtnTypeFacebook:{
             [[PDPublicTools sharedPublicTools]showMessage:@"Facebook登录" duration:3];
+            
+            [WeiboSDK logOutWithToken:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN] delegate:self withTag:@"user1"];
+
         }
             break;
         default:
             break;
     }
     [self loginSuccessful];
-    
+//
 }
 -(void)loginSuccessful{
     
@@ -250,4 +271,57 @@ typedef enum : NSUInteger {
     
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
+#pragma mark - WBHttpRequestDelegate代理方法
+/**
+ 收到一个来自微博Http请求的响应
+ 
+ @param response 具体的响应对象
+ */
+- (void)request:(WBHttpRequest *)request didReceiveResponse:(NSURLResponse *)response{
+    
+    PD_NSLog(@"收到一个来自微博Http请求的响应=%@",response);
+}
+
+/**
+ 收到一个来自微博Http请求失败的响应
+ 
+ @param error 错误信息
+ */
+- (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error{
+    PD_NSLog(@"收到一个来自微博Http请求失败的响应=%@",error);
+
+}
+
+/**
+ 收到一个来自微博Http请求的网络返回
+ 
+ @param result 请求返回结果
+ */
+- (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result{
+    PD_NSLog(@"收到一个来自微博Http请求的网络返回=%@",result);
+
+}
+
+/**
+ 收到一个来自微博Http请求的网络返回
+ 
+ @param data 请求返回结果
+ */
+- (void)request:(WBHttpRequest *)request didFinishLoadingWithDataResult:(NSData *)data{
+    
+    NSString *result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    PD_NSLog(@"收到一个来自微博Http请求的网络返回=%@",result);
+
+}
+
+/**
+ 收到快速SSO授权的重定向
+ 
+ @param redirectUrl URL
+ */
+- (void)request:(WBHttpRequest *)request didReciveRedirectResponseWithURI:(NSURL *)redirectUrl{
+    
+}
+
+
 @end

@@ -29,6 +29,9 @@
     
     [WXApi registerApp:WECHATAPPID];
     
+    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:SINAAPPID];
+    
     return YES;
 }
 
@@ -60,9 +63,17 @@
 }
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    
+    if ([url.absoluteString containsString:SINAAPPID]) {
+        return [WeiboSDK handleOpenURL:url delegate:self];
+    }
     return [WXApi handleOpenURL:url delegate:self];
 }
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+
+    if ([url.absoluteString containsString:SINAAPPID]) {
+        return [WeiboSDK handleOpenURL:url delegate:self];
+    }
     return [WXApi handleOpenURL:url delegate:self];
 }
 
@@ -74,7 +85,51 @@
 -(void)onResp:(BaseResp *)resp{
     [[PDPublicTools sharedPublicTools]showMessage:@"resp" duration:3];
     PD_NSLog(@"req = %@",resp);
+}
 
 
+//微博
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response
+{
+    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class]){
+        
+        PD_NSLog(@"\n响应状态:%ld\n响应UserInfo数据%@\n原请求UserInfo数据%@",(long)response.statusCode,response.userInfo,response.requestUserInfo);
+        WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
+        NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
+        if (accessToken){
+            [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:WB_ACCESSTOKEN];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
+        if (userID) {
+            [[NSUserDefaults standardUserDefaults] setObject:userID forKey:WB_USERID];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+    else if ([response isKindOfClass:WBAuthorizeResponse.class]){
+        
+        WBAuthorizeResponse* authResponse = (WBAuthorizeResponse*)response;
+        PD_NSLog(@"%@",response);
+        PD_NSLog(@"\n响应状态:%ld\nuserId:%@\naccessToken:%@\n响应UserInfo数据:%@\n原请求UserInfo数据:%@\n认证过期时间:%@",(long)authResponse.statusCode,authResponse.userID,authResponse.accessToken,response.userInfo,response.requestUserInfo,authResponse.expirationDate);
+        
+        NSString* accessToken = authResponse.accessToken;
+        if (accessToken){
+            [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:WB_ACCESSTOKEN];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        NSString* userID = authResponse.userID;
+        if (userID) {
+            [[NSUserDefaults standardUserDefaults] setObject:userID forKey:WB_USERID];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        NSString* refreshToken = authResponse.refreshToken;
+        if (refreshToken){
+            [[NSUserDefaults standardUserDefaults] setObject:refreshToken forKey:WB_REFRESHTOKEN];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
+-(void)didReceiveWeiboRequest:(WBBaseRequest *)request{
+    
 }
 @end

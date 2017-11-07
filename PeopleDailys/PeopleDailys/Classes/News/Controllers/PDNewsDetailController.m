@@ -10,12 +10,15 @@
 #import "PDNewsModel.h"
 #import "PDNewsDetailToolsView.h"
 #import "ZCCoverScreenView.h"
+#import "AppDelegate.h"
 
 
-@interface PDNewsDetailController ()<PDNewsDetailToolsViewDelegate,UIWebViewDelegate,ZCCoverScreenViewDelegate>
+@interface PDNewsDetailController ()<PDNewsDetailToolsViewDelegate,UIWebViewDelegate,ZCCoverScreenViewDelegate,WBMediaTransferProtocol>
 
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) PDNewsDetailToolsView *toolsView;
+
+@property (nonatomic, strong) WBMessageObject *messageObject;
 
 
 @end
@@ -227,7 +230,7 @@
     
     switch (sender.tag) {
         case PDNewsDetailToolsViewToolTypeShare:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"分享" duration:3];
+            [self weiboShare];
         }
             break;
         case PDNewsDetailToolsViewToolTypeCollection:{
@@ -280,4 +283,45 @@
     [ZCCoverScreenView sharedCoverScreenView].delegate = self;
     [ZCCoverScreenView show];
 }
+
+#pragma mark - 微博分享
+-(WBMessageObject *)messageObject{
+    if (!_messageObject) {
+        _messageObject = [WBMessageObject message];
+        _messageObject.text = @"微博分享测试文字";
+    }
+    
+    return _messageObject;
+}
+-(void)weiboShare{
+    
+    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+    authRequest.redirectURI = SINAREDIRECTURL;
+    authRequest.scope = @"all";
+    
+    
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:self.messageObject authInfo:authRequest access_token:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN]];
+    request.userInfo = @{@"ShareMessageFrom": @"PDNewsDetailController"};
+    if ([WeiboSDK sendRequest:request]) {
+        PD_NSLog(@"成功成功");
+    }else{
+        PD_NSLog(@"失败失败");
+
+    }
+}
+/**
+ 数据准备成功回调
+ */
+-(void)wbsdk_TransferDidReceiveObject:(id)object{
+    [self weiboShare];
+    [SVProgressHUD dismiss];
+}
+
+/**
+ 数据准备失败回调
+ */
+-(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error{
+    [SVProgressHUD dismiss];
+}
+
 @end

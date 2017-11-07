@@ -39,8 +39,25 @@ static NSString * const DATA = @"data";//data
 //static NSString * const PhoneIDNum= @"1AAEF0C8D8C";//PHONEID
 static NSString * const PhoneIDNum= @"861414032240161";//PHONEID
 
+
 static NSString * const WECHATAPPID = @"wxafd7241729c55e32";//WECHATAPPID
 static NSString * const WECHATAPPSECRET = @"fb1202c6eedec8c7594578c462235814";//WECHATAPPSECRET
+
+static NSString * const SINAAPPID = @"363528080";//SINAAPPID
+static NSString * const SINAREDIRECTURL = @"https://api.weibo.com/oauth2/default.html";//SINAREDIRECTURL
+static NSString * const SINAAPPSECRET = @"b74b9e8e20c7df96a2708f613559c1ff";//SINAAPPSECRET
+
+
+/****************************偏好设置**************************************/
+static NSString * const WB_ACCESSTOKEN = @"WB_ACCESSTOKEN";//微博accessToken
+static NSString * const WB_USERID = @"WB_USERID";//微博userId
+static NSString * const WB_REFRESHTOKEN = @"WB_REFRESHTOKEN";//微博refreshToken
+
+
+
+
+
+
 
 
 #endif /* PDParameterHeader_h */

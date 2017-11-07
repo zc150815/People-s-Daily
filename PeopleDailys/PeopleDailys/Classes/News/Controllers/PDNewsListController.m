@@ -115,7 +115,7 @@
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
         }
-        PD_NSLog(@"%@",response);
+//        PD_NSLog(@"%@",response);
         
         
         if ([response[STATUS] integerValue] != 200) {
@@ -157,7 +157,7 @@
             [self.tableView.mj_footer endRefreshing];
         }
         
-                PD_NSLog(@"%@",response);
+//                PD_NSLog(@"%@",response);
         
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];

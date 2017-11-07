@@ -38,8 +38,12 @@ typedef enum : NSUInteger {
     
     [self setupUI]; //添加布局
     [self loadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"WBAuthorizeResponseSuccessfulNotification" object:nil];
 }
-
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 #pragma mark - setupUI
 -(void)setupUI{
     
@@ -260,16 +264,25 @@ typedef enum : NSUInteger {
         default:
             break;
     }
-    [self loginSuccessful];
-//
+
 }
 -(void)loginSuccessful{
     
-    [self setupLogoutItem]; //添加logout按钮
-    [self.loginView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self.loginView removeFromSuperview];
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [[PDNetworkingTools sharedNetWorkingTools]getWeiboUserInfoWithCallBack:^(id response, NSError *error) {
+        if (error) {
+            [SVProgressHUD dismiss];
+            [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+            PD_NSLog(@"error===error===%@",error);
+            return;
+        }
+        
+        PD_NSLog(@"%@",response);
+        [self setupLogoutItem]; //添加logout按钮
+        [self.loginView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.loginView removeFromSuperview];
+        
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    }];
 }
 #pragma mark - WBHttpRequestDelegate代理方法
 /**

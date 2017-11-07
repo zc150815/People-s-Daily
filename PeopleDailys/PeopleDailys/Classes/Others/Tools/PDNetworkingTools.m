@@ -113,6 +113,23 @@
 
 
 #pragma mark - Me
+//微博登录获取用户信息
+-(void)getWeiboUserInfoWithCallBack:(callBack)callBack{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];//解决3840
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN];
+    NSString *userID = [[NSUserDefaults standardUserDefaults]objectForKey:WB_USERID];
+    [manager GET:@"https://api.weibo.com/2/users/show.json" parameters:@{@"access_token":accessToken,@"uid":@(userID.integerValue)} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        callBack(responseObject,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        callBack(nil,error);
+    }];
+
+}
+
+
 -(void)getArticleDataWithMark:(NSString*)mark CallBack:(callBack)callBack{
     NSString*url = @"api/article/article";
     NSDictionary *params = @{@"mark":mark};

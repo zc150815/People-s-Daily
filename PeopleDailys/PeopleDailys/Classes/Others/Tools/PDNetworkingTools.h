@@ -50,6 +50,9 @@ typedef void (^callBack)(id response,NSError* error);
 -(void)searchNewsWithSearchString:(NSString*)search page:(NSInteger)page callBack:(callBack)callBack;
 
 #pragma mark - Me
+//微博登录获取用户信息
+-(void)getWeiboUserInfoWithCallBack:(callBack)callBack;
+
 -(void)getArticleDataWithMark:(NSString*)mark CallBack:(callBack)callBack;
 //获取收藏列表
 -(void)getCollectionDataWithPage:(NSInteger)page CallBack:(callBack)callBack;

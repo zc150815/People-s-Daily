@@ -127,6 +127,8 @@
             [[NSUserDefaults standardUserDefaults] setObject:refreshToken forKey:WB_REFRESHTOKEN];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WBAuthorizeResponseSuccessfulNotification" object:nil];
     }
 }
 -(void)didReceiveWeiboRequest:(WBBaseRequest *)request{

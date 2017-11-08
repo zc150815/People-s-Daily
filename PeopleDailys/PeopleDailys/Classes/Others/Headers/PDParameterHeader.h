@@ -37,7 +37,7 @@ static NSString * const DATA = @"data";//data
 //static NSString * const PhoneIDNum= @"558BCB10A40002F1FB3B022410BB5250F6D7DCE0";//phoneUDID
 //static NSString * const PhoneIDNum= @"DLXKCV1PF196";//PHONEID
 //static NSString * const PhoneIDNum= @"1AAEF0C8D8C";//PHONEID
-static NSString * const PhoneIDNum= @"861414032240161";//PHONEID
+//static NSString * const PhoneIDNum= @"861414032240161";//PHONEID
 
 
 static NSString * const WECHATAPPID = @"wxafd7241729c55e32";//WECHATAPPID

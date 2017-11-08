@@ -76,7 +76,7 @@
     }
     return [WXApi handleOpenURL:url delegate:self];
 }
-
+//微信接收响应
 -(void)onReq:(BaseReq *)req{
     
     [[PDPublicTools sharedPublicTools]showMessage:@"req" duration:3];
@@ -91,7 +91,7 @@
 }
 
 
-//微博
+//微博接收响应
 - (void)didReceiveWeiboResponse:(WBBaseResponse *)response
 {
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class]){

@@ -109,13 +109,15 @@
             case WeiboSDKResponseStatusCodeUserCancel:{
                 [[PDPublicTools sharedPublicTools]showMessage:@"用户取消登录" duration:3];
             }
+                break;
             case WeiboSDKResponseStatusCodeUserCancelInstall:{
                 [[PDPublicTools sharedPublicTools]showMessage:@"用户取消安装" duration:3];
             }
+                break;
             case WeiboSDKResponseStatusCodeShareInSDKFailed:{
                 [[PDPublicTools sharedPublicTools]showMessage:@"分享失败" duration:3];
             }
-                
+                break;
             default:
                 break;
         }
@@ -143,13 +145,15 @@
             case WeiboSDKResponseStatusCodeUserCancel:{
                 [[PDPublicTools sharedPublicTools]showMessage:@"用户取消登录" duration:3];
             }
+                break;
             case WeiboSDKResponseStatusCodeUserCancelInstall:{
                 [[PDPublicTools sharedPublicTools]showMessage:@"用户取消安装" duration:3];
             }
+                break;
             case WeiboSDKResponseStatusCodeShareInSDKFailed:{
                 [[PDPublicTools sharedPublicTools]showMessage:@"分享失败" duration:3];
             }
-
+                break;
             default:
                 break;
         }

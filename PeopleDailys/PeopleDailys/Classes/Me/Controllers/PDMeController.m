@@ -184,7 +184,7 @@
         case PDAPPLoginTypeWechat:
             break;
         case PDAPPLoginTypeSina:
-            [self loginWithSina];
+            [self loginSuccessful];
             break;
         case PDAPPLoginTypeTwitter:
             break;
@@ -352,6 +352,7 @@
 #pragma mark - 登入方式
 //新浪登入
 - (void)loginWithSina{
+    
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = SINAREDIRECTURL;
     request.scope = @"all";

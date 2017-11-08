@@ -117,7 +117,6 @@
 -(void)getWeiboUserInfoWithCallBack:(callBack)callBack{
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];//解决3840
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN];
     NSString *userID = [[NSUserDefaults standardUserDefaults]objectForKey:WB_USERID];

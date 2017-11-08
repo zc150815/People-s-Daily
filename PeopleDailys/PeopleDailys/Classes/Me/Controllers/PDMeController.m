@@ -44,6 +44,8 @@ typedef enum : NSUInteger {
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
+
+
 #pragma mark - setupUI
 -(void)setupUI{
     
@@ -81,8 +83,21 @@ typedef enum : NSUInteger {
     
     [self setupLoginView];
 }
+#pragma mark 更新UserInfo
+-(void)updateUserInfoWithURL:(NSString*)url userName:(NSString*)name{
+    
+    UIImage *placeHolder = [UIImage scaleFromImage:[UIImage imageNamed:@"default_head"] toSize:CGSizeMake(PD_Fit(60), PD_Fit(60))];
+    [_userInfo sd_setImageWithURL:[NSURL URLWithString:url] forState:UIControlStateNormal placeholderImage:placeHolder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_userInfo setImage:[image drawCircleImageWithImage:[UIImage scaleFromImage:image toSize:placeHolder.size] WithCornerRadius:placeHolder.size.width] forState:UIControlStateNormal];
+    }];
+    [_userInfo setTitle:name forState:UIControlStateNormal];
+    _userInfo.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    _userInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [_userInfo setTitleEdgeInsets:UIEdgeInsetsMake(_userInfo.imageView.frame.size.height+PD_Fit(15),-_userInfo.imageView.frame.size.width, 0.0,0.0)];//文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
+    [_userInfo setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -_userInfo.titleLabel.bounds.size.width)];//图片距离右边框距离减少图片的宽度，其它不边
+}
 
-//添加logout按钮
+#pragma mark 添加logout按钮
 -(void)setupLogoutItem{
     
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -95,7 +110,7 @@ typedef enum : NSUInteger {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:logoutBtn];
     
 }
-//添加快速登录视图
+#pragma mark 添加快速登录视图
 -(void)setupLoginView{
     
     UIView * loginView = [[UIView alloc]initWithFrame:CGRectMake(PD_Fit(MARGIN_BASE), 0, self.view.width-2*PD_Fit(MARGIN_BASE), 0)];
@@ -162,13 +177,26 @@ typedef enum : NSUInteger {
     self.tableView.contentInset = UIEdgeInsetsMake(loginView.height-self.tableView.y, 0, 0, 0);
     
 }
-
-//获取数据
+#pragma mark - 获取数据
 -(void)loadData{
     
     self.dataArr = @[@{@"titleStr":@"Collections",@"detailStr":@"my_icon1"},@{@"titleStr":@"Notification",@"detailStr":@"my_icon2"},@{@"titleStr":@"Settings",@"detailStr":@"my_icon3"},@{@"titleStr":@"About Us",@"detailStr":@"my_icon4"}];
     [self.tableView reloadData];
 
+}
+#pragma mark 加载用户数据
+-(void)loadUserInfoData{
+    
+    [[PDNetworkingTools sharedNetWorkingTools]getWeiboUserInfoWithCallBack:^(id response, NSError *error) {
+        if (error) {
+            [SVProgressHUD dismiss];
+            [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+            PD_NSLog(@"error===error===%@",error);
+            return;
+        }
+        //        PD_NSLog(@"用户信息%@",response);
+        [self updateUserInfoWithURL:response[@"profile_image_url"] userName:response[@"screen_name"]];
+    }];
 }
 
 
@@ -214,31 +242,12 @@ typedef enum : NSUInteger {
     }
     
 }
-#pragma mark - 登录/登出
-- (void)loginWithSina{
-    
-    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
-    request.redirectURI = SINAREDIRECTURL;
-    request.scope = @"all";
-    request.userInfo = @{@"SSO_From": @"PDMeController",
-                         @"Other_Info_1": @"loginWithSina",};
-    [WeiboSDK sendRequest:request];
-}
-- (void)logoutWithSina{
-    
-    [WeiboSDK logOutWithToken:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN] delegate:self withTag:@"SinaUser"];
-}
 
-#pragma mark - ButtonClickMethod
--(void)logoutButtonClick{
-    
-//    [[PDPublicTools sharedPublicTools] showMessage:@"Logout successful" duration:3];
-//    [self setupLoginView];
-//    self.navigationItem.rightBarButtonItem = nil;
-    [self logoutWithSina];
-    
 
-}
+
+
+#pragma mark - 登出按钮点击事件
+#pragma mark 登入按钮点击事件
 -(void)loginButtonClick:(UIButton*)sender{
     
     switch (sender.tag) {
@@ -257,85 +266,75 @@ typedef enum : NSUInteger {
         case LoginBtnTypeFacebook:{
             [[PDPublicTools sharedPublicTools]showMessage:@"Facebook登录" duration:3];
             
-            [WeiboSDK logOutWithToken:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN] delegate:self withTag:@"user1"];
-
         }
             break;
         default:
             break;
     }
-
+    
 }
+-(void)logoutButtonClick{
+    
+    [self logoutWithSina];
+}
+
+
+#pragma mark 登入成功
 -(void)loginSuccessful{
     
     [self setupLogoutItem]; //添加logout按钮
     [self.loginView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.loginView removeFromSuperview];
-    
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
-    [[PDNetworkingTools sharedNetWorkingTools]getWeiboUserInfoWithCallBack:^(id response, NSError *error) {
-        if (error) {
-            [SVProgressHUD dismiss];
-            [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
-            PD_NSLog(@"error===error===%@",error);
-            return;
-        }
-        
-        PD_NSLog(@"%@",response);
-    }];
-}
-#pragma mark - WBHttpRequestDelegate代理方法
-/**
- 收到一个来自微博Http请求的响应
- 
- @param response 具体的响应对象
- */
-- (void)request:(WBHttpRequest *)request didReceiveResponse:(NSURLResponse *)response{
+    [self loadUserInfoData];//记载登录用户数据
     
-    PD_NSLog(@"收到一个来自微博Http请求的响应=%@",response);
+}
+#pragma mark 登出成功
+-(void)logoutSuccessful{
+    [[PDPublicTools sharedPublicTools] showMessage:@"Logout successful" duration:3];
+    [self setupLoginView];
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
-/**
- 收到一个来自微博Http请求失败的响应
- 
- @param error 错误信息
- */
-- (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error{
-    PD_NSLog(@"收到一个来自微博Http请求失败的响应=%@",error);
-
+#pragma mark - 登入方式
+//新浪登入
+- (void)loginWithSina{
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = SINAREDIRECTURL;
+    request.scope = @"all";
+    request.userInfo = @{@"SSO_From": @"PDMeController",
+                         @"Other_Info_1": @"loginWithSina",};
+    [WeiboSDK sendRequest:request];
 }
 
-/**
- 收到一个来自微博Http请求的网络返回
- 
- @param result 请求返回结果
- */
+#pragma mark - 登出方式
+//新浪登出
+- (void)logoutWithSina{
+    [WeiboSDK logOutWithToken:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN] delegate:self withTag:@"SinaUser"];
+}
+
+
+
+#pragma mark - WBHttpRequestDelegate代理方法
 - (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result{
     PD_NSLog(@"收到一个来自微博Http请求的网络返回=%@",result);
-
-}
-
-/**
- 收到一个来自微博Http请求的网络返回
- 
- @param data 请求返回结果
- */
-- (void)request:(WBHttpRequest *)request didFinishLoadingWithDataResult:(NSData *)data{
+    NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
     
-    NSString *result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    PD_NSLog(@"收到一个来自微博Http请求的网络返回=%@",result);
-
+    if(!err) {
+        NSString *resultStr = [dic objectForKey:@"result"];
+        if ([resultStr isEqualToString:@"true"]) {
+            [self logoutSuccessful];
+        }
+    }
+}
+- (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error{
+    [[PDPublicTools sharedPublicTools] showMessage:@"Logout failed" duration:3];
+    PD_NSLog(@"%@",error);
 }
 
-/**
- 收到快速SSO授权的重定向
- 
- @param redirectUrl URL
- */
-- (void)request:(WBHttpRequest *)request didReciveRedirectResponseWithURI:(NSURL *)redirectUrl{
-    
-}
 
 
 @end

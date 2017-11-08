@@ -49,6 +49,7 @@ static NSString * const SINAAPPSECRET = @"b74b9e8e20c7df96a2708f613559c1ff";//SI
 
 
 /****************************偏好设置**************************************/
+static NSString * const PD_APPLOGINBY = @"PD_APPLOGINBY";//APP登入方式(微博:SINA,微信:WECHAT,推特:TWITTER,facebook:FACEBOOK)
 static NSString * const WB_ACCESSTOKEN = @"WB_ACCESSTOKEN";//微博accessToken
 static NSString * const WB_USERID = @"WB_USERID";//微博userId
 static NSString * const WB_REFRESHTOKEN = @"WB_REFRESHTOKEN";//微博refreshToken

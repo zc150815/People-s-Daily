@@ -93,40 +93,30 @@
 {
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class]){
         
-        PD_NSLog(@"\n响应状态:%ld\n响应UserInfo数据%@\n原请求UserInfo数据%@",(long)response.statusCode,response.userInfo,response.requestUserInfo);
         WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
+        PD_NSLog(@"\n响应状态:%ld\n响应UserInfo数据%@\n原请求UserInfo数据%@\nauthResponse%@",(long)response.statusCode,response.userInfo,response.requestUserInfo,sendMessageToWeiboResponse.authResponse);
+        
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
         NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
-        if (accessToken){
-            [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:WB_ACCESSTOKEN];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
+        [userDefault setObject:accessToken forKey:WB_ACCESSTOKEN];
         NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
-        if (userID) {
-            [[NSUserDefaults standardUserDefaults] setObject:userID forKey:WB_USERID];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
+        [userDefault setObject:userID forKey:WB_USERID];
+        [userDefault synchronize];
+        
     }
     else if ([response isKindOfClass:WBAuthorizeResponse.class]){
         
         WBAuthorizeResponse* authResponse = (WBAuthorizeResponse*)response;
-        PD_NSLog(@"%@",response);
-        PD_NSLog(@"\n响应状态:%ld\nuserId:%@\naccessToken:%@\n响应UserInfo数据:%@\n原请求UserInfo数据:%@\n认证过期时间:%@",(long)authResponse.statusCode,authResponse.userID,authResponse.accessToken,response.userInfo,response.requestUserInfo,authResponse.expirationDate);
         
-        NSString* accessToken = authResponse.accessToken;
-        if (accessToken){
-            [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:WB_ACCESSTOKEN];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-        NSString* userID = authResponse.userID;
-        if (userID) {
-            [[NSUserDefaults standardUserDefaults] setObject:userID forKey:WB_USERID];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-        NSString* refreshToken = authResponse.refreshToken;
-        if (refreshToken){
-            [[NSUserDefaults standardUserDefaults] setObject:refreshToken forKey:WB_REFRESHTOKEN];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
+//        PD_NSLog(@"%@",response);
+//        PD_NSLog(@"\n响应状态:%ld\nuserId:%@\naccessToken:%@\n响应UserInfo数据:%@\n原请求UserInfo数据:%@\n认证过期时间:%@",(long)authResponse.statusCode,authResponse.userID,authResponse.accessToken,response.userInfo,response.requestUserInfo,authResponse.expirationDate);
+        
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        [userDefault setObject:authResponse.accessToken forKey:WB_ACCESSTOKEN];
+        [userDefault setObject:authResponse.userID forKey:WB_USERID];
+        [userDefault setObject:authResponse.refreshToken forKey:WB_REFRESHTOKEN];
+        [userDefault setInteger:PDAPPLoginTypeSina forKey:PD_APPLOGINBY];//记录app登入方式
+        [userDefault synchronize];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WBAuthorizeResponseSuccessfulNotification" object:nil];
     }

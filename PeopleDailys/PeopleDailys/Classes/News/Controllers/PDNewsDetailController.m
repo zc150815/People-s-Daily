@@ -282,10 +282,10 @@
     [ZCCoverScreenView dismiss];
     switch (type) {
         case PDAPPShareByTypeWechatFriend:
-            [self wechatShare];
+            [self wechatShareToSession:YES];
             break;
         case PDAPPShareByTypeWechatMoments:
-            [self wechatMomentsShare];
+            [self wechatShareToSession:NO];
             break;
         case PDAPPShareByTypeSina:
             [self weiboShare];
@@ -360,7 +360,7 @@
     [SVProgressHUD dismiss];
 }
 #pragma mark - 微信分享
--(void)wechatShare{
+-(void)wechatShareToSession:(BOOL)session{
     
     WXMediaMessage *mediaMessage = [WXMediaMessage message];
     mediaMessage.title = _model.data.title;
@@ -374,11 +374,9 @@
     SendMessageToWXReq *request = [[SendMessageToWXReq alloc]init];
     request.bText = NO;
     request.message = mediaMessage;
-    request.scene = WXSceneSession;
+    request.scene = session?WXSceneSession:WXSceneTimeline;
     
     [WXApi sendReq:request];
 }
--(void)wechatMomentsShare{
-    
-}
+
 @end

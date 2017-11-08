@@ -376,7 +376,9 @@
     request.message = mediaMessage;
     request.scene = session?WXSceneSession:WXSceneTimeline;
     
-    [WXApi sendReq:request];
+    if (![WXApi sendReq:request]) {
+        [[PDPublicTools sharedPublicTools]showMessage:@"请安装微信客户端" duration:3];
+    }
 }
 
 @end

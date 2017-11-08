@@ -378,7 +378,8 @@
         }else{//图片在右方
             CGFloat imgWith = (self.view.width - 2 * TITLELAB_MARGIN_LEADING - 2 * PICTURE_MARGIN) / 3;
             imgViewHeight = imgWith / IMAGEVIEW_WIDTH_SINGLE* IMAGEVIEW_HEIGHT_SINGLE;
-            cellHeight = [NSString stringWithFormat:@"%f",imgViewHeight];
+            titleHeight = [self calculateLableHeightWithText:model.title FontSize:TITLELAB_FONTSIZE width:self.view.width-2*TITLELAB_MARGIN_LEADING-imgWith];
+            cellHeight = [NSString stringWithFormat:@"%.2f",imgViewHeight+TIMELAB_MARGIN_TOP*2];
         }
         [arrayM addObject:cellHeight];
     }

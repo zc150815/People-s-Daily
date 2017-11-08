@@ -133,7 +133,9 @@
         
         CGFloat imgWith = (self.width - 2 * IMAGEVIEW_MARGIN_LEADING - 2 * PICTURE_MARGIN) / 3;
         CGFloat imgHeight = imgWith /IMAGEVIEW_WIDTH_SINGLE* IMAGEVIEW_HEIGHT_SINGLE;
-        self.imgView.frame = CGRectMake(self.width-IMAGEVIEW_WIDTH_SINGLE-IMAGEVIEW_MARGIN_LEADING, IMAGEVIEW_MARGIN_TOP, imgWith, imgHeight);
+        
+        self.imgView.frame = CGRectMake(self.width-imgWith-IMAGEVIEW_MARGIN_LEADING, IMAGEVIEW_MARGIN_TOP, imgWith, imgHeight);
+        
         self.titleLab.width = self.width - 2*TITLELAB_MARGIN_LEADING - self.imgView.width;
         
         [self.timeLab sizeToFit];
@@ -174,8 +176,8 @@
     }else{//图片在右端
         self.imgView.hidden = NO;
         imgCount = 1;
-        imgWith = IMAGEVIEW_WIDTH_SINGLE;
-        imgHeight = IMAGEVIEW_HEIGHT_SINGLE;
+        imgWith = (self.width - 2 * IMAGEVIEW_MARGIN_LEADING - 2 * PICTURE_MARGIN) / 3;
+        imgHeight = imgWith / IMAGEVIEW_WIDTH_SINGLE * IMAGEVIEW_HEIGHT_SINGLE;
     }
     
     

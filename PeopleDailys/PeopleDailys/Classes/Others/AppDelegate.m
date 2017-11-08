@@ -95,13 +95,31 @@
         
         WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
         PD_NSLog(@"\n响应状态:%ld\n响应UserInfo数据%@\n原请求UserInfo数据%@\nauthResponse%@",(long)response.statusCode,response.userInfo,response.requestUserInfo,sendMessageToWeiboResponse.authResponse);
+        switch (response.statusCode) {
+            case WeiboSDKResponseStatusCodeSuccess:{
+                
+                NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+                NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
+                [userDefault setObject:accessToken forKey:WB_ACCESSTOKEN];
+                NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
+                [userDefault setObject:userID forKey:WB_USERID];
+                [userDefault synchronize];
+            }
+                break;
+            case WeiboSDKResponseStatusCodeUserCancel:{
+                [[PDPublicTools sharedPublicTools]showMessage:@"用户取消登录" duration:3];
+            }
+            case WeiboSDKResponseStatusCodeUserCancelInstall:{
+                [[PDPublicTools sharedPublicTools]showMessage:@"用户取消安装" duration:3];
+            }
+            case WeiboSDKResponseStatusCodeShareInSDKFailed:{
+                [[PDPublicTools sharedPublicTools]showMessage:@"分享失败" duration:3];
+            }
+                
+            default:
+                break;
+        }
         
-        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-        NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
-        [userDefault setObject:accessToken forKey:WB_ACCESSTOKEN];
-        NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
-        [userDefault setObject:userID forKey:WB_USERID];
-        [userDefault synchronize];
         
     }
     else if ([response isKindOfClass:WBAuthorizeResponse.class]){
@@ -110,15 +128,32 @@
         
 //        PD_NSLog(@"%@",response);
 //        PD_NSLog(@"\n响应状态:%ld\nuserId:%@\naccessToken:%@\n响应UserInfo数据:%@\n原请求UserInfo数据:%@\n认证过期时间:%@",(long)authResponse.statusCode,authResponse.userID,authResponse.accessToken,response.userInfo,response.requestUserInfo,authResponse.expirationDate);
+
+        switch (authResponse.statusCode) {
+            case WeiboSDKResponseStatusCodeSuccess:{
+                NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+                [userDefault setObject:authResponse.accessToken forKey:WB_ACCESSTOKEN];
+                [userDefault setObject:authResponse.userID forKey:WB_USERID];
+                [userDefault setObject:authResponse.refreshToken forKey:WB_REFRESHTOKEN];
+                [userDefault setInteger:PDAPPLoginTypeSina forKey:PD_APPLOGINBY];//记录app登入方式
+                [userDefault synchronize];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"WBAuthorizeResponseSuccessfulNotification" object:nil];
+            }
+                break;
+            case WeiboSDKResponseStatusCodeUserCancel:{
+                [[PDPublicTools sharedPublicTools]showMessage:@"用户取消登录" duration:3];
+            }
+            case WeiboSDKResponseStatusCodeUserCancelInstall:{
+                [[PDPublicTools sharedPublicTools]showMessage:@"用户取消安装" duration:3];
+            }
+            case WeiboSDKResponseStatusCodeShareInSDKFailed:{
+                [[PDPublicTools sharedPublicTools]showMessage:@"分享失败" duration:3];
+            }
+
+            default:
+                break;
+        }
         
-        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-        [userDefault setObject:authResponse.accessToken forKey:WB_ACCESSTOKEN];
-        [userDefault setObject:authResponse.userID forKey:WB_USERID];
-        [userDefault setObject:authResponse.refreshToken forKey:WB_REFRESHTOKEN];
-        [userDefault setInteger:PDAPPLoginTypeSina forKey:PD_APPLOGINBY];//记录app登入方式
-        [userDefault synchronize];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"WBAuthorizeResponseSuccessfulNotification" object:nil];
     }
 }
 -(void)didReceiveWeiboRequest:(WBBaseRequest *)request{

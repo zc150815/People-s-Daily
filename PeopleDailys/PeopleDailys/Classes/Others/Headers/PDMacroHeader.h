@@ -34,6 +34,7 @@
 
 //
 typedef enum : NSUInteger {
+    PDAPPLoginTypeIsLogout = 0,
     PDAPPLoginTypeWechat = 2000,
     PDAPPLoginTypeSina,
     PDAPPLoginTypeTwitter,

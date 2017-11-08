@@ -13,14 +13,6 @@
 #import "PDNotificationController.h"
 #import "AppDelegate.h"
 
-
-typedef enum : NSUInteger {
-    LoginBtnTypeWechat = 999,
-    LoginBtnTypeSina,
-    LoginBtnTypeTwitter,
-    LoginBtnTypeFacebook,
-} LoginBtnType;
-
 @interface PDMeController ()<UITableViewDelegate,UITableViewDataSource,WBHttpRequestDelegate>
 
 @property (nonatomic, strong) UIButton *userInfo;
@@ -38,12 +30,14 @@ typedef enum : NSUInteger {
     
     [self setupUI]; //添加布局
     [self loadData];
+    [self judgeIsOnLine];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"WBAuthorizeResponseSuccessfulNotification" object:nil];
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
+
 
 
 #pragma mark - setupUI
@@ -81,7 +75,6 @@ typedef enum : NSUInteger {
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
-    [self setupLoginView];
 }
 #pragma mark 更新UserInfo
 -(void)updateUserInfoWithURL:(NSString*)url userName:(NSString*)name{
@@ -126,7 +119,7 @@ typedef enum : NSUInteger {
     
     
     UIButton *log_wx = [UIButton buttonWithType:UIButtonTypeCustom];
-    log_wx.tag = LoginBtnTypeWechat;
+    log_wx.tag = PDAPPLoginTypeWechat;
     log_wx.adjustsImageWhenHighlighted = NO;
     UIImage *wxImg =[UIImage scaleFromImage:[UIImage imageNamed:@"wechat"] toSize:CGSizeMake(PD_Fit(45), PD_Fit(45))];
     [log_wx setImage:wxImg forState:UIControlStateNormal];
@@ -164,7 +157,7 @@ typedef enum : NSUInteger {
         NSString *imgStr = imgArr[i];
         
         UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        loginBtn.tag = LoginBtnTypeSina+i;
+        loginBtn.tag = PDAPPLoginTypeSina+i;
         loginBtn.adjustsImageWhenHighlighted = NO;
         UIImage *btnImg = [UIImage scaleFromImage:[UIImage imageNamed:imgStr] toSize:CGSizeMake(btnWith, btnWith)];
         [loginBtn setImage:btnImg forState:UIControlStateNormal];
@@ -184,19 +177,58 @@ typedef enum : NSUInteger {
     [self.tableView reloadData];
 
 }
+#pragma mark 判断当前用户是否在线
+-(void)judgeIsOnLine{
+
+    switch ([[NSUserDefaults standardUserDefaults]integerForKey:PD_APPLOGINBY]) {
+        case PDAPPLoginTypeWechat:
+            break;
+        case PDAPPLoginTypeSina:
+            [self loginWithSina];
+            break;
+        case PDAPPLoginTypeTwitter:
+            break;
+        case PDAPPLoginTypeFacebook:
+            break;
+        default:
+            [self logoutSuccessful];
+            break;
+    }
+}
+
 #pragma mark 加载用户数据
 -(void)loadUserInfoData{
-    
-    [[PDNetworkingTools sharedNetWorkingTools]getWeiboUserInfoWithCallBack:^(id response, NSError *error) {
-        if (error) {
-            [SVProgressHUD dismiss];
-            [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
-            PD_NSLog(@"error===error===%@",error);
-            return;
+
+    switch ([[NSUserDefaults standardUserDefaults]integerForKey:PD_APPLOGINBY]) {
+        case PDAPPLoginTypeWechat:{
+            [[PDPublicTools sharedPublicTools]showMessage:@"微信登录" duration:3];
         }
-        //        PD_NSLog(@"用户信息%@",response);
-        [self updateUserInfoWithURL:response[@"profile_image_url"] userName:response[@"screen_name"]];
-    }];
+            break;
+        case PDAPPLoginTypeSina:{
+            [[PDNetworkingTools sharedNetWorkingTools]getWeiboUserInfoWithCallBack:^(id response, NSError *error) {
+                if (error) {
+                    [SVProgressHUD dismiss];
+                    [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+                    PD_NSLog(@"error===error===%@",error);
+                    return;
+                }
+                //        PD_NSLog(@"用户信息%@",response);
+                [self updateUserInfoWithURL:response[@"profile_image_url"] userName:response[@"screen_name"]];
+            }];
+        }
+            break;
+        case PDAPPLoginTypeTwitter:{
+            [[PDPublicTools sharedPublicTools]showMessage:@"Twitter登录" duration:3];
+        }
+            break;
+        case PDAPPLoginTypeFacebook:{
+            [[PDPublicTools sharedPublicTools]showMessage:@"Facebook登录" duration:3];
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -246,24 +278,23 @@ typedef enum : NSUInteger {
 
 
 
-#pragma mark - 登出按钮点击事件
-#pragma mark 登入按钮点击事件
+#pragma mark - 登入按钮点击事件
 -(void)loginButtonClick:(UIButton*)sender{
     
     switch (sender.tag) {
-        case LoginBtnTypeWechat:{
+        case PDAPPLoginTypeWechat:{
             [[PDPublicTools sharedPublicTools]showMessage:@"微信登录" duration:3];
         }
             break;
-        case LoginBtnTypeSina:{
+        case PDAPPLoginTypeSina:{
             [self loginWithSina];
         }
             break;
-        case LoginBtnTypeTwitter:{
+        case PDAPPLoginTypeTwitter:{
             [[PDPublicTools sharedPublicTools]showMessage:@"Twitter登录" duration:3];
         }
             break;
-        case LoginBtnTypeFacebook:{
+        case PDAPPLoginTypeFacebook:{
             [[PDPublicTools sharedPublicTools]showMessage:@"Facebook登录" duration:3];
             
         }
@@ -273,9 +304,29 @@ typedef enum : NSUInteger {
     }
     
 }
+#pragma mark 登出按钮点击事件
 -(void)logoutButtonClick{
     
-    [self logoutWithSina];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    switch ([defaults integerForKey:PD_APPLOGINBY]) {
+        case PDAPPLoginTypeWechat:
+            
+            break;
+        case PDAPPLoginTypeSina://新浪微博登出
+            
+            [self logoutWithSina];
+            
+            break;
+        case PDAPPLoginTypeTwitter:
+            
+            
+            break;
+        case PDAPPLoginTypeFacebook:
+            
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -292,8 +343,9 @@ typedef enum : NSUInteger {
 }
 #pragma mark 登出成功
 -(void)logoutSuccessful{
-    [[PDPublicTools sharedPublicTools] showMessage:@"Logout successful" duration:3];
+    
     [self setupLoginView];
+    [[NSUserDefaults standardUserDefaults] setInteger:PDAPPLoginTypeIsLogout forKey:PD_APPLOGINBY];
     self.navigationItem.rightBarButtonItem = nil;
 }
 
@@ -326,6 +378,7 @@ typedef enum : NSUInteger {
     if(!err) {
         NSString *resultStr = [dic objectForKey:@"result"];
         if ([resultStr isEqualToString:@"true"]) {
+            [[PDPublicTools sharedPublicTools] showMessage:@"Logout successful" duration:3];
             [self logoutSuccessful];
         }
     }

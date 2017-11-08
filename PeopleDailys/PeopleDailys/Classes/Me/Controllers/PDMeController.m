@@ -268,6 +268,12 @@ typedef enum : NSUInteger {
 }
 -(void)loginSuccessful{
     
+    [self setupLogoutItem]; //添加logout按钮
+    [self.loginView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.loginView removeFromSuperview];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
     [[PDNetworkingTools sharedNetWorkingTools]getWeiboUserInfoWithCallBack:^(id response, NSError *error) {
         if (error) {
             [SVProgressHUD dismiss];
@@ -277,11 +283,6 @@ typedef enum : NSUInteger {
         }
         
         PD_NSLog(@"%@",response);
-        [self setupLogoutItem]; //添加logout按钮
-        [self.loginView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        [self.loginView removeFromSuperview];
-        
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }];
 }
 #pragma mark - WBHttpRequestDelegate代理方法

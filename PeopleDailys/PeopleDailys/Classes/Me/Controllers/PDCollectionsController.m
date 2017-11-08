@@ -129,7 +129,8 @@
             cellHeight = [NSString stringWithFormat:@"%.2f",TITLELAB_MARGIN_TOP+titleHeight+IMAGEVIEW_MARGIN_TOP+imgViewHeight+TIMELAB_MARGIN_TOP*2+TIMELAB_FONTSIZE];
             
         }else{//图片在右方
-            imgViewHeight = IMAGEVIEW_HEIGHT_SINGLE;
+            CGFloat imgWith = (self.view.width - 2 * TITLELAB_MARGIN_LEADING - 2 * PICTURE_MARGIN) / 3;
+            imgViewHeight = imgWith / IMAGEVIEW_WIDTH_SINGLE* IMAGEVIEW_HEIGHT_SINGLE;
             cellHeight = [NSString stringWithFormat:@"%.2f",imgViewHeight+IMAGEVIEW_MARGIN_TOP*2];
         }
         [arrayM addObject:cellHeight];

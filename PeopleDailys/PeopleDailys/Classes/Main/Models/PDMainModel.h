@@ -12,4 +12,11 @@
 
 @property (nonatomic,copy) NSString *ID;
 
+
+@property (nonatomic,copy) NSString *shareImg;
+@property (nonatomic,copy) NSString *shareStr;
+@property (nonatomic,copy) NSString *shareType;
+
 @end
+
+

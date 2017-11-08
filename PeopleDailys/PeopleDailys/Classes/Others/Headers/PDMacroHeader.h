@@ -32,7 +32,7 @@
 
 /****************************其他**************************************/
 
-//
+//app登录途径
 typedef enum : NSUInteger {
     PDAPPLoginTypeIsLogout = 0,
     PDAPPLoginTypeWechat = 2000,
@@ -40,4 +40,17 @@ typedef enum : NSUInteger {
     PDAPPLoginTypeTwitter,
     PDAPPLoginTypeFacebook,
 } PDAPPLoginType;
+
+//app分享途径
+typedef enum : NSUInteger {
+    PDAPPShareByTypeWechatFriend = 100,
+    PDAPPShareByTypeWechatMoments = 200,
+    PDAPPShareByTypeSina = 300,
+    PDAPPShareByTypeTwitter = 400,
+    PDAPPShareByTypeFacebook = 500,
+    PDAPPShareByTypeMessage = 600,
+    PDAPPShareByTypeMail = 700,
+    PDAPPShareByTypeCopyLink = 800,
+} PDAPPShareByType;
+
 #endif /* PDMacroHeader_h */

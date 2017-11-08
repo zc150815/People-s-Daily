@@ -7,6 +7,7 @@
 //
 
 #import "ZCCoverScreenView.h"
+#import "PDMainModel.h"
 
 @interface ZCCoverScreenView ()
 
@@ -38,6 +39,10 @@
 +(void)CS_AddCommentWithUserInfo:(NSArray*)info{
     [[self sharedCoverScreenView]CS_AddCommentWithUserInfo:info];
 }
++(void)shareMessage{
+    [[self sharedCoverScreenView]shareMessage];
+}
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
@@ -196,5 +201,56 @@
     [self endEditing:YES];
     [self dismiss];
     [[PDPublicTools sharedPublicTools]showMessage:@"发表评论" duration:3];
+}
+#pragma mark - 分享途径选择
+-(void)shareMessage{
+    [self addSubview:self.mainView];
+    self.mainView.height = PD_Fit(150);
+    
+    NSArray *dataArr = @[@{@"shareImg":@"wechat_bak",@"shareStr":@"WeChat",@"shareType":@(PDAPPShareByTypeWechatFriend)},
+                          @{@"shareImg":@"wechatline",@"shareStr":@"Moments",@"shareType":@(PDAPPShareByTypeWechatMoments)},
+                          @{@"shareImg":@"sina",@"shareStr":@"Weibo",@"shareType":@(PDAPPShareByTypeSina)},
+                          @{@"shareImg":@"twitter",@"shareStr":@"Twitter",@"shareType":@(PDAPPShareByTypeTwitter)},
+                          @{@"shareImg":@"facebook",@"shareStr":@"Facebook",@"shareType":@(PDAPPShareByTypeFacebook)},
+                          @{@"shareImg":@"message",@"shareStr":@"Message",@"shareType":@(PDAPPShareByTypeMessage)},
+                          @{@"shareImg":@"email",@"shareStr":@"Mail",@"shareType":@(PDAPPShareByTypeMail)},
+                          @{@"shareImg":@"copylink",@"shareStr":@"CopyLink",@"shareType":@(PDAPPShareByTypeCopyLink)}];
+    NSArray *shareArr = [PDMainModel mj_objectArrayWithKeyValuesArray:dataArr];
+    
+    NSInteger column = 4;
+    NSInteger row = (dataArr.count - 1)/column + 1;
+    CGFloat btnWith = self.mainView.width/column;
+    CGFloat btnHeight = self.mainView.height/row;
+    
+    for (NSInteger i = 0; i < shareArr.count; i++) {
+        PDMainModel *model = shareArr[i];
+        
+        UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        shareBtn.adjustsImageWhenHighlighted = NO;
+        shareBtn.tag = model.shareType.integerValue;
+        UIImage *btnImg = [UIImage scaleFromImage:[UIImage imageNamed:model.shareImg] toSize:CGSizeMake(PD_Fit(40), PD_Fit(40))];
+        [shareBtn setImage:btnImg forState:UIControlStateNormal];
+        [shareBtn setBackgroundColor:[UIColor whiteColor]];//test
+        shareBtn.titleLabel.numberOfLines = 0;
+        shareBtn.titleLabel.font = PD_Font(12);
+        [shareBtn setTitle:model.shareStr forState:UIControlStateNormal];
+        [shareBtn setTitleColor:[UIColor getColor:@"888888"] forState:UIControlStateNormal];
+        shareBtn.frame = CGRectMake(i%column*btnWith, i/column*btnHeight, btnWith, btnHeight);
+        [shareBtn addTarget:self action:@selector(shareButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        CGSize imageSize = shareBtn.imageView.size;
+        CGSize titleSize = shareBtn.titleLabel.size;
+        shareBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -imageSize.width, -imageSize.height, 0);
+        shareBtn.imageEdgeInsets = UIEdgeInsetsMake(-titleSize.height, 0, 0, -titleSize.width);
+        
+        [self.mainView addSubview:shareBtn];
+    }
+    
+}
+-(void)shareButtonClick:(UIButton*)sender{
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ZCCoverScreenView:shareMessageWithShareByType:)]) {
+        [self.delegate ZCCoverScreenView:self shareMessageWithShareByType:sender.tag];
+    }
 }
 @end

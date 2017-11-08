@@ -351,7 +351,6 @@
     request.scope = @"all";
     request.userInfo = @{@"SSO_From": @"PDMeController",
                          @"Other_Info_1": @"loginWithSina",};
-    request.shouldShowWebViewForAuthIfCannotSSO = NO;
     [WeiboSDK sendRequest:request];
 }
 //微信登入

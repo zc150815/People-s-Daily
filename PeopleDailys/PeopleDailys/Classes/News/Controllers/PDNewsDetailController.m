@@ -38,7 +38,7 @@
 -(void)setupUI{
     
     self.extendedLayoutIncludesOpaqueBars = YES;
-    
+    self.automaticallyAdjustsScrollViewInsets = YES;
     //文字大点按钮
     UIButton *sizeChangeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *backImg = [UIImage imageNamed:@"more"];
@@ -230,7 +230,9 @@
     
     switch (sender.tag) {
         case PDNewsDetailToolsViewToolTypeShare:{
-            [self weiboShare];
+            [ZCCoverScreenView shareMessage];
+            [ZCCoverScreenView sharedCoverScreenView].delegate = self;
+            [ZCCoverScreenView show];
         }
             break;
         case PDNewsDetailToolsViewToolTypeCollection:{
@@ -275,6 +277,38 @@
     _textFontSize = fontSize;
     [self loadDataWithModel:_model];
 }
+-(void)ZCCoverScreenView:(ZCCoverScreenView *)view shareMessageWithShareByType:(PDAPPShareByType)type{
+    [ZCCoverScreenView dismiss];
+    switch (type) {
+        case PDAPPShareByTypeWechatFriend:
+            
+            break;
+        case PDAPPShareByTypeWechatMoments:
+            
+            break;
+        case PDAPPShareByTypeSina:
+            [self weiboShare];
+            break;
+        case PDAPPShareByTypeTwitter:
+            
+            break;
+        case PDAPPShareByTypeFacebook:
+            
+            break;
+        case PDAPPShareByTypeMessage:
+            
+            break;
+        case PDAPPShareByTypeMail:
+            
+            break;
+        case PDAPPShareByTypeCopyLink:
+            
+            break;
+        default:
+            break;
+    }
+}
+
 #pragma mark - 改变字体大小方法
 -(void)changeFontSizeButtonClick{
     [[PDPublicTools sharedPublicTools]showMessage:@"改变文字大小" duration:3];

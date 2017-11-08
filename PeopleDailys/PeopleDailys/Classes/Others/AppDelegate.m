@@ -85,6 +85,10 @@
 -(void)onResp:(BaseResp *)resp{
     [[PDPublicTools sharedPublicTools]showMessage:@"resp" duration:3];
     PD_NSLog(@"req = %@",resp);
+    
+    SendMessageToWXResp *response = (SendMessageToWXResp*)resp;
+    
+    PD_NSLog(@"\nlang:%@\ncounty:%@",response.lang,response.country);
 }
 
 

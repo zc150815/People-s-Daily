@@ -18,10 +18,6 @@
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) PDNewsDetailToolsView *toolsView;
 
-@property (nonatomic, strong) WBMessageObject *messageObject;
-
-
-
 @end
 
 @implementation PDNewsDetailController{
@@ -320,14 +316,6 @@
 }
 
 #pragma mark - 微博分享
--(WBMessageObject *)messageObject{
-    if (!_messageObject) {
-        _messageObject = [WBMessageObject message];
-        _messageObject.text = _model.data.title;
-    }
-    
-    return _messageObject;
-}
 -(void)weiboShare{
     
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
@@ -336,7 +324,12 @@
     authRequest.userInfo = @{@"SSO_From": @"PDMeController",
                          @"Other_Info_1": @"loginWithSina",};
     
-    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:self.messageObject authInfo:authRequest access_token:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN]];
+    WBMessageObject *messageObject = [WBMessageObject message];
+    messageObject.text = _model.data.title;
+    
+    
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject authInfo:authRequest access_token:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN]];
+//    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject];
     request.userInfo = @{@"ShareMessageFrom": @"PDNewsDetailController"};
     if ([WeiboSDK sendRequest:request]) {
         PD_NSLog(@"成功成功");
@@ -368,7 +361,7 @@
     [mediaMessage setThumbImage:[UIImage imageNamed:@"share_icon"]];
     
     WXWebpageObject *webObject = [WXWebpageObject object];
-    webObject.webpageUrl = _model.data.source_url;
+    webObject.webpageUrl = [NSString stringWithFormat:@"%@home/article/index/id/%@",URL_BASE,_model.data.ID];
     mediaMessage.mediaObject = webObject;
     
     SendMessageToWXReq *request = [[SendMessageToWXReq alloc]init];

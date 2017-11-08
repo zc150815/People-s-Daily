@@ -117,7 +117,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @param request 具体的发送请求
  
- @see [WeiboSDKDelegate didReceiveWeiboResponse:]
+ @see [WeiboSDKDelegate didReceiveWeiboResponse:]p
  @see WBBaseResponse
  */
 + (BOOL)sendRequest:(WBBaseRequest *)request;

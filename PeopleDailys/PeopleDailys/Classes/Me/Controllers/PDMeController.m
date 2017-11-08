@@ -29,8 +29,7 @@
     [super viewDidLoad];
     
     [self setupUI]; //添加布局
-    [self loadData];
-    [self judgeIsOnLine];
+    [self judgeIsOnLine];//判断当前是否已经登录
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"WBAuthorizeResponseSuccessfulNotification" object:nil];
 }
@@ -75,20 +74,9 @@
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
+    [self loadData];
 }
-#pragma mark 更新UserInfo
--(void)updateUserInfoWithURL:(NSString*)url userName:(NSString*)name{
-    
-    UIImage *placeHolder = [UIImage scaleFromImage:[UIImage imageNamed:@"default_head"] toSize:CGSizeMake(PD_Fit(60), PD_Fit(60))];
-    [_userInfo sd_setImageWithURL:[NSURL URLWithString:url] forState:UIControlStateNormal placeholderImage:placeHolder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [_userInfo setImage:[image drawCircleImageWithImage:[UIImage scaleFromImage:image toSize:placeHolder.size] WithCornerRadius:placeHolder.size.width] forState:UIControlStateNormal];
-    }];
-    [_userInfo setTitle:name forState:UIControlStateNormal];
-    _userInfo.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    _userInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [_userInfo setTitleEdgeInsets:UIEdgeInsetsMake(_userInfo.imageView.frame.size.height+PD_Fit(15),-_userInfo.imageView.frame.size.width, 0.0,0.0)];//文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
-    [_userInfo setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -_userInfo.titleLabel.bounds.size.width)];//图片距离右边框距离减少图片的宽度，其它不边
-}
+
 
 #pragma mark 添加logout按钮
 -(void)setupLogoutItem{
@@ -170,6 +158,20 @@
     self.tableView.contentInset = UIEdgeInsetsMake(loginView.height-self.tableView.y, 0, 0, 0);
     
 }
+#pragma mark 更新UserInfo
+-(void)updateUserInfoWithURL:(NSString*)url userName:(NSString*)name{
+    
+    UIImage *placeHolder = [UIImage scaleFromImage:[UIImage imageNamed:@"default_head"] toSize:CGSizeMake(PD_Fit(60), PD_Fit(60))];
+    [_userInfo sd_setImageWithURL:[NSURL URLWithString:url] forState:UIControlStateNormal placeholderImage:placeHolder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_userInfo setImage:[image drawCircleImageWithImage:[UIImage scaleFromImage:image toSize:placeHolder.size] WithCornerRadius:placeHolder.size.width] forState:UIControlStateNormal];
+    }];
+    [_userInfo setTitle:name forState:UIControlStateNormal];
+    _userInfo.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
+    _userInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [_userInfo setTitleEdgeInsets:UIEdgeInsetsMake(_userInfo.imageView.frame.size.height+PD_Fit(15),-_userInfo.imageView.frame.size.width, 0.0,0.0)];//文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
+    [_userInfo setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -_userInfo.titleLabel.bounds.size.width)];//图片距离右边框距离减少图片的宽度，其它不边
+}
+
 #pragma mark - 获取数据
 -(void)loadData{
     
@@ -181,17 +183,11 @@
 -(void)judgeIsOnLine{
 
     switch ([[NSUserDefaults standardUserDefaults]integerForKey:PD_APPLOGINBY]) {
-        case PDAPPLoginTypeWechat:
-            break;
-        case PDAPPLoginTypeSina:
-            [self loginSuccessful];
-            break;
-        case PDAPPLoginTypeTwitter:
-            break;
-        case PDAPPLoginTypeFacebook:
-            break;
-        default:
+        case PDAPPLoginTypeIsLogout://没有登录
             [self logoutSuccessful];
+            break;
+        default://已经登录过
+            [self loginSuccessful];
             break;
     }
 }
@@ -208,7 +204,8 @@
             [[PDNetworkingTools sharedNetWorkingTools]getWeiboUserInfoWithCallBack:^(id response, NSError *error) {
                 if (error) {
                     [SVProgressHUD dismiss];
-                    [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+                    [[PDPublicTools sharedPublicTools]showMessage:@"登录超时,请重新登录" duration:3];
+                    [self logoutSuccessful];
                     PD_NSLog(@"error===error===%@",error);
                     return;
                 }
@@ -282,21 +279,20 @@
 -(void)loginButtonClick:(UIButton*)sender{
     
     switch (sender.tag) {
-        case PDAPPLoginTypeWechat:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"微信登录" duration:3];
+        case PDAPPLoginTypeWechat:{//微信登录
+            [self loginWithWechat];
         }
             break;
-        case PDAPPLoginTypeSina:{
+        case PDAPPLoginTypeSina:{//新浪微博登录
             [self loginWithSina];
         }
             break;
-        case PDAPPLoginTypeTwitter:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"Twitter登录" duration:3];
+        case PDAPPLoginTypeTwitter:{//twitter登录
+            [self loginWithTwtter];
         }
             break;
-        case PDAPPLoginTypeFacebook:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"Facebook登录" duration:3];
-            
+        case PDAPPLoginTypeFacebook:{//facebook登录
+            [self loginWithFacebook];
         }
             break;
         default:
@@ -309,20 +305,17 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     switch ([defaults integerForKey:PD_APPLOGINBY]) {
-        case PDAPPLoginTypeWechat:
-            
+        case PDAPPLoginTypeWechat://微信登出
+            [self logoutWithWechat];
             break;
         case PDAPPLoginTypeSina://新浪微博登出
-            
             [self logoutWithSina];
-            
             break;
-        case PDAPPLoginTypeTwitter:
-            
-            
+        case PDAPPLoginTypeTwitter://twitter登出
+            [self logoutWithTwtter];
             break;
-        case PDAPPLoginTypeFacebook:
-            
+        case PDAPPLoginTypeFacebook://facebook登出
+            [self logoutWithFacebook];
             break;
         default:
             break;
@@ -358,15 +351,38 @@
     request.scope = @"all";
     request.userInfo = @{@"SSO_From": @"PDMeController",
                          @"Other_Info_1": @"loginWithSina",};
+    request.shouldShowWebViewForAuthIfCannotSSO = NO;
     [WeiboSDK sendRequest:request];
 }
-
+//微信登入
+- (void)loginWithWechat{
+    
+}
+//Twitter登入
+- (void)loginWithTwtter{
+    
+}
+//facebook登入
+- (void)loginWithFacebook{
+    
+}
 #pragma mark - 登出方式
 //新浪登出
 - (void)logoutWithSina{
     [WeiboSDK logOutWithToken:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN] delegate:self withTag:@"SinaUser"];
 }
-
+//微信登出
+- (void)logoutWithWechat{
+    
+}
+//Twitter登出
+- (void)logoutWithTwtter{
+    
+}
+//facebook登出
+- (void)logoutWithFacebook{
+    
+}
 
 
 #pragma mark - WBHttpRequestDelegate代理方法

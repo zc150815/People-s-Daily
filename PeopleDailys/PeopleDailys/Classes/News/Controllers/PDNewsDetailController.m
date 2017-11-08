@@ -301,7 +301,7 @@
     authRequest.userInfo = @{@"SSO_From": @"PDMeController",
                          @"Other_Info_1": @"loginWithSina",};
     
-    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:self.messageObject authInfo:nil access_token:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN]];
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:self.messageObject authInfo:authRequest access_token:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN]];
     request.userInfo = @{@"ShareMessageFrom": @"PDNewsDetailController"};
     if ([WeiboSDK sendRequest:request]) {
         PD_NSLog(@"成功成功");

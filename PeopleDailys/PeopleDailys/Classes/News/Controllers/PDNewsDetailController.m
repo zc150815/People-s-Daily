@@ -21,6 +21,7 @@
 @property (nonatomic, strong) WBMessageObject *messageObject;
 
 
+
 @end
 
 @implementation PDNewsDetailController{
@@ -281,10 +282,10 @@
     [ZCCoverScreenView dismiss];
     switch (type) {
         case PDAPPShareByTypeWechatFriend:
-            
+            [self wechatShare];
             break;
         case PDAPPShareByTypeWechatMoments:
-            
+            [self wechatMomentsShare];
             break;
         case PDAPPShareByTypeSina:
             [self weiboShare];
@@ -358,5 +359,26 @@
 -(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error{
     [SVProgressHUD dismiss];
 }
-
+#pragma mark - 微信分享
+-(void)wechatShare{
+    
+    WXMediaMessage *mediaMessage = [WXMediaMessage message];
+    mediaMessage.title = _model.data.title;
+    mediaMessage.description = _model.data.share_desc;
+    [mediaMessage setThumbImage:[UIImage imageNamed:@"share_icon"]];
+    
+    WXWebpageObject *webObject = [WXWebpageObject object];
+    webObject.webpageUrl = _model.data.source_url;
+    mediaMessage.mediaObject = webObject;
+    
+    SendMessageToWXReq *request = [[SendMessageToWXReq alloc]init];
+    request.bText = NO;
+    request.message = mediaMessage;
+    request.scene = WXSceneSession;
+    
+    [WXApi sendReq:request];
+}
+-(void)wechatMomentsShare{
+    
+}
 @end

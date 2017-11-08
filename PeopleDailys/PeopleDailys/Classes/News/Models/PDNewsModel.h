@@ -42,6 +42,7 @@
 @property (nonatomic,copy) NSString *source;
 @property (nonatomic,copy) NSString *is_collect;
 @property (nonatomic,copy) NSString *format_time;
+@property (nonatomic,copy) NSString *share_desc;
 
 
 

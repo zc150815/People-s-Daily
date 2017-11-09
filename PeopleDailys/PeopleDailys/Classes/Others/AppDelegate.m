@@ -95,7 +95,7 @@
 - (void)didReceiveWeiboResponse:(WBBaseResponse *)response
 {
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class]){
-        
+        [SVProgressHUD dismiss];
         WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
         PD_NSLog(@"\n响应状态:%ld\n响应UserInfo数据%@\n原请求UserInfo数据%@\nauthResponse%@",(long)response.statusCode,response.userInfo,response.requestUserInfo,sendMessageToWeiboResponse.authResponse);
         switch (response.statusCode) {
@@ -128,7 +128,7 @@
         
     }
     else if ([response isKindOfClass:WBAuthorizeResponse.class]){
-        
+        [SVProgressHUD dismiss];
         WBAuthorizeResponse* authResponse = (WBAuthorizeResponse*)response;
         
 //        PD_NSLog(@"%@",response);

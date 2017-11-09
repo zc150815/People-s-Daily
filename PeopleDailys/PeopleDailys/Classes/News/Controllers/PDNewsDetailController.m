@@ -318,8 +318,6 @@
 #pragma mark - 微博分享
 -(void)weiboShare{
     
-    [SVProgressHUD show];
-    
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
     authRequest.redirectURI = SINAREDIRECTURL;
     authRequest.scope = @"all";

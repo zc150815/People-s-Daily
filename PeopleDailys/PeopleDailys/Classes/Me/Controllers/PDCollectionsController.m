@@ -47,6 +47,9 @@
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
+    
+    self.tableView.mj_footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+
     _page = 1;
 }
 -(void)loadData{
@@ -77,6 +80,8 @@
 #pragma mark
 #pragma mark UITableView代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    tableView.mj_footer.hidden = !self.collectionArr.count;
     return self.collectionArr.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -93,10 +98,9 @@
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == self.collectionArr.count - 2) {
-        [self loadData];
+    if (self.collectionArr.count && indexPath.row == self.collectionArr.count-2 && !tableView.mj_footer.isRefreshing) {
+        [tableView.mj_footer beginRefreshing];
     }
-    
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     

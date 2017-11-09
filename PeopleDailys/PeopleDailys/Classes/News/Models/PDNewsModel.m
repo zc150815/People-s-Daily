@@ -11,7 +11,7 @@
 @implementation PDNewsModel
 
 +(NSDictionary *)mj_replacedKeyFromPropertyName{
-    return @{@"Final":@"final",@"ID":@"id"};
+    return @{@"Final":@"final",@"ID":@"id",@"description":@"descrip"};
 }
 
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key{

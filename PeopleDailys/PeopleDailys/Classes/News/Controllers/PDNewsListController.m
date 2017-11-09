@@ -45,11 +45,8 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[PDNewsListNomalCell class] forCellReuseIdentifier:@"PDNewsListNomalCellID"];
     
-    if (!_isSearchPage) {
-        self.tableView.mj_footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNomalNewsMoreData)];
-        
-        self.tableView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadUpdatedData)];
-    }
+    self.tableView.mj_footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadNomalNewsMoreData)];
+    self.tableView.mj_header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadUpdatedData)];
     
     
 }
@@ -307,6 +304,8 @@
 
 #pragma mark - UITableView代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+   
+    tableView.mj_footer.hidden = !self.nomalNewsArr.count;
     return self.topNewsArr.count+self.nomalNewsArr.count;
 }
 

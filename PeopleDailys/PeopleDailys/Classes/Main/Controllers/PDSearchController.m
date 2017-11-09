@@ -50,6 +50,9 @@
     self.tableView = tableView;
     [self.view addSubview:tableView];
     
+    self.tableView.mj_footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+
+    
 }
 -(void)setupNavigationItem{
     
@@ -89,12 +92,13 @@
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
             return ;
         }
-        PD_NSLog(@"%@",response);
+//        PD_NSLog(@"%@",response);
         
         NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:response[DATA]];
         if (!dataArr.count) {
-            [[PDPublicTools sharedPublicTools]showMessage:@"没有新闻或更多新闻" duration:3];
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }else{
+            [self.tableView.mj_footer endRefreshing];
             [self.searchArr addObjectsFromArray:dataArr];
             [self calculateCellHeightWithModelArray:dataArr];
             _page ++;
@@ -107,6 +111,7 @@
 #pragma mark
 #pragma mark UITableView代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    tableView.mj_footer.hidden = !self.searchArr.count;
     return self.searchArr.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -123,10 +128,11 @@
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == self.searchArr.count - 2) {
-        [self loadData];
+    if (self.searchArr.count && indexPath.row == self.searchArr.count-2 && !tableView.mj_footer.isRefreshing) {
+        [tableView.mj_footer beginRefreshing];
+        
+        [tableView.mj_footer beginRefreshing];
     }
-    
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     

@@ -10,10 +10,13 @@
 #import "PDNewsListNomalCell.h"
 #import "PDNewsModel.h"
 #import "PDNewsDetailController.h"
+#import "PDSpecialHeaderView.h"
 
 @interface PDSpecialNewsController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) PDSpecialHeaderView *headerView;
+
 @property (nonatomic, strong) NSMutableArray *specialArr;
 @property (nonatomic, strong) NSMutableArray *specialLayoutArr;
 
@@ -42,11 +45,24 @@
     tableView.showsHorizontalScrollIndicator = NO;
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.bounces = NO;
     tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerClass:[PDNewsListNomalCell class] forCellReuseIdentifier:@"PDNewsListNomalCellID"];
     self.tableView = tableView;
     [self.view addSubview:tableView];
+    
+    MJRefreshAutoGifFooter *footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+//    footer.refreshingTitleHidden = YES;
+//    [footer setImages:@[[UIImage imageNamed:@"refresh_1"],[UIImage imageNamed:@"refresh_2"],[UIImage imageNamed:@"refresh_3"],[UIImage imageNamed:@"refresh_4"],[UIImage imageNamed:@"refresh_5"],] forState:MJRefreshStateRefreshing];
+    self.tableView.mj_footer = footer;
+
+    
+    CGSize holderSize = [UIImage imageNamed:@"default"].size;
+    PDSpecialHeaderView *headerView = [[PDSpecialHeaderView alloc]initWithFrame:CGRectMake(0, 0, tableView.width, holderSize.height/holderSize.width*tableView.width)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    self.headerView = headerView;
+    self.tableView.tableHeaderView = headerView;
     
 }
 
@@ -59,18 +75,20 @@
             return ;
         }
         PD_NSLog(@"新闻专题报道%@",response);
-        PDNewsModel *model;
-        if ([response isKindOfClass:[NSDictionary class]]) {
-            model = [PDNewsModel mj_objectWithKeyValues:response];
-        }
+        PDNewsModel *model = [PDNewsModel mj_objectWithKeyValues:response];
         NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:model.data.list];
         if (!dataArr.count) {
-            [[PDPublicTools sharedPublicTools]showMessage:@"没有新闻或更多新闻" duration:3];
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }else{
             [self.specialArr addObjectsFromArray:dataArr];
             [self calculateCellHeightWithModelArray:dataArr];
             _page ++;
+            //添加头部视图
+//            self.headerView.desc = model.data.descrip;
+            self.headerView.desc = model.data.title;
+            self.headerView.imageURL = @[model.data.banner_img,model.data.list_img];
             [self.tableView reloadData];
+            [self.tableView.mj_footer endRefreshing];
         }
     }];
     
@@ -78,6 +96,8 @@
 #pragma mark
 #pragma mark UITableView代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    tableView.mj_footer.hidden = !self.specialArr.count;
     return self.specialArr.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -94,10 +114,9 @@
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == self.specialArr.count - 2) {
-        [self loadData];
+    if (self.specialArr.count && indexPath.row == self.specialArr.count-2 && !tableView.mj_footer.isRefreshing) {
+        [tableView.mj_footer beginRefreshing];
     }
-    
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     

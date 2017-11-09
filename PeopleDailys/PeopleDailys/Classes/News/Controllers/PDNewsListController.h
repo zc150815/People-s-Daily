@@ -10,7 +10,5 @@
 
 @interface PDNewsListController : UITableViewController
 
-@property (nonatomic,assign) BOOL isSearchPage;
-
 
 @end

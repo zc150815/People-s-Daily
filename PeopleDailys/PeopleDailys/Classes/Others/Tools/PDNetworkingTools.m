@@ -58,9 +58,9 @@
 #pragma mark
 #pragma mark News
 //获取置顶新闻
--(void)getChannelTopNewsDataWithType:(NSString*)type callBack:(callBack)callBack{
+-(void)getChannelTopNewsDataWithType:(NSString*)type isNomal:(BOOL)isNomal callBack:(callBack)callBack{
     NSString*url = @"api/news/get_totop_picNews";
-    NSDictionary *params = @{@"type":type,@"device_id":PhoneIDNum};
+    NSDictionary *params = @{@"type":type,@"device_id":PhoneIDNum,@"version":@(1)};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 
 }
@@ -79,10 +79,9 @@
 //获取频道最新新闻
 -(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type original:(NSString*)original final:(NSString*)final callBack:(callBack)callBack{
     NSString*url = @"api/news/get_each_news";
-    NSDictionary *params = @{@"type":type,@"final":final,@"original":original,@"device_id":PhoneIDNum};
+    NSDictionary *params = @{@"type":type,@"final":final,@"original":original,@"device_id":PhoneIDNum,@"version":@(1)};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 
-    
 }
 
 //获取新闻详情
@@ -102,6 +101,14 @@
     NSDictionary *params = @{@"nid":ID,@"is_collect":isCollect,@"deviceId":PhoneIDNum};
     [self requestWithRequestType:POST url:url params:params callBack:callBack];
 }
+
+//新闻专题
+-(void)getSpecialNewsWithID:(NSString*)ID type:(NSString*)type page:(NSInteger)page callBack:(callBack)callBack{
+    NSString*url = @"api/news/get_special_news";
+    NSDictionary *params = @{@"id":ID,@"contenttype":type,@"page":@(page)};
+    [self requestWithRequestType:POST url:url params:params callBack:callBack];
+}
+
 
 #pragma mark - Search
 //搜索新闻

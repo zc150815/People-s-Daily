@@ -65,6 +65,7 @@
 		9D8A8F6F1FA9988600A116A9 /* PDNewsListNomalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8A8F6E1FA9988600A116A9 /* PDNewsListNomalCell.m */; };
 		9D9783F51FB189EE00E5E54F /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8382051FB17AAE00407C70 /* libWeiboSDK.a */; };
 		9D9783F71FB18A6E00E5E54F /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9783F61FB18A4B00E5E54F /* Photos.framework */; };
+		9D9784001FB3F29F00E5E54F /* PDSpecialNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9783FF1FB3F29F00E5E54F /* PDSpecialNewsController.m */; };
 		9D9D5E041FAB311B00022EFD /* PDNewsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */; };
 		F6DED7AAB780A7F9E1F4F186 /* libPods-PeopleDailys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA79F5CFA6236F8C2A41E7CE /* libPods-PeopleDailys.a */; };
 /* End PBXBuildFile section */
@@ -172,6 +173,8 @@
 		9D8A8F6D1FA9988600A116A9 /* PDNewsListNomalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsListNomalCell.h; sourceTree = "<group>"; };
 		9D8A8F6E1FA9988600A116A9 /* PDNewsListNomalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNewsListNomalCell.m; sourceTree = "<group>"; };
 		9D9783F61FB18A4B00E5E54F /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		9D9783FE1FB3F29F00E5E54F /* PDSpecialNewsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDSpecialNewsController.h; sourceTree = "<group>"; };
+		9D9783FF1FB3F29F00E5E54F /* PDSpecialNewsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDSpecialNewsController.m; sourceTree = "<group>"; };
 		9D9D5E021FAB311B00022EFD /* PDNewsDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsDetailController.h; sourceTree = "<group>"; };
 		9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNewsDetailController.m; sourceTree = "<group>"; };
 		BE4DAC07A65FCA2A6B78BCD2 /* Pods-PeopleDailys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeopleDailys.release.xcconfig"; path = "Pods/Target Support Files/Pods-PeopleDailys/Pods-PeopleDailys.release.xcconfig"; sourceTree = "<group>"; };
@@ -362,6 +365,8 @@
 				678957711FA30C0700D03685 /* PDNewsListController.m */,
 				9D9D5E021FAB311B00022EFD /* PDNewsDetailController.h */,
 				9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */,
+				9D9783FE1FB3F29F00E5E54F /* PDSpecialNewsController.h */,
+				9D9783FF1FB3F29F00E5E54F /* PDSpecialNewsController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -650,6 +655,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D9784001FB3F29F00E5E54F /* PDSpecialNewsController.m in Sources */,
 				67E3365A1FAEDE7D00DFC519 /* ZCCoverScreenView.m in Sources */,
 				67E9CE721FA1A2CA00E9273F /* NSAttributedString+ZCExtension.m in Sources */,
 				67E9CE2E1FA19AB200E9273F /* ViewController.m in Sources */,

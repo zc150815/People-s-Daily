@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIView *imgView;
 @property (nonatomic, strong) UILabel *timeLab;
 @property (nonatomic, strong) UIButton *commentBtn;
+@property (nonatomic, strong) UIButton *specialLab;
 
 @property (strong, nonatomic) MASConstraint *imgViewWidth;
 @property (strong, nonatomic) MASConstraint *imgViewBottom;
@@ -44,11 +45,6 @@
     titleLab.numberOfLines = 2;
     self.titleLab = titleLab;
     [self.contentView addSubview:titleLab];
-    //    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.equalTo(self.contentView).offset(PD_Fit(MARGIN_BASE));
-    //        make.leading.equalTo(self.contentView).offset(PD_Fit(MARGIN_LITTLE));
-    //        make.trailing.equalTo(self.contentView).offset(-PD_Fit(MARGIN_LITTLE));
-    //    }];
     
     //图片显示区域
     UIView *imgView = [[UIView alloc]init];
@@ -56,12 +52,6 @@
     //    imgView.backgroundColor = PD_RandomColor;
     self.imgView = imgView;
     [self.contentView addSubview:imgView];
-    //    [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.equalTo(titleLab.mas_bottom).offset(PD_Fit(MARGIN_BASE));
-    //        make.leading.equalTo(self.contentView).offset(PD_Fit(MARGIN_LITTLE));
-    //        make.trailing.equalTo(self.contentView).offset(-PD_Fit(MARGIN_LITTLE));
-    //        make.height.mas_equalTo(PD_Fit(80));
-    //    }];
     
     
     UILabel *timeLab = [[UILabel alloc]init];
@@ -70,16 +60,6 @@
     timeLab.numberOfLines = 1;
     self.timeLab = timeLab;
     [self.contentView addSubview:timeLab];
-    //    [timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.equalTo(imgView.mas_bottom).offset(PD_Fit(MARGIN_BASE));
-    //        make.leading.equalTo(titleLab);
-    //        make.bottom.equalTo(self.contentView).offset(-PD_Fit(MARGIN_BASE));
-    //    }];
-    
-    //    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.leading.trailing.equalTo(self);
-    //        make.bottom.equalTo(timeLab).offset(PD_Fit(MARGIN_BASE));
-    //    }];
     
     
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -96,6 +76,17 @@
         make.leading.equalTo(timeLab.mas_trailing).offset(PD_Fit(10));
         make.centerY.equalTo(timeLab);
     }];
+    
+    
+    
+    UIButton *specialLab = [UIButton buttonWithType:UIButtonTypeCustom];
+    [specialLab setBackgroundColor:[UIColor getColor:COLOR_BASE]];
+    [specialLab setTitle:@"Special Coverage" forState:UIControlStateNormal];
+    specialLab.titleLabel.font = PD_Font(10);
+    [specialLab setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    specialLab.contentEdgeInsets = UIEdgeInsetsMake(PD_Fit(2), PD_Fit(2), PD_Fit(2), PD_Fit(2));
+    self.specialLab = specialLab;
+    [self.contentView addSubview:specialLab];
     
 }
 -(void)layoutSubviews{
@@ -142,6 +133,15 @@
         self.timeLab.y = CGRectGetMaxY(self.imgView.frame)-self.timeLab.height;
     }
     
+    
+    self.specialLab.x = self.titleLab.x;
+    self.specialLab.y = CGRectGetMaxY(self.titleLab.frame)+PD_Fit(5);
+    [self.specialLab sizeToFit];
+    if (_model.contenttype.integerValue) {
+        self.specialLab.hidden = NO;
+    }else{
+        self.specialLab.hidden = YES;
+    }
 }
 
 

@@ -34,18 +34,16 @@ static NSString * const STATUS = @"status";//status
 static NSString * const DATA = @"data";//data
 
 
-//static NSString * const PhoneIDNum= @"558BCB10A40002F1FB3B022410BB5250F6D7DCE0";//phoneUDID
-//static NSString * const PhoneIDNum= @"DLXKCV1PF196";//PHONEID
-//static NSString * const PhoneIDNum= @"1AAEF0C8D8C";//PHONEID
+
 //static NSString * const PhoneIDNum= @"861414032240161";//PHONEID
 
 
-static NSString * const WECHATAPPID = @"wxafd7241729c55e32";//WECHATAPPID
-static NSString * const WECHATAPPSECRET = @"fb1202c6eedec8c7594578c462235814";//WECHATAPPSECRET
+static NSString * const WECHATAPPID = @"wxafd7241729c55e32";//微信APPID
+static NSString * const WECHATAPPSECRET = @"fb1202c6eedec8c7594578c462235814";//微信APPSECRET
 
-static NSString * const SINAAPPID = @"363528080";//SINAAPPID
-static NSString * const SINAREDIRECTURL = @"https://api.weibo.com/oauth2/default.html";//SINAREDIRECTURL
-static NSString * const SINAAPPSECRET = @"b74b9e8e20c7df96a2708f613559c1ff";//SINAAPPSECRET
+static NSString * const SINAAPPID = @"363528080";//新浪AAPPID
+static NSString * const SINAREDIRECTURL = @"https://api.weibo.com/oauth2/default.html";//新浪REDIRECTURL
+static NSString * const SINAAPPSECRET = @"b74b9e8e20c7df96a2708f613559c1ff";//新浪APPSECRET
 
 
 /****************************偏好设置**************************************/

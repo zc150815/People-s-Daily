@@ -29,7 +29,7 @@ typedef void (^callBack)(id response,NSError* error);
 #pragma mark
 #pragma mark News
 //获取置顶新闻
--(void)getChannelTopNewsDataWithType:(NSString*)type callBack:(callBack)callBack;
+-(void)getChannelTopNewsDataWithType:(NSString*)type isNomal:(BOOL)isNomal callBack:(callBack)callBack;
 //获取频道新闻
 -(void)getChannelNomalNewsDataWithType:(NSString*)type callBack:(callBack)callBack;
 //获取频道更多新闻
@@ -43,6 +43,8 @@ typedef void (^callBack)(id response,NSError* error);
 
 //收藏新闻
 -(void)collectNewsWithID:(NSString*)ID isCollect:(NSString*)isCollect callBack:(callBack)callBack;
+//新闻专题
+-(void)getSpecialNewsWithID:(NSString*)ID type:(NSString*)type page:(NSInteger)page callBack:(callBack)callBack;
 
 
 #pragma mark - Search

@@ -102,10 +102,9 @@
             case WeiboSDKResponseStatusCodeSuccess:{
                 
                 NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-                NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
-                [userDefault setObject:accessToken forKey:WB_ACCESSTOKEN];
-                NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
-                [userDefault setObject:userID forKey:WB_USERID];
+                [userDefault setObject:[sendMessageToWeiboResponse.authResponse accessToken] forKey:WB_ACCESSTOKEN];
+                [userDefault setObject:[sendMessageToWeiboResponse.authResponse userID] forKey:WB_USERID];
+                [userDefault setObject:[sendMessageToWeiboResponse.authResponse refreshToken] forKey:WB_REFRESHTOKEN];
                 [userDefault synchronize];
             }
                 break;
@@ -125,6 +124,7 @@
                 break;
         }
         
+        [[PDPublicTools sharedPublicTools]showMessage:[response.userInfo objectForKey:@"msg"] duration:3];
         
     }
     else if ([response isKindOfClass:WBAuthorizeResponse.class]){

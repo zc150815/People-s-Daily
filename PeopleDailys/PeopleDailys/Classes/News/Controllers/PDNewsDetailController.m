@@ -101,7 +101,7 @@
             return;
         }
         
-        PD_NSLog(@"%@",response);
+//        PD_NSLog(@"%@",response);
         PDNewsModel *model;
         if ([response isKindOfClass:[NSDictionary class]]) {
             model = [PDNewsModel mj_objectWithKeyValues:response];
@@ -241,7 +241,7 @@
                     return;
                 }
                 
-                PD_NSLog(@"%@",response);
+//                PD_NSLog(@"%@",response);
                 PDNewsModel *model;
                 if ([response isKindOfClass:[NSDictionary class]]) {
                     model = [PDNewsModel mj_objectWithKeyValues:response];
@@ -318,6 +318,8 @@
 #pragma mark - 微博分享
 -(void)weiboShare{
     
+    [SVProgressHUD show];
+    
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
     authRequest.redirectURI = SINAREDIRECTURL;
     authRequest.scope = @"all";
@@ -325,8 +327,11 @@
                          @"Other_Info_1": @"loginWithSina",};
     
     WBMessageObject *messageObject = [WBMessageObject message];
-    messageObject.text = _model.data.title;
+    messageObject.text = [NSString stringWithFormat:@"%@%@",_model.data.title,[NSString stringWithFormat:@"%@home/article/index/id/%@",URL_BASE,_model.data.ID]];
     
+    WBImageObject *imageObject = [WBImageObject object];
+    imageObject.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.data.pictures.firstObject]]];
+    messageObject.imageObject = imageObject;
     
     WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject authInfo:authRequest access_token:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN]];
 //    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject];
@@ -343,6 +348,7 @@
  */
 -(void)wbsdk_TransferDidReceiveObject:(id)object{
     [self weiboShare];
+    PD_NSLog(@"%@",object);
     [SVProgressHUD dismiss];
 }
 
@@ -350,6 +356,7 @@
  数据准备失败回调
  */
 -(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error{
+    PD_NSLog(@"%@",error);
     [SVProgressHUD dismiss];
 }
 #pragma mark - 微信分享

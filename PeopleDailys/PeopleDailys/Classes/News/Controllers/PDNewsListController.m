@@ -10,6 +10,7 @@
 #import "PDNewsModel.h"
 #import "PDNewsListNomalCell.h"
 #import "PDNewsDetailController.h"
+#import "PDSpecialNewsController.h"
 
 @interface PDNewsListController ()
 
@@ -98,7 +99,7 @@
     
     [SVProgressHUD show];
     //获取置顶新闻列表
-    [[PDNetworkingTools sharedNetWorkingTools]getChannelTopNewsDataWithType:self.title callBack:^(id response, NSError *error) {
+    [[PDNetworkingTools sharedNetWorkingTools]getChannelTopNewsDataWithType:self.title isNomal:YES callBack:^(id response, NSError *error) {
         
         if (error) {
             [SVProgressHUD dismiss];
@@ -115,22 +116,22 @@
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
         }
-//        PD_NSLog(@"%@",response);
+//        PD_NSLog(@"置顶新闻IsNomal%@",response);
         
         
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@置顶==201",self.title] duration:3];
             return;
-        }
-        
-        
-        NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:response[DATA]];
-        if (!dataArr.count) {
-            [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@没有置顶新闻",self.title] duration:3];
         }else{
-            [self.topNewsArr addObjectsFromArray:dataArr];
-            [self calculateCellHeightWithModelArray:dataArr];//计算cell高度
-            [self.tableView reloadData];
+            
+            NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:response[DATA]];
+            if (!dataArr.count) {
+                [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@没有置顶新闻",self.title] duration:3];
+            }else{
+                [self.topNewsArr addObjectsFromArray:dataArr];
+                [self calculateCellHeightWithModelArray:dataArr];//计算cell高度
+                [self.tableView reloadData];
+            }
         }
     }];
 }
@@ -157,7 +158,7 @@
             [self.tableView.mj_footer endRefreshing];
         }
         
-//                PD_NSLog(@"%@",response);
+//        PD_NSLog(@"普通新闻%@",response);
         
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];
@@ -338,10 +339,17 @@
     }else{
         model = self.nomalNewsArr[indexPath.row-self.topNewsArr.count];
     }
-    
-    PDNewsDetailController *detailVC = [[PDNewsDetailController alloc]init];
-    detailVC.ID = model.ID;
-    [self.navigationController pushViewController:detailVC animated:YES];
+    if (model.contenttype.integerValue == 0) {
+        PDNewsDetailController *detailVC = [[PDNewsDetailController alloc]init];
+        detailVC.ID = model.ID;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }else{
+        PDSpecialNewsController *specialVC = [[PDSpecialNewsController alloc]init];
+        specialVC.specialID = model.ID;
+        specialVC.specialType = model.contenttype;
+        specialVC.title = model.title;
+        [self.navigationController pushViewController:specialVC animated:YES];
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.topNewsArr.count && indexPath.row < self.topNewsArr.count) {

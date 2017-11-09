@@ -12,6 +12,7 @@
 #import "PDCollectionsController.h"
 #import "PDNotificationController.h"
 #import "AppDelegate.h"
+#import "PDMeModel.h"
 
 @interface PDMeController ()<UITableViewDelegate,UITableViewDataSource,WBHttpRequestDelegate>
 
@@ -183,10 +184,10 @@
 -(void)judgeIsOnLine{
 
     switch ([[NSUserDefaults standardUserDefaults]integerForKey:PD_APPLOGINBY]) {
-        case PDAPPLoginTypeIsLogout://没有登录
+        case PDAPPLoginTypeIsLogout://没有登录过
             [self logoutSuccessful];
             break;
-        default://已经登录过
+        default://最近已经登录过
             [self loginSuccessful];
             break;
     }
@@ -197,7 +198,7 @@
 
     switch ([[NSUserDefaults standardUserDefaults]integerForKey:PD_APPLOGINBY]) {
         case PDAPPLoginTypeWechat:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"微信登录" duration:3];
+
         }
             break;
         case PDAPPLoginTypeSina:{
@@ -209,18 +210,21 @@
                     PD_NSLog(@"error===error===%@",error);
                     return;
                 }
-                //        PD_NSLog(@"用户信息%@",response);
-                [self updateUserInfoWithURL:response[@"profile_image_url"] userName:response[@"screen_name"]];
+                PD_NSLog(@"加载新浪用户信息\n%@",response);
+                NSString *name = response[@"screen_name"];
+                NSString *url = response[@"profile_image_url"];
+                
+                [self pullLoginUserInfoWithLoginType:PDAPPLoginTypeSina userID:[[NSUserDefaults standardUserDefaults]objectForKey:PD_USERID] userName:name headeImagURL:url];
+                
             }];
         }
             break;
         case PDAPPLoginTypeTwitter:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"Twitter登录" duration:3];
+
         }
             break;
         case PDAPPLoginTypeFacebook:{
-            [[PDPublicTools sharedPublicTools]showMessage:@"Facebook登录" duration:3];
-            
+
         }
             break;
         default:
@@ -334,12 +338,36 @@
     [self loadUserInfoData];//记载登录用户数据
     
 }
+//上传登录用户信息
+-(void)pullLoginUserInfoWithLoginType:(PDAPPLoginType)type userID:(NSString*)ID userName:(NSString*)name headeImagURL:(NSString*)URL{
+    
+    [[PDNetworkingTools sharedNetWorkingTools]loginSuccessfulWithLoginType:type userID:ID userName:name headeImagURL:URL CallBack:^(id response, NSError *error) {
+        if (error) {
+            [SVProgressHUD dismiss];
+            [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+            PD_NSLog(@"error===%@",error);
+            return;
+        }
+        
+        PD_NSLog(@"上传登录用户信息\n%@",response);
+        
+        PDMeModel *model = [PDMeModel mj_objectWithKeyValues:response];
+        [self updateUserInfoWithURL:model.data.img userName:model.data.nickname];
+
+    }];
+}
 #pragma mark 登出成功
 -(void)logoutSuccessful{
     
     [self setupLoginView];
-    [[NSUserDefaults standardUserDefaults] setInteger:PDAPPLoginTypeIsLogout forKey:PD_APPLOGINBY];
     self.navigationItem.rightBarButtonItem = nil;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:PDAPPLoginTypeIsLogout forKey:PD_APPLOGINBY];
+    [defaults removeObjectForKey:PD_USERID];
+    [defaults removeObjectForKey:PD_ACCESSTOKEN];
+    [defaults removeObjectForKey:PD_REFRESHTOKEN];
+    [defaults synchronize];
 }
 
 #pragma mark - 登入方式
@@ -368,7 +396,7 @@
 #pragma mark - 登出方式
 //新浪登出
 - (void)logoutWithSina{
-    [WeiboSDK logOutWithToken:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN] delegate:self withTag:@"SinaUser"];
+    [WeiboSDK logOutWithToken:[[NSUserDefaults standardUserDefaults]objectForKey:PD_ACCESSTOKEN] delegate:self withTag:@"SinaUser"];
 }
 //微信登出
 - (void)logoutWithWechat{

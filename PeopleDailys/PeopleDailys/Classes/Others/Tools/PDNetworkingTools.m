@@ -109,6 +109,15 @@
     [self requestWithRequestType:POST url:url params:params callBack:callBack];
 }
 
+//增加评论
+-(void)addCommentWithID:(NSString*)ID content:(NSString*)content callBack:(callBack)callBack{
+    NSString*url = @"api/article/add_comment";
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *accessToken = [defaults objectForKey:PD_ACCESSTOKEN];
+    NSString *userID = [defaults objectForKey:PD_USERID];
+    NSDictionary *params = @{@"nid":ID,@"deviceId":PhoneIDNum,@"uid":userID,@"token":accessToken,@"content":content};
+    [self requestWithRequestType:POST url:url params:params callBack:callBack];
+}
 
 #pragma mark - Search
 //搜索新闻
@@ -120,13 +129,41 @@
 
 
 #pragma mark - Me
+-(void)loginSuccessfulWithLoginType:(PDAPPLoginType)type userID:(NSString*)ID userName:(NSString*)name headeImagURL:(NSString*)URL CallBack:(callBack)callBack{
+    NSString *typeStr;
+    switch (type) {
+        case PDAPPLoginTypeWechat:{
+            typeStr = @"wx";
+        }
+            break;
+        case PDAPPLoginTypeSina:{
+            typeStr = @"weibo";
+        }
+            break;
+        case PDAPPLoginTypeTwitter:{
+            typeStr = @"twitter";
+        }
+            break;
+        case PDAPPLoginTypeFacebook:{
+            typeStr = @"facebook";
+        }
+            break;
+        default:
+            break;
+    }
+    NSString *url = [NSString stringWithFormat:@"api/login/%@_login",typeStr];
+    NSDictionary *params = @{@"openid":ID,@"nickname":name,@"headimgurl":URL};
+    [self requestWithRequestType:GET url:url params:params callBack:callBack];
+}
+
+
 //微博登录获取用户信息
 -(void)getWeiboUserInfoWithCallBack:(callBack)callBack{
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN];
-    NSString *userID = [[NSUserDefaults standardUserDefaults]objectForKey:WB_USERID];
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:PD_ACCESSTOKEN];
+    NSString *userID = [[NSUserDefaults standardUserDefaults]objectForKey:PD_USERID];
     [manager GET:@"https://api.weibo.com/2/users/show.json" parameters:@{@"access_token":accessToken,@"uid":@(userID.integerValue)} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         callBack(responseObject,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -135,7 +172,7 @@
 
 }
 
-
+//文本加载
 -(void)getArticleDataWithMark:(NSString*)mark CallBack:(callBack)callBack{
     NSString*url = @"api/article/article";
     NSDictionary *params = @{@"mark":mark};

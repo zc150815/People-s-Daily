@@ -331,7 +331,7 @@
     imageObject.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.data.pictures.firstObject]]];
     messageObject.imageObject = imageObject;
     
-    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject authInfo:authRequest access_token:[[NSUserDefaults standardUserDefaults]objectForKey:WB_ACCESSTOKEN]];
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject authInfo:authRequest access_token:[[NSUserDefaults standardUserDefaults]objectForKey:PD_ACCESSTOKEN]];
 //    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject];
     request.userInfo = @{@"ShareMessageFrom": @"PDNewsDetailController"};
     if ([WeiboSDK sendRequest:request]) {

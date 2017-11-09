@@ -102,9 +102,9 @@
             case WeiboSDKResponseStatusCodeSuccess:{
                 
                 NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-                [userDefault setObject:[sendMessageToWeiboResponse.authResponse accessToken] forKey:WB_ACCESSTOKEN];
-                [userDefault setObject:[sendMessageToWeiboResponse.authResponse userID] forKey:WB_USERID];
-                [userDefault setObject:[sendMessageToWeiboResponse.authResponse refreshToken] forKey:WB_REFRESHTOKEN];
+                [userDefault setObject:[sendMessageToWeiboResponse.authResponse accessToken] forKey:PD_ACCESSTOKEN];
+                [userDefault setObject:[sendMessageToWeiboResponse.authResponse userID] forKey:PD_USERID];
+                [userDefault setObject:[sendMessageToWeiboResponse.authResponse refreshToken] forKey:PD_REFRESHTOKEN];
                 [userDefault synchronize];
             }
                 break;
@@ -137,9 +137,9 @@
         switch (authResponse.statusCode) {
             case WeiboSDKResponseStatusCodeSuccess:{
                 NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-                [userDefault setObject:authResponse.accessToken forKey:WB_ACCESSTOKEN];
-                [userDefault setObject:authResponse.userID forKey:WB_USERID];
-                [userDefault setObject:authResponse.refreshToken forKey:WB_REFRESHTOKEN];
+                [userDefault setObject:authResponse.accessToken forKey:PD_ACCESSTOKEN];
+                [userDefault setObject:authResponse.userID forKey:PD_USERID];
+                [userDefault setObject:authResponse.refreshToken forKey:PD_REFRESHTOKEN];
                 [userDefault setInteger:PDAPPLoginTypeSina forKey:PD_APPLOGINBY];//记录app登入方式
                 [userDefault synchronize];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"WBAuthorizeResponseSuccessfulNotification" object:nil];

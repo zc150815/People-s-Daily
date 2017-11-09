@@ -52,6 +52,7 @@ typedef void (^callBack)(id response,NSError* error);
 -(void)searchNewsWithSearchString:(NSString*)search page:(NSInteger)page callBack:(callBack)callBack;
 
 #pragma mark - Me
+-(void)loginSuccessfulWithLoginType:(PDAPPLoginType)type userID:(NSString*)ID userName:(NSString*)name headeImagURL:(NSString*)URL CallBack:(callBack)callBack;
 //微博登录获取用户信息
 -(void)getWeiboUserInfoWithCallBack:(callBack)callBack;
 

@@ -113,7 +113,7 @@
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
         }
-//        PD_NSLog(@"置顶新闻IsNomal%@",response);
+        PD_NSLog(@"置顶新闻%@",response);
         
         
         if ([response[STATUS] integerValue] != 200) {
@@ -155,7 +155,7 @@
             [self.tableView.mj_footer endRefreshing];
         }
         
-//        PD_NSLog(@"普通新闻%@",response);
+        PD_NSLog(@"普通新闻%@",response);
         
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];
@@ -368,7 +368,7 @@
         NSString *cellHeight;
         CGFloat titleHeight;
         CGFloat imgViewHeight;
-        NSInteger image_list = model.image_list.integerValue;
+        NSInteger image_list = model.image_list_detail.count;
         if (image_list == 0) { //无图
             
             titleHeight = [self calculateLableHeightWithText:model.title FontSize:TITLELAB_FONTSIZE width:self.view.width-2*TITLELAB_MARGIN_LEADING];

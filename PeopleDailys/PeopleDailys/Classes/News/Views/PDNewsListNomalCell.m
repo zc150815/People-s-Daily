@@ -85,6 +85,8 @@
     specialLab.titleLabel.font = PD_Font(10);
     [specialLab setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     specialLab.contentEdgeInsets = UIEdgeInsetsMake(PD_Fit(2), PD_Fit(2), PD_Fit(2), PD_Fit(2));
+    specialLab.hidden = YES;
+    specialLab.bounds = CGRectMake(0, 0, PD_Fit(90), PD_Fit(15));
     self.specialLab = specialLab;
     [self.contentView addSubview:specialLab];
     
@@ -99,7 +101,7 @@
     [self.timeLab sizeToFit];
     
     
-    NSInteger image_list = _model.image_list.integerValue;
+    NSInteger image_list = _model.image_list_detail.count;
     if (image_list == 0) { //无图
         self.imgView.hidden = YES;
         self.titleLab.width = self.width - 2*TITLELAB_MARGIN_LEADING;
@@ -119,6 +121,9 @@
         self.imgView.frame = CGRectMake(IMAGEVIEW_MARGIN_LEADING, CGRectGetMaxY(self.titleLab.frame)+IMAGEVIEW_MARGIN_TOP, self.titleLab.width, imgHeight );
         
         self.timeLab.y = CGRectGetMaxY(self.imgView.frame)+TIMELAB_MARGIN_TOP;
+        
+        self.specialLab.x = CGRectGetMaxX(self.commentBtn.frame)+PD_Fit(15);
+        self.specialLab.centerY = self.commentBtn.centerY;
     }else{//图片在右端
         self.imgView.hidden = NO;
         
@@ -131,12 +136,11 @@
         
         [self.timeLab sizeToFit];
         self.timeLab.y = CGRectGetMaxY(self.imgView.frame)-self.timeLab.height;
+        
+        self.specialLab.x = self.titleLab.x;
+        self.specialLab.y = CGRectGetMaxY(self.titleLab.frame);
     }
     
-    
-    self.specialLab.x = self.titleLab.x;
-    self.specialLab.y = CGRectGetMaxY(self.titleLab.frame)+PD_Fit(5);
-    [self.specialLab sizeToFit];
     if (_model.contenttype.integerValue) {
         self.specialLab.hidden = NO;
     }else{
@@ -162,7 +166,7 @@
     
     [self.commentBtn setTitle:model.comment_num?model.comment_num:@"0" forState:UIControlStateNormal];
     
-    NSInteger image_list = model.image_list.integerValue;
+    NSInteger image_list = _model.image_list_detail.count;
     if (image_list == 0) { //无图
         self.imgView.hidden = YES;
         imgCount = 0;

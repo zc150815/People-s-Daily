@@ -66,7 +66,7 @@
     webView.scalesPageToFit = NO;
     webView.dataDetectorTypes = UIDataDetectorTypePhoneNumber;
     webView.allowsInlineMediaPlayback = YES;
-    webView.mediaPlaybackRequiresUserAction = NO;
+    webView.mediaPlaybackRequiresUserAction = YES;
     self.webView = webView;
     [self.view addSubview:webView];
     
@@ -327,12 +327,22 @@
     WBMessageObject *messageObject = [WBMessageObject message];
     messageObject.text = [NSString stringWithFormat:@"%@%@",_model.data.title,[NSString stringWithFormat:@"%@home/article/index/id/%@",URL_BASE,_model.data.ID]];
     
-    WBImageObject *imageObject = [WBImageObject object];
-    imageObject.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.data.pictures.firstObject]]];
-    messageObject.imageObject = imageObject;
+//    if (_model.data.pictures.count) {
+//
+//    WBImageObject *imageObject = [WBImageObject object];
+//    imageObject.delegate = self;
+//
+//        NSMutableArray *imageArr = [NSMutableArray arrayWithCapacity:_model.data.pictures.count];
+//
+//        for (NSInteger i=0; i<(_model.data.pictures.count>=3?3:_model.data.pictures.count); i++) {
+//            NSString *url = _model.data.pictures[i];
+//            [imageArr addObject:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:url]];
+//        }
+//        [imageObject addImages:imageArr];
+//        messageObject.imageObject = imageObject;
+//    }
     
     WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject authInfo:authRequest access_token:[[NSUserDefaults standardUserDefaults]objectForKey:PD_ACCESSTOKEN]];
-//    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject];
     request.userInfo = @{@"ShareMessageFrom": @"PDNewsDetailController"};
     if ([WeiboSDK sendRequest:request]) {
         PD_NSLog(@"成功成功");

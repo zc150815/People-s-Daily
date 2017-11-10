@@ -81,14 +81,17 @@
     
     UIButton *specialLab = [UIButton buttonWithType:UIButtonTypeCustom];
     [specialLab setBackgroundColor:[UIColor getColor:COLOR_BASE]];
-    [specialLab setTitle:@"Special Coverage" forState:UIControlStateNormal];
     specialLab.titleLabel.font = PD_Font(10);
+    [specialLab setTitle:@"Special Coverage" forState:UIControlStateNormal];
     [specialLab setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     specialLab.contentEdgeInsets = UIEdgeInsetsMake(PD_Fit(2), PD_Fit(2), PD_Fit(2), PD_Fit(2));
     specialLab.hidden = YES;
-    specialLab.bounds = CGRectMake(0, 0, PD_Fit(90), PD_Fit(15));
     self.specialLab = specialLab;
     [self.contentView addSubview:specialLab];
+    [specialLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(commentBtn.mas_trailing).offset(PD_Fit(10));
+        make.centerY.equalTo(commentBtn);
+    }];
     
 }
 -(void)layoutSubviews{
@@ -108,7 +111,7 @@
         [self.titleLab sizeToFit];
         
         self.timeLab.y = CGRectGetMaxY(self.titleLab.frame)+TIMELAB_MARGIN_TOP;
-        
+
     }else if (image_list >= 3){//图片在下方
     
         self.imgView.hidden = NO;
@@ -122,8 +125,6 @@
         
         self.timeLab.y = CGRectGetMaxY(self.imgView.frame)+TIMELAB_MARGIN_TOP;
         
-        self.specialLab.x = CGRectGetMaxX(self.commentBtn.frame)+PD_Fit(15);
-        self.specialLab.centerY = self.commentBtn.centerY;
     }else{//图片在右端
         self.imgView.hidden = NO;
         
@@ -137,15 +138,12 @@
         [self.timeLab sizeToFit];
         self.timeLab.y = CGRectGetMaxY(self.imgView.frame)-self.timeLab.height;
         
-        self.specialLab.x = self.titleLab.x;
-        self.specialLab.y = CGRectGetMaxY(self.titleLab.frame);
     }
     
-    if (_model.contenttype.integerValue) {
-        self.specialLab.hidden = NO;
-    }else{
-        self.specialLab.hidden = YES;
-    }
+//    _specialLab.hidden = !_model.contenttype.integerValue;
+//    _specialLab.x = CGRectGetMaxX(self.commentBtn.frame)+PD_Fit(15);
+//    _specialLab.y = self.commentBtn.y;
+////    [_specialLab sizeToFit];
 }
 
 
@@ -158,11 +156,19 @@
     CGFloat imgWith = 0;
     //图片高度
     CGFloat imgHeight = 0;
-    
-    
+
+//    NSMutableAttributedString * titleAtt = [[NSMutableAttributedString alloc] initWithString:model.title];
+//    NSMutableParagraphStyle * para = [[NSMutableParagraphStyle alloc] init];
+//    [para setLineSpacing:PD_Fit(TITLELAB_LINESPACING)];
+//    [para setLineBreakMode:NSLineBreakByTruncatingTail];
+//    [titleAtt addAttribute:NSParagraphStyleAttributeName value:para range:NSMakeRange(0, [model.title length])];
+//    [self.titleLab setAttributedText:titleAtt];
     self.titleLab.text = model.title;
     [self.titleLab sizeToFit];
     self.timeLab.text = model.pub_time.length?model.pub_time:(model.return_time?model.return_time:model.create_time);
+    
+    
+    
     
     [self.commentBtn setTitle:model.comment_num?model.comment_num:@"0" forState:UIControlStateNormal];
     
@@ -199,6 +205,9 @@
         picView.frame = CGRectMake(imgX, 0, imgWith, imgHeight);
         [self.imgView addSubview:picView];
     }
+    
+    _specialLab.hidden = !_model.contenttype.integerValue;
+
 }
 @end
 

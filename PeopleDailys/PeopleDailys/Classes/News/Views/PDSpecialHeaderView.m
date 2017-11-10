@@ -37,7 +37,7 @@
         descLab.titleLabel.font = PD_Font(15);
         descLab.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //        descLab.contentEdgeInsets = UIEdgeInsetsMake(0, PD_Fit(15), 0, 0);
-        descLab.frame = CGRectMake(0, frame.size.height-PD_Fit(20), frame.size.width, PD_Fit(20));
+        descLab.frame = CGRectMake(0, frame.size.height-PD_Fit(30), frame.size.width, PD_Fit(30));
         self.descLab = descLab;
         [self addSubview:descLab];
         [self bringSubviewToFront:descLab];

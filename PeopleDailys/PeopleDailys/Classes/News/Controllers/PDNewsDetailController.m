@@ -11,11 +11,13 @@
 #import "PDNewsDetailToolsView.h"
 #import "ZCCoverScreenView.h"
 #import "AppDelegate.h"
+#import <WebKit/WebKit.h>
 
+@interface PDNewsDetailController ()<PDNewsDetailToolsViewDelegate,WKNavigationDelegate,ZCCoverScreenViewDelegate,WBMediaTransferProtocol>
 
-@interface PDNewsDetailController ()<PDNewsDetailToolsViewDelegate,UIWebViewDelegate,ZCCoverScreenViewDelegate,WBMediaTransferProtocol>
+//@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) WKWebView *webView;
 
-@property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) PDNewsDetailToolsView *toolsView;
 
 @end
@@ -57,16 +59,13 @@
     [self.view addSubview:toolsView];
     
     
-    UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - toolsView.height)];
-    webView.delegate = self;
+    WKWebView *webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - toolsView.height)];
+
+//    webView.navigationDelegate = self;
     webView.scrollView.bounces = NO;
     webView.scrollView.showsVerticalScrollIndicator = NO;
     webView.scrollView.showsHorizontalScrollIndicator = NO;
     webView.backgroundColor = [UIColor whiteColor];
-    webView.scalesPageToFit = NO;
-    webView.dataDetectorTypes = UIDataDetectorTypePhoneNumber;
-    webView.allowsInlineMediaPlayback = YES;
-    webView.mediaPlaybackRequiresUserAction = YES;
     self.webView = webView;
     [self.view addSubview:webView];
     
@@ -74,6 +73,7 @@
 
 }
 -(void)loadData{
+    
     [[PDNetworkingTools sharedNetWorkingTools]getNewsDetailDataWithID:self.ID callBack:^(id response, NSError *error) {
         if (error) {
             [SVProgressHUD dismiss];
@@ -81,17 +81,15 @@
             PD_NSLog(@"error===%@",error);
             return;
         }
-        
+
         PD_NSLog(@"%@",response);
         if ([response isKindOfClass:[NSDictionary class]]) {
             _model = [PDNewsModel mj_objectWithKeyValues:response];
         }
-        
-        
+
         [self loadDataWithModel:_model];
-        
-//        [self loadDataWithURL:model.data.url];
     }];
+    
     
     [[PDNetworkingTools sharedNetWorkingTools]getNewsAttriDataWithID:self.ID callBack:^(id response, NSError *error) {
         if (error) {
@@ -121,8 +119,7 @@
 //加载网页
 -(void)loadDataWithURL:(NSString*)url{
     
-    NSString *testUrl = @"http://www.json.cn";
-    NSURLRequest *quest = [NSURLRequest requestWithURL:[NSURL URLWithString:testUrl]];
+    NSURLRequest *quest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:quest];
     
 }
@@ -221,6 +218,44 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     self.toolsView.userInteractionEnabled = YES;
 }
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    
+    NSString *string = [[request URL] absoluteString];
+    PD_NSLog(@"%@",string);
+    return YES;
+}
+
+#pragma mark - WKNavigationDelegate代理方法
+// 页面开始加载时调用
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+    
+}
+// 当内容开始返回时调用
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation{
+    
+}
+// 页面加载完成之后调用
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    
+}
+// 页面加载失败时调用
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation{
+    
+}
+// 接收到服务器跳转请求之后调用
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation{
+    
+}
+// 在收到响应后，决定是否跳转
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
+    
+}
+// 在发送请求之前，决定是否跳转
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
+    
+}
+
+
 
 #pragma mark - PDNewsDetailToolsViewDelegate代理方法
 -(void)PDNewsDetailToolsView:(PDNewsDetailToolsView *)toolsView toolsButtonClickWith:(UIButton *)sender{
@@ -325,7 +360,7 @@
                          @"Other_Info_1": @"loginWithSina",};
     
     WBMessageObject *messageObject = [WBMessageObject message];
-    messageObject.text = [NSString stringWithFormat:@"%@%@",_model.data.title,[NSString stringWithFormat:@"%@home/article/index/id/%@",URL_BASE,_model.data.ID]];
+    messageObject.text = [NSString stringWithFormat:@"%@\n%@",_model.data.title,[NSString stringWithFormat:@"%@home/article/index/id/%@",URL_BASE,_model.data.ID]];
     
 //    if (_model.data.pictures.count) {
 //
@@ -356,7 +391,7 @@
  */
 -(void)wbsdk_TransferDidReceiveObject:(id)object{
     [self weiboShare];
-    PD_NSLog(@"%@",object);
+//    PD_NSLog(@"%@",object);
     [SVProgressHUD dismiss];
 }
 

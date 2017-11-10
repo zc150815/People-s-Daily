@@ -137,12 +137,12 @@
         NSInteger image_list = model.image_list.integerValue;
         if (image_list == 0) { //无图
             
-            titleHeight = [self calculateLableHeightWithText:model.title FontSize:TITLELAB_FONTSIZE width:self.view.width-2*TITLELAB_MARGIN_LEADING];
+            titleHeight = [self calculateLableHeightWithText:model.title FontSize:PD_Fit(TITLELAB_FONTSIZE) width:self.view.width-2*TITLELAB_MARGIN_LEADING];
             cellHeight = [NSString stringWithFormat:@"%.2f",TITLELAB_MARGIN_TOP+titleHeight+TIMELAB_MARGIN_TOP*2+TIMELAB_FONTSIZE];
             
         }else if (image_list >= 3){//图片在下方
             
-            titleHeight = [self calculateLableHeightWithText:model.title FontSize:TITLELAB_FONTSIZE width:self.view.width-2*TITLELAB_MARGIN_LEADING];
+            titleHeight = [self calculateLableHeightWithText:model.title FontSize:PD_Fit(TITLELAB_FONTSIZE) width:self.view.width-2*TITLELAB_MARGIN_LEADING];
             
             CGFloat imgWith = (self.view.width - 2 * TITLELAB_MARGIN_LEADING - 2 * PICTURE_MARGIN) / 3;
             imgViewHeight = imgWith / IMAGEVIEW_WIDTH_SINGLE* IMAGEVIEW_HEIGHT_SINGLE;
@@ -170,7 +170,9 @@
 -(CGFloat)calculateLableHeightWithText:(NSString*)text FontSize:(CGFloat)fontSize width:(CGFloat)width{
     
     CGSize titleSize = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil].size;
-    return titleSize.height;
+    CGFloat lineH = [UIFont systemFontOfSize:fontSize].lineHeight;
+    NSInteger rowCount = titleSize.height/lineH;
+    return (rowCount>=2)?2*lineH:lineH;
 }
 
 #pragma mark - Lazy

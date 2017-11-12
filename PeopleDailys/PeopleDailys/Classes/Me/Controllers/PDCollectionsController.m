@@ -67,18 +67,22 @@
         NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:response[DATA]];
         if (!dataArr.count) {
             [[PDPublicTools sharedPublicTools]showMessage:@"没有收藏或更多收藏" duration:3];
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            self.tableView.mj_footer.hidden = YES;
+
         }else{
             [self.collectionArr addObjectsFromArray:dataArr];
             [self calculateCellHeightWithModelArray:dataArr];
             _page ++;
             [self.tableView reloadData];
+            [self.tableView.mj_footer endRefreshing];
+
         }
     }];
     
 }
 
-#pragma mark
-#pragma mark UITableView代理方法
+#pragma mark - UITableView代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     tableView.mj_footer.hidden = !self.collectionArr.count;
@@ -122,7 +126,7 @@
         if (image_list == 0) { //无图
             
             titleHeight = [self calculateLableHeightWithText:model.title FontSize:TITLELAB_FONTSIZE width:self.view.width-2*TITLELAB_MARGIN_LEADING];
-            cellHeight = [NSString stringWithFormat:@"%.2f",TITLELAB_MARGIN_TOP+titleHeight+TIMELAB_MARGIN_TOP+TIMELAB_FONTSIZE];
+            cellHeight = [NSString stringWithFormat:@"%.2f",TITLELAB_MARGIN_TOP+titleHeight+TIMELAB_MARGIN_TOP*2+TIMELAB_FONTSIZE];
             
         }else if (image_list >= 3){//图片在下方
             
@@ -154,7 +158,9 @@
 -(CGFloat)calculateLableHeightWithText:(NSString*)text FontSize:(CGFloat)fontSize width:(CGFloat)width{
     
     CGSize titleSize = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil].size;
-    return titleSize.height;
+    CGFloat lineH = [UIFont systemFontOfSize:fontSize].lineHeight;
+    NSInteger rowCount = titleSize.height/lineH;
+    return (rowCount>=2)?2*lineH:lineH;
 }
 
 

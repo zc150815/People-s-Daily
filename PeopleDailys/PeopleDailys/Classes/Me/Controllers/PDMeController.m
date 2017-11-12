@@ -353,6 +353,11 @@
         
         PDMeModel *model = [PDMeModel mj_objectWithKeyValues:response];
         [self updateUserInfoWithURL:model.data.img userName:model.data.nickname];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:model.data.ID forKey:PD_APPUID];
+        [defaults setObject:model.data.token forKey:PD_APPTOKEN];
+        [defaults synchronize];
 
     }];
 }
@@ -367,6 +372,8 @@
     [defaults removeObjectForKey:PD_USERID];
     [defaults removeObjectForKey:PD_ACCESSTOKEN];
     [defaults removeObjectForKey:PD_REFRESHTOKEN];
+    [defaults removeObjectForKey:PD_APPTOKEN];
+    [defaults removeObjectForKey:PD_APPUID];
     [defaults synchronize];
 }
 
@@ -384,6 +391,15 @@
 //微信登入
 - (void)loginWithWechat{
     
+    SendAuthReq *request = [[SendAuthReq alloc]init];
+    request.scope = @"snsapi_userinfo";
+    request.state = @"People's Daily";
+    
+    if ([WXApi sendReq:request]) {
+        PD_NSLog(@"成功成功");
+    }else{
+        PD_NSLog(@"失败失败");
+    }
 }
 //Twitter登入
 - (void)loginWithTwtter{

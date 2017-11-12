@@ -13,7 +13,7 @@
 
 
 @property (nonatomic,strong) NSString *ID;
-@property (nonatomic,copy) NSString *content;
+//@property (nonatomic,copy) NSString *content;
 
 @property (nonatomic, strong) PDNewsModel *model;
 

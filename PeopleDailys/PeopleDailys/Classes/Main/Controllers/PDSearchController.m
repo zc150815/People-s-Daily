@@ -33,7 +33,14 @@
     [self setupUI];
     [self setupNavigationItem];
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.searchField becomeFirstResponder];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.searchField endEditing:YES];
+}
 -(void)setupUI{
     
     self.extendedLayoutIncludesOpaqueBars = YES;
@@ -67,11 +74,17 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:searchBtn];
     
     //搜索框
-    UITextField *searchField = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 250, 25)];
+    UITextField *searchField = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 250, 30)];
     searchField.backgroundColor = [UIColor getColor:@"f6f6f6"];
-    searchField.leftView = [[UIImageView alloc]initWithImage:[UIImage scaleFromImage:[UIImage imageNamed:@"search-gray"] toSize:CGSizeMake(searchField.height*0.8, searchField.height*0.8)]];
+    searchField.layer.cornerRadius = 5;
+    UIButton *leftView = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *leftImg = [UIImage scaleFromImage:[UIImage imageNamed:@"search-gray"] toSize:CGSizeMake(searchField.height*0.7, searchField.height*0.7)];
+    [leftView setImage:leftImg forState:UIControlStateNormal];
+    leftView.bounds = CGRectMake(0, 0, searchField.height*1.3, searchField.height);
+    searchField.leftView = leftView;
     searchField.leftViewMode = UITextFieldViewModeAlways;
     searchField.userInteractionEnabled = YES;
+    searchField.tintColor = [UIColor blackColor];
     self.searchField = searchField;
     self.navigationItem.titleView = searchField;
 
@@ -97,6 +110,7 @@
         NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:response[DATA]];
         if (!dataArr.count) {
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            self.tableView.mj_footer.hidden = YES;
         }else{
             [self.tableView.mj_footer endRefreshing];
             [self.searchArr addObjectsFromArray:dataArr];
@@ -108,8 +122,8 @@
     
 }
 
-#pragma mark
-#pragma mark UITableView代理方法
+
+#pragma mark - UITableView代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     tableView.mj_footer.hidden = !self.searchArr.count;
     return self.searchArr.count;
@@ -154,7 +168,7 @@
         if (image_list == 0) { //无图
             
             titleHeight = [self calculateLableHeightWithText:model.title FontSize:TITLELAB_FONTSIZE width:self.view.width-2*TITLELAB_MARGIN_LEADING];
-            cellHeight = [NSString stringWithFormat:@"%.2f",TITLELAB_MARGIN_TOP+titleHeight+TIMELAB_MARGIN_TOP+TIMELAB_FONTSIZE];
+            cellHeight = [NSString stringWithFormat:@"%.2f",TITLELAB_MARGIN_TOP+titleHeight+TIMELAB_MARGIN_TOP*2+TIMELAB_FONTSIZE];
             
         }else if (image_list >= 3){//图片在下方
             
@@ -186,7 +200,9 @@
 -(CGFloat)calculateLableHeightWithText:(NSString*)text FontSize:(CGFloat)fontSize width:(CGFloat)width{
     
     CGSize titleSize = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil].size;
-    return titleSize.height;
+    CGFloat lineH = [UIFont systemFontOfSize:fontSize].lineHeight;
+    NSInteger rowCount = titleSize.height/lineH;
+    return (rowCount>=2)?2*lineH:lineH;
 }
 
 

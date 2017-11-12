@@ -30,22 +30,25 @@ typedef void (^callBack)(id response,NSError* error);
 #pragma mark News
 //获取置顶新闻
 -(void)getChannelTopNewsDataWithType:(NSString*)type isNomal:(BOOL)isNomal callBack:(callBack)callBack;
+//新闻专题
+-(void)getSpecialNewsWithID:(NSString*)ID type:(NSString*)type page:(NSInteger)page callBack:(callBack)callBack;
 //获取频道新闻
 -(void)getChannelNomalNewsDataWithType:(NSString*)type callBack:(callBack)callBack;
 //获取频道更多新闻
 -(void)getChannelNomalNewsMoreDataWithType:(NSString *)type lastTime:(NSString*)lastTime callBack:(callBack)callBack;
 //获取频道最新新闻
 -(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type original:(NSString*)original final:(NSString*)final callBack:(callBack)callBack;
-
 //获取新闻详情
 -(void)getNewsDetailDataWithID:(NSString*)ID callBack:(callBack)callBack;
 -(void)getNewsAttriDataWithID:(NSString*)ID callBack:(callBack)callBack;
-
 //收藏新闻
 -(void)collectNewsWithID:(NSString*)ID isCollect:(NSString*)isCollect callBack:(callBack)callBack;
-//新闻专题
--(void)getSpecialNewsWithID:(NSString*)ID type:(NSString*)type page:(NSInteger)page callBack:(callBack)callBack;
-
+//评论列表
+-(void)getCommentDataWithNewsID:(NSString*)nid page:(NSInteger)page callBack:(callBack)callBack;
+//获取用户昵称和头像
+-(void)getAppUserInfoWithCallBack:(callBack)callBack;
+//增加评论
+-(void)addCommentWithID:(NSString*)ID content:(NSString*)content callBack:(callBack)callBack;
 
 #pragma mark - Search
 //搜索新闻

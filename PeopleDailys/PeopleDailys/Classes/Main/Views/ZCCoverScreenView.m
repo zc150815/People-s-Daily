@@ -9,9 +9,15 @@
 #import "ZCCoverScreenView.h"
 #import "PDMainModel.h"
 
-@interface ZCCoverScreenView ()
+@interface ZCCoverScreenView ()<UITextViewDelegate>
 
 @property (nonatomic, strong) UIView *mainView;
+
+//commentView
+@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UILabel *placeHolder;
+@property (nonatomic, strong) UIButton *sendComment;
+
 
 @end
 @implementation ZCCoverScreenView;
@@ -97,7 +103,7 @@
 -(void)keyboardWillChangeFrame:(NSNotification*)noti{
     
     NSDictionary *userInfo = noti.userInfo;
-    PD_NSLog(@"%@",userInfo);
+//    PD_NSLog(@"%@",userInfo);
     CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGRect  endRect = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
@@ -158,8 +164,23 @@
     
     UITextView *textView = [[UITextView alloc]initWithFrame:CGRectMake(PD_Fit(15), PD_Fit(15), self.mainView.width-2*PD_Fit(15), PD_Fit(130))];
     textView.backgroundColor = [UIColor getColor:@"eeeeee"];
+    textView.font = PD_Font(15);
+    textView.delegate = self;
 //    textView.layer.cornerRadius = PD_Fit(10);
+    self.textView = textView;
     [self.mainView addSubview:textView];
+    
+    UILabel *placeHolder = [[UILabel alloc]init];
+    placeHolder.numberOfLines = 0;
+    placeHolder.text = @"Add Your Comment";
+    placeHolder.textColor = [UIColor getColor:@"888888"];
+    placeHolder.font = textView.font;
+    placeHolder.x = textView.textContainerInset.top;
+    placeHolder.y = textView.textContainerInset.top;
+    [placeHolder sizeToFit];
+    self.placeHolder = placeHolder;
+    [textView addSubview:placeHolder];
+    
     
     UIButton *sendComment = [UIButton buttonWithType:UIButtonTypeCustom];
     [sendComment setTitle:@"Send" forState:UIControlStateNormal];
@@ -172,23 +193,29 @@
     sendComment.centerY = self.mainView.height - (self.mainView.height - CGRectGetMaxY(textView.frame))/2;
     sendComment.x = self.mainView.width - sendComment.width - PD_Fit(15);
     [sendComment addTarget:self action:@selector(sendCommentButton) forControlEvents:UIControlEventTouchUpInside];
+    self.sendComment = sendComment;
     [self.mainView addSubview:sendComment];
     
     
     UIButton *userInfo = [UIButton buttonWithType:UIButtonTypeCustom];
     userInfo.adjustsImageWhenHighlighted = NO;
-    [userInfo setTitle:[NSString stringWithFormat:@"%@",info.count?info.lastObject:@"Alexander"] forState:UIControlStateNormal];
     [userInfo setTitleColor:[UIColor getColor:@"333333"] forState:UIControlStateNormal];
     userInfo.titleLabel.font = PD_Font(12);
-    UIImage *userImg = [UIImage scaleFromImage:[UIImage imageNamed:@"my2"] toSize:CGSizeMake(PD_Fit(25), PD_Fit(25))];
-    [userInfo sd_setImageWithURL:info.firstObject forState:UIControlStateNormal placeholderImage:[userImg drawCircleImageWithImage:userImg WithCornerRadius:userImg.size.height]];
-    [userInfo sizeToFit];
-    userInfo.x = textView.x;
-    userInfo.centerY = self.mainView.height - (self.mainView.height - CGRectGetMaxY(textView.frame))/2;
-    userInfo.width = CGRectGetMinX(sendComment.frame)-userInfo.x;
+    [userInfo addTarget:self action:@selector(userInfoButton) forControlEvents:UIControlEventTouchUpInside];
     userInfo.titleEdgeInsets = UIEdgeInsetsMake(0, PD_Fit(10), 0, -PD_Fit(10));
     userInfo.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [userInfo addTarget:self action:@selector(userInfoButton) forControlEvents:UIControlEventTouchUpInside];
+    
+    CGFloat width = CGRectGetMinX(sendComment.frame)-userInfo.x;
+    CGFloat height = PD_Fit(25);
+    userInfo.frame = CGRectMake(textView.x, sendComment.y, width, height);
+    UIImage *userImg = [UIImage scaleFromImage:[UIImage imageNamed:@"my2"] toSize:CGSizeMake(height, height)];
+    
+    [userInfo sd_setImageWithURL:info.firstObject forState:UIControlStateNormal placeholderImage:[userImg drawCircleImageWithImage:userImg WithCornerRadius:userImg.size.height] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (!error) {
+            [userInfo setImage:[image drawCircleImageWithImage:[UIImage scaleFromImage:image toSize:CGSizeMake(height, height)] WithCornerRadius:height] forState:UIControlStateNormal];
+        }
+    }];
+    [userInfo setTitle:[NSString stringWithFormat:@"%@",[info.lastObject length]?info.lastObject:@"Alexander"] forState:UIControlStateNormal];
     [self.mainView addSubview:userInfo];
     
 }
@@ -198,9 +225,13 @@
 }
 -(void)sendCommentButton{
     
-    [self endEditing:YES];
-    [self dismiss];
-    [[PDPublicTools sharedPublicTools]showMessage:@"发表评论" duration:3];
+    if (_textView.text.length) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(ZCCoverScreenView:addCommentWithCommentText:)]) {
+            [self.delegate ZCCoverScreenView:self addCommentWithCommentText:self.textView.text];
+        }
+        [self endEditing:YES];
+        [self dismiss];
+    }
 }
 #pragma mark - 分享途径选择
 -(void)shareMessage{
@@ -252,5 +283,13 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(ZCCoverScreenView:shareMessageWithShareByType:)]) {
         [self.delegate ZCCoverScreenView:self shareMessageWithShareByType:sender.tag];
     }
+}
+
+
+#pragma mark - UITextView代理方法
+- (void)textViewDidChange:(UITextView *)textView{
+    
+    textView.text.length?[_sendComment setBackgroundColor:[UIColor getColor:COLOR_BASE]]:[_sendComment setBackgroundColor:[UIColor getColor:@"888888"]];
+    self.placeHolder.hidden = textView.text.length;
 }
 @end

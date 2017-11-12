@@ -52,6 +52,15 @@
 @property (nonatomic,copy) NSString *banner_img;//专题报道滚动图片
 @property (nonatomic,copy) NSString *descrip;//专题报道描述
 
+#pragma mark - 评论
+@property (nonatomic,copy) NSString *comment_time;//评论时间
+@property (nonatomic,copy) NSString *deviceid;
+@property (nonatomic,copy) NSString *img;
+@property (nonatomic,copy) NSString *is_show;
+@property (nonatomic,copy) NSString *nickname;
+@property (nonatomic,copy) NSString *nid;
+@property (nonatomic,copy) NSString *uid;
+
 
 
 @end

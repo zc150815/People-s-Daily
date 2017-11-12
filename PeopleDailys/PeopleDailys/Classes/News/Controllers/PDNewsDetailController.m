@@ -8,6 +8,7 @@
 
 #import "PDNewsDetailController.h"
 #import "PDNewsModel.h"
+#import "PDMeModel.h"
 #import "PDNewsDetailToolsView.h"
 #import "ZCCoverScreenView.h"
 #import "AppDelegate.h"
@@ -24,6 +25,7 @@
 
 @implementation PDNewsDetailController{
     CGFloat _textFontSize;
+    NSInteger _page;
 }
 
 - (void)viewDidLoad {
@@ -61,7 +63,7 @@
     
     WKWebView *webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - toolsView.height)];
 
-//    webView.navigationDelegate = self;
+    webView.navigationDelegate = self;
     webView.scrollView.bounces = NO;
     webView.scrollView.showsVerticalScrollIndicator = NO;
     webView.scrollView.showsHorizontalScrollIndicator = NO;
@@ -110,150 +112,47 @@
     
 }
 
-//加载标签
--(void)loadDataWithModel:(PDNewsModel*)model{
+-(void)loadCommentData{
     
-    [self.webView loadHTMLString:[self NomalNewsWebLayoutWithModel:model] baseURL:nil];
+    [[PDNetworkingTools sharedNetWorkingTools]getCommentDataWithNewsID:self.ID page:_page callBack:^(id response, NSError *error) {
+        if (error) {
+            [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+            return ;
+        }
+        PD_NSLog(@"%s%@",__FUNCTION__,response);
+    }];
 }
-
-//加载网页
--(void)loadDataWithURL:(NSString*)url{
-    
-    NSURLRequest *quest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [self.webView loadRequest:quest];
-    
-}
-
-#pragma mark - 新闻网页布局
--(NSString*)NomalNewsWebLayoutWithModel:(PDNewsModel*)model{
-    
-    NSString *htmlString = [NSString stringWithFormat:@"<html>\n"
-                            "<head>\n"
-                            "<meta charset=\"UTF-8\"/>"
-                            "<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\" name=\"viewport\"/>"
-                            "<meta content=\"yes\" name=\"apple-mobile-web-app-capable\"/>"
-                            "<meta content=\"black\" name=\"apple-mobile-web-app-status-bar-style\"/>"
-                            "<meta content=\"telephone=no\" name=\"format-detection\"/>"
-                            "<title>人民日报详情页</title>"
-                            "<style>"
-                            "body{"
-                                "font-family: Arial, Helvetica, sans-serif;"
-                                "font-size: %@px;"
-                                "font-weight: normal;"
-                                "word-wrap: break-word;"
-                                "-webkit-user-select: auto;"
-                                "user-select: auto;"
-                            "}"
-                            ".content{"
-                            "padding: 10px 5px;"
-                            "background: #fff;"
-                                "margin-bottom: 10px;"
-                            "}"
-                            ".content .title{"
-                                "font-size: 27px;"
-                                "font-weight: bold;"
-                                "margin-bottom: 8px;"
-                            "color: #333;"
-                            "}"
-                            ".content .info{"
-                            "color: #888;"
-                                "font-size: 11px;"
-                                "font-weight: normal"
-                            "}"
-                            ".content .info .author{"
-                                "margin-right: 10px;"
-                            "}"
-                            ".content .info .time{"
-                            "padding:0 5px;"
-                            "}"
-                            ".main{"
-                            "color: #333"
-                            "}"
-                            ".main p{"
-                                "line-height: 28px"
-                            "}"
-                            ".main img{width: 100%%}"
-                            "</style>"
-                            "</head>"
-                            "<body>"
-                            "<div class=\"content\">"
-                            "<div class=\"title\">%@"
-                            //标题
-                            "</div>"
-                            "<div class=\"info\">"
-                            "<span class=\"author\">%@"
-                            //作者
-                            "</span>"
-                            "<span class=\"time\">%@"
-                            //时间
-                            "</span><span class=\"source\">| From:%@"
-                            //来源
-                            "</span>"
-                            "</div>"
-                            
-                            "<div class=\"main\" id=\"main\">%@"
-                            //内容
-                            //内容 end
-                            "</div>"
-                            "</div>"
-                            "<script>"
-                            "var dom = document.getElementById('main');"
-                            "var img = dom.getElementsByTagName('img');"
-                            "for(var i=0;img.length>i;i++){"
-                            "img[i].style.width = '100%%';"
-                            "img[i].style.height ='auto'\n"
-                                "img[i].index = i;"
-                                "img[i].onclick = function(){"
-                                    "alert(this.index);"
-                                "}"
-                            "}"
-                            "</script>"
-                            "</body>"
-                            "</html>"
-                            "",[NSString stringWithFormat:@"%f",_textFontSize],model.data.title,model.data.authors,model.data.pub_time,model.data.source,model.data.content];
-    return htmlString;
-}
-
-#pragma mark - UIWebViewDelegate代理方法
--(void)webViewDidFinishLoad:(UIWebView *)webView{
-    self.toolsView.userInteractionEnabled = YES;
-}
--(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    NSString *string = [[request URL] absoluteString];
-    PD_NSLog(@"%@",string);
-    return YES;
-}
-
 #pragma mark - WKNavigationDelegate代理方法
-// 页面开始加载时调用
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
-    
-}
-// 当内容开始返回时调用
-- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation{
-    
-}
+//// 页面开始加载时调用
+//- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+//
+//}
+//// 当内容开始返回时调用
+//- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation{
+//
+//}
 // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     
+    self.toolsView.userInteractionEnabled = YES;
+    [self loadCommentData];
 }
 // 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation{
     
 }
-// 接收到服务器跳转请求之后调用
-- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation{
-    
-}
-// 在收到响应后，决定是否跳转
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
-    
-}
-// 在发送请求之前，决定是否跳转
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
-    
-}
+//// 接收到服务器跳转请求之后调用
+//- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation{
+//
+//}
+//// 在收到响应后，决定是否跳转
+//- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
+//
+//}
+//// 在发送请求之前，决定是否跳转
+//- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
+//
+//}
 
 
 
@@ -294,8 +193,26 @@
         }
             break;
         case PDNewsDetailToolsViewToolTypeSendComment:{
-            [ZCCoverScreenView CS_AddCommentWithUserInfo:nil];
-            [ZCCoverScreenView show];
+            
+            [[PDNetworkingTools sharedNetWorkingTools]getAppUserInfoWithCallBack:^(id response, NSError *error) {
+                [SVProgressHUD dismiss];
+                if (error) {
+                    [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+                    return ;
+                }
+                PD_NSLog(@"%s%@",__FUNCTION__,response);
+                PDMeModel *model = [PDMeModel mj_objectWithKeyValues:response];
+                NSArray *infoArr;
+                if ([response[STATUS] integerValue] == 200) {
+                    infoArr = @[model.data.img,model.data.nickname];
+                }else{
+                    infoArr = @[@"",@""];
+                }
+                [ZCCoverScreenView CS_AddCommentWithUserInfo:infoArr];
+                [ZCCoverScreenView sharedCoverScreenView].delegate = self;
+                [ZCCoverScreenView show];
+            }];
+            
         }
             break;
         default:
@@ -340,7 +257,20 @@
             break;
     }
 }
-
+-(void)ZCCoverScreenView:(ZCCoverScreenView *)view addCommentWithCommentText:(NSString *)text{
+    
+    [[PDNetworkingTools sharedNetWorkingTools]addCommentWithID:self.ID content:text callBack:^(id response, NSError *error) {
+        if (error) {
+            [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
+            return ;
+        }
+        PD_NSLog(@"%s%@",__FUNCTION__,response);
+        if ([response[STATUS] integerValue] != 200) {
+            [[PDPublicTools sharedPublicTools]showMessage:@"Error. Please try again" duration:3];
+        }
+    }];
+    
+}
 #pragma mark - 改变字体大小方法
 -(void)changeFontSizeButtonClick{
     [[PDPublicTools sharedPublicTools]showMessage:@"改变文字大小" duration:3];
@@ -402,6 +332,7 @@
     PD_NSLog(@"%@",error);
     [SVProgressHUD dismiss];
 }
+
 #pragma mark - 微信分享
 -(void)wechatShareToSession:(BOOL)session{
     
@@ -423,5 +354,110 @@
         [[PDPublicTools sharedPublicTools]showMessage:@"请安装微信客户端" duration:3];
     }
 }
+
+#pragma mark - 新闻网页布局
+-(NSString*)NomalNewsWebLayoutWithModel:(PDNewsModel*)model{
+    
+    NSString *htmlString = [NSString stringWithFormat:@"<html>\n"
+                            "<head>\n"
+                            "<meta charset=\"UTF-8\"/>"
+                            "<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\" name=\"viewport\"/>"
+                            "<meta content=\"yes\" name=\"apple-mobile-web-app-capable\"/>"
+                            "<meta content=\"black\" name=\"apple-mobile-web-app-status-bar-style\"/>"
+                            "<meta content=\"telephone=no\" name=\"format-detection\"/>"
+                            "<title>人民日报详情页</title>"
+                            "<style>"
+                            "body{"
+                            "font-family: Arial, Helvetica, sans-serif;"
+                            "font-size: %@px;"
+                            "font-weight: normal;"
+                            "word-wrap: break-word;"
+                            "-webkit-user-select: auto;"
+                            "user-select: auto;"
+                            "}"
+                            ".content{"
+                            "padding: 10px 5px;"
+                            "background: #fff;"
+                            "margin-bottom: 10px;"
+                            "}"
+                            ".content .title{"
+                            "font-size: 27px;"
+                            "font-weight: bold;"
+                            "margin-bottom: 8px;"
+                            "color: #333;"
+                            "}"
+                            ".content .info{"
+                            "color: #888;"
+                            "font-size: 11px;"
+                            "font-weight: normal"
+                            "}"
+                            ".content .info .author{"
+                            "margin-right: 10px;"
+                            "}"
+                            ".content .info .time{"
+                            "padding:0 5px;"
+                            "}"
+                            ".main{"
+                            "color: #333"
+                            "}"
+                            ".main p{"
+                            "line-height: 28px"
+                            "}"
+                            ".main img{width: 100%%}"
+                            "</style>"
+                            "</head>"
+                            "<body>"
+                            "<div class=\"content\">"
+                            "<div class=\"title\">%@"
+                            //标题
+                            "</div>"
+                            "<div class=\"info\">"
+                            "<span class=\"author\">%@"
+                            //作者
+                            "</span>"
+                            "<span class=\"time\">%@"
+                            //时间
+                            "</span><span class=\"source\">| From:%@"
+                            //来源
+                            "</span>"
+                            "</div>"
+                            
+                            "<div class=\"main\" id=\"main\">%@"
+                            //内容
+                            //内容 end
+                            "</div>"
+                            "</div>"
+                            "<script>"
+                            "var dom = document.getElementById('main');"
+                            "var img = dom.getElementsByTagName('img');"
+                            "for(var i=0;img.length>i;i++){"
+                            "img[i].style.width = '100%%';"
+                            "img[i].style.height ='auto'\n"
+                            "img[i].index = i;"
+                            "img[i].onclick = function(){"
+                            "alert(this.index);"
+                            "}"
+                            "}"
+                            "</script>"
+                            "</body>"
+                            "</html>"
+                            "",[NSString stringWithFormat:@"%f",_textFontSize],model.data.title,model.data.authors,model.data.pub_time,model.data.source,model.data.content];
+    return htmlString;
+}
+
+//加载标签
+-(void)loadDataWithModel:(PDNewsModel*)model{
+    
+    [self.webView loadHTMLString:[self NomalNewsWebLayoutWithModel:model] baseURL:nil];
+}
+
+//加载网页
+-(void)loadDataWithURL:(NSString*)url{
+    
+    NSURLRequest *quest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [self.webView loadRequest:quest];
+    
+}
+
 
 @end

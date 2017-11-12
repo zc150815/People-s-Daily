@@ -24,6 +24,9 @@
 		678957B81FA32EBE00D03685 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B71FA32EB700D03685 /* JavaScriptCore.framework */; };
 		678957BA1FA32ECD00D03685 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B91FA32EC900D03685 /* ImageIO.framework */; };
 		678957BC1FA32ED800D03685 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957BB1FA32ED800D03685 /* libsqlite3.tbd */; };
+		67D45AD01FB6CD1F008B1759 /* PDMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D45ACF1FB6CD1F008B1759 /* PDMainViewController.m */; };
+		67D45AD31FB7DD04008B1759 /* PDNewsListPhotosCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D45AD21FB7DD04008B1759 /* PDNewsListPhotosCell.m */; };
+		67D45AD61FB7DD26008B1759 /* PDPhotoNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D45AD51FB7DD26008B1759 /* PDPhotoNewsController.m */; };
 		67E3365A1FAEDE7D00DFC519 /* ZCCoverScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E336591FAEDE7D00DFC519 /* ZCCoverScreenView.m */; };
 		67E3365D1FAF01D400DFC519 /* PDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E3365C1FAF01D400DFC519 /* PDWebViewController.m */; };
 		67E336601FAF112700DFC519 /* PDSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E3365F1FAF112700DFC519 /* PDSettingsController.m */; };
@@ -96,6 +99,12 @@
 		678957B91FA32EC900D03685 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		678957BB1FA32ED800D03685 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		678957BD1FA6BE6900D03685 /* PDParameterHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDParameterHeader.h; sourceTree = "<group>"; };
+		67D45ACE1FB6CD1F008B1759 /* PDMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDMainViewController.h; sourceTree = "<group>"; };
+		67D45ACF1FB6CD1F008B1759 /* PDMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDMainViewController.m; sourceTree = "<group>"; };
+		67D45AD11FB7DD04008B1759 /* PDNewsListPhotosCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsListPhotosCell.h; sourceTree = "<group>"; };
+		67D45AD21FB7DD04008B1759 /* PDNewsListPhotosCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNewsListPhotosCell.m; sourceTree = "<group>"; };
+		67D45AD41FB7DD26008B1759 /* PDPhotoNewsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDPhotoNewsController.h; sourceTree = "<group>"; };
+		67D45AD51FB7DD26008B1759 /* PDPhotoNewsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDPhotoNewsController.m; sourceTree = "<group>"; };
 		67E336581FAEDE7D00DFC519 /* ZCCoverScreenView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZCCoverScreenView.h; sourceTree = "<group>"; };
 		67E336591FAEDE7D00DFC519 /* ZCCoverScreenView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZCCoverScreenView.m; sourceTree = "<group>"; };
 		67E3365B1FAF01D400DFC519 /* PDWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDWebViewController.h; sourceTree = "<group>"; };
@@ -375,6 +384,8 @@
 				9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */,
 				9D9783FE1FB3F29F00E5E54F /* PDSpecialNewsController.h */,
 				9D9783FF1FB3F29F00E5E54F /* PDSpecialNewsController.m */,
+				67D45AD41FB7DD26008B1759 /* PDPhotoNewsController.h */,
+				67D45AD51FB7DD26008B1759 /* PDPhotoNewsController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -393,6 +404,8 @@
 			children = (
 				9D8A8F6D1FA9988600A116A9 /* PDNewsListNomalCell.h */,
 				9D8A8F6E1FA9988600A116A9 /* PDNewsListNomalCell.m */,
+				67D45AD11FB7DD04008B1759 /* PDNewsListPhotosCell.h */,
+				67D45AD21FB7DD04008B1759 /* PDNewsListPhotosCell.m */,
 				9D8381CD1FAC0DD700407C70 /* PDNewsDetailToolsView.h */,
 				9D8381CE1FAC0DD700407C70 /* PDNewsDetailToolsView.m */,
 				9D9784011FB4127300E5E54F /* PDSpecialHeaderView.h */,
@@ -418,6 +431,8 @@
 				67E9CE4B1FA19E3D00E9273F /* PDTabBarController.m */,
 				67E9CE861FA1A93C00E9273F /* PDNavigationController.h */,
 				67E9CE871FA1A93C00E9273F /* PDNavigationController.m */,
+				67D45ACE1FB6CD1F008B1759 /* PDMainViewController.h */,
+				67D45ACF1FB6CD1F008B1759 /* PDMainViewController.m */,
 				6789576D1FA3014300D03685 /* PDSearchController.h */,
 				6789576E1FA3014300D03685 /* PDSearchController.m */,
 				67E3365B1FAF01D400DFC519 /* PDWebViewController.h */,
@@ -666,8 +681,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D9784001FB3F29F00E5E54F /* PDSpecialNewsController.m in Sources */,
+				67D45AD61FB7DD26008B1759 /* PDPhotoNewsController.m in Sources */,
 				67E3365A1FAEDE7D00DFC519 /* ZCCoverScreenView.m in Sources */,
 				67E9CE721FA1A2CA00E9273F /* NSAttributedString+ZCExtension.m in Sources */,
+				67D45AD01FB6CD1F008B1759 /* PDMainViewController.m in Sources */,
 				67E9CE2E1FA19AB200E9273F /* ViewController.m in Sources */,
 				678957721FA30C0700D03685 /* PDNewsListController.m in Sources */,
 				67E9CE751FA1A2CA00E9273F /* UIButton+ZCExtension.m in Sources */,
@@ -693,6 +710,7 @@
 				67E9CE281FA19AB200E9273F /* main.m in Sources */,
 				67E9CE4C1FA19E3D00E9273F /* PDTabBarController.m in Sources */,
 				67E9CE701FA1A2CA00E9273F /* CLLocation+YCLocation.m in Sources */,
+				67D45AD31FB7DD04008B1759 /* PDNewsListPhotosCell.m in Sources */,
 				67E9CEC11FA2C48600E9273F /* ZCSliderView.m in Sources */,
 				6789576F1FA3014300D03685 /* PDSearchController.m in Sources */,
 				67E9CE791FA1A2CA00E9273F /* UITableView+Placeholder.m in Sources */,

@@ -79,6 +79,7 @@
         NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:model.data.list];
         if (!dataArr.count) {
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            self.tableView.mj_footer.hidden = YES;
         }else{
             [self.specialArr addObjectsFromArray:dataArr];
             [self calculateCellHeightWithModelArray:dataArr];
@@ -93,8 +94,8 @@
     }];
     
 }
-#pragma mark
-#pragma mark UITableView代理方法
+
+#pragma mark - UITableView代理方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     tableView.mj_footer.hidden = !self.specialArr.count;

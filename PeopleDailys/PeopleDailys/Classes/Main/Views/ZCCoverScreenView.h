@@ -31,6 +31,10 @@
  */
 -(void)ZCCoverScreenView:(ZCCoverScreenView*)view shareMessageWithShareByType:(PDAPPShareByType)type;
 
+
+-(void)ZCCoverScreenView:(ZCCoverScreenView*)view addCommentWithCommentText:(NSString*)text;
+
+
 @end
 
 @interface ZCCoverScreenView : UIView

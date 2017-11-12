@@ -41,16 +41,21 @@ static NSString * const DATA = @"data";//data
 static NSString * const WECHATAPPID = @"wxafd7241729c55e32";//微信APPID
 static NSString * const WECHATAPPSECRET = @"fb1202c6eedec8c7594578c462235814";//微信APPSECRET
 
-static NSString * const SINAAPPID = @"1303580876";//新浪AAPPID
+static NSString * const SINAAPPID = @"363528080";//新浪AAPPID
 static NSString * const SINAREDIRECTURL = @"https://api.weibo.com/oauth2/default.html";//新浪REDIRECTURL
-static NSString * const SINAAPPSECRET = @"80a284c70f1df87af553bc0dd107ecad";//新浪APPSECRET
+static NSString * const SINAAPPSECRET = @"b74b9e8e20c7df96a2708f613559c1ff";//新浪APPSECRET
 
 
 /****************************偏好设置**************************************/
+static NSString * const PD_APPUID = @"PD_APPUID";//APP后台用户id
+static NSString * const PD_APPTOKEN = @"PD_APPTOKEN";//APP后台用户token
 static NSString * const PD_APPLOGINBY = @"PD_APPLOGINBY";//APP登入方式(微博:SINA,微信:WECHAT,推特:TWITTER,facebook:FACEBOOK)
+
 static NSString * const PD_ACCESSTOKEN = @"PD_ACCESSTOKEN";//accessToken
 static NSString * const PD_USERID = @"PD_USERID";//微博userId
 static NSString * const PD_REFRESHTOKEN = @"PD_REFRESHTOKEN";//微博refreshToken
+
+
 
 
 

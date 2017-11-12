@@ -57,26 +57,32 @@
 }
 #pragma mark
 #pragma mark News
-//获取置顶新闻
+//获取置顶新闻(包括专题报道)
 -(void)getChannelTopNewsDataWithType:(NSString*)type isNomal:(BOOL)isNomal callBack:(callBack)callBack{
     NSString*url = @"api/news/get_totop_picNews";
     NSDictionary *params = @{@"type":type,@"device_id":PhoneIDNum,@"version":@(1)};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 
 }
-//获取频道新闻
+//新闻专题报到页数据
+-(void)getSpecialNewsWithID:(NSString*)ID type:(NSString*)type page:(NSInteger)page callBack:(callBack)callBack{
+    NSString*url = @"api/news/get_special_news";
+    NSDictionary *params = @{@"id":ID,@"contenttype":type,@"page":@(page)};
+    [self requestWithRequestType:POST url:url params:params callBack:callBack];
+}
+//获取普通新闻
 -(void)getChannelNomalNewsDataWithType:(NSString*)type callBack:(callBack)callBack{
     NSString*url = @"api/news/get_normal_news";
     NSDictionary *params = @{@"type":type,@"device_id":PhoneIDNum};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
-//获取频道更多新闻
+//获取更多新闻
 -(void)getChannelNomalNewsMoreDataWithType:(NSString *)type lastTime:(NSString*)lastTime callBack:(callBack)callBack{
     NSString*url = @"api/news/get_pull_news";
     NSDictionary *params = @{@"type":type,@"last_time":lastTime,@"device_id":PhoneIDNum};
     [self requestWithRequestType:GET url:url params:params callBack:callBack];
 }
-//获取频道最新新闻
+//获取最新新闻
 -(void)getChannelNomalNewsUpdatedDataWithType:(NSString *)type original:(NSString*)original final:(NSString*)final callBack:(callBack)callBack{
     NSString*url = @"api/news/get_each_news";
     NSDictionary *params = @{@"type":type,@"final":final,@"original":original,@"device_id":PhoneIDNum,@"version":@(1)};
@@ -102,20 +108,30 @@
     [self requestWithRequestType:POST url:url params:params callBack:callBack];
 }
 
-//新闻专题
--(void)getSpecialNewsWithID:(NSString*)ID type:(NSString*)type page:(NSInteger)page callBack:(callBack)callBack{
-    NSString*url = @"api/news/get_special_news";
-    NSDictionary *params = @{@"id":ID,@"contenttype":type,@"page":@(page)};
+//评论列表
+-(void)getCommentDataWithNewsID:(NSString*)nid page:(NSInteger)page callBack:(callBack)callBack{
+    NSString*url = @"api/article/get_comments";
+    NSString *uid = [[NSUserDefaults standardUserDefaults]objectForKey:PD_APPUID];
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:PD_APPTOKEN];
+    NSDictionary *params = @{@"nid":nid,@"p":@(page),@"uid":uid?uid:@"",@"token":token?token:@"",@"deviceId":PhoneIDNum};
+    [self requestWithRequestType:POST url:url params:params callBack:callBack];
+
+}
+//获取用户昵称和头像
+-(void)getAppUserInfoWithCallBack:(callBack)callBack{
+    NSString *url = @"api/article/get_user_nick";
+    NSString *uid = [[NSUserDefaults standardUserDefaults]objectForKey:PD_APPUID];
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:PD_APPTOKEN];
+    NSDictionary *params = @{@"uid":uid?uid:@"0",@"token":token?token:@"",@"deviceId":PhoneIDNum};
     [self requestWithRequestType:POST url:url params:params callBack:callBack];
 }
 
 //增加评论
 -(void)addCommentWithID:(NSString*)ID content:(NSString*)content callBack:(callBack)callBack{
     NSString*url = @"api/article/add_comment";
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *accessToken = [defaults objectForKey:PD_ACCESSTOKEN];
-    NSString *userID = [defaults objectForKey:PD_USERID];
-    NSDictionary *params = @{@"nid":ID,@"deviceId":PhoneIDNum,@"uid":userID,@"token":accessToken,@"content":content};
+    NSString *uid = [[NSUserDefaults standardUserDefaults]objectForKey:PD_APPUID];
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:PD_APPTOKEN];
+    NSDictionary *params = @{@"nid":ID,@"deviceId":PhoneIDNum,@"uid":uid?uid:@(0),@"token":token?token:@"",@"content":content};
     [self requestWithRequestType:POST url:url params:params callBack:callBack];
 }
 

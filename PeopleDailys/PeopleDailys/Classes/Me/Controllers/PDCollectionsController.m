@@ -122,7 +122,7 @@
         NSString *cellHeight;
         CGFloat titleHeight;
         CGFloat imgViewHeight;
-        NSInteger image_list = model.image_list.integerValue;
+        NSInteger image_list = model.image_list_detail.count;
         if (image_list == 0) { //无图
             
             titleHeight = [self calculateLableHeightWithText:model.title FontSize:TITLELAB_FONTSIZE width:self.view.width-2*TITLELAB_MARGIN_LEADING];

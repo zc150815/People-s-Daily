@@ -10,7 +10,7 @@
 #import "PDNewsListNomalCell.h"
 #import "PDNewsModel.h"
 #import "PDNewsDetailController.h"
-
+#import "PDSpecialNewsController.h"
 
 @interface PDSearchController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -40,6 +40,11 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.searchField endEditing:YES];
+}
+-(void)didReceiveMemoryWarning{
+    [super didReceiveMemoryWarning];
+    [[SDWebImageManager sharedManager] cancelAll];
+    [[SDImageCache sharedImageCache] clearDisk];
 }
 -(void)setupUI{
     
@@ -151,9 +156,18 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     PDNewsModel *model = self.searchArr[indexPath.row];
-    PDNewsDetailController *detailVC = [[PDNewsDetailController alloc]init];
-    detailVC.ID = model.ID;
-    [self.navigationController pushViewController:detailVC animated:YES];
+    
+    if (model.contenttype.integerValue == 0) {
+        PDNewsDetailController *detailVC = [[PDNewsDetailController alloc]init];
+        detailVC.ID = model.ID;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }else{
+        PDSpecialNewsController *specialVC = [[PDSpecialNewsController alloc]init];
+        specialVC.specialID = model.ID;
+        specialVC.specialType = model.contenttype;
+        specialVC.title = model.title;
+        [self.navigationController pushViewController:specialVC animated:YES];
+    }
 }
 
 #pragma mark - 计算cell高度
@@ -164,7 +178,7 @@
         NSString *cellHeight;
         CGFloat titleHeight;
         CGFloat imgViewHeight;
-        NSInteger image_list = model.image_list.integerValue;
+        NSInteger image_list = model.image_list_detail.count;
         if (image_list == 0) { //无图
             
             titleHeight = [self calculateLableHeightWithText:model.title FontSize:TITLELAB_FONTSIZE width:self.view.width-2*TITLELAB_MARGIN_LEADING];

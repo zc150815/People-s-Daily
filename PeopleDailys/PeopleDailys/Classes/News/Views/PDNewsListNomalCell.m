@@ -199,7 +199,7 @@
         UIImageView *picView = [[UIImageView alloc]init];
         picView.contentMode = UIViewContentModeScaleAspectFill;
         picView.clipsToBounds = YES;
-        [picView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.url]] placeholderImage:[UIImage imageNamed:@"default"]];
+        [picView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.url]] placeholderImage:[UIImage imageNamed:@"default"] options:SDWebImageProgressiveDownload];
         CGFloat imgX = (imgCount==1)?0:i*(imgWith+PICTURE_MARGIN);
     
         picView.frame = CGRectMake(imgX, 0, imgWith, imgHeight);

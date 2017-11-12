@@ -27,9 +27,13 @@
     self.window.rootViewController = [[PDTabBarController alloc]init];
     [self.window makeKeyAndVisible];
     
-    [WXApi registerApp:WECHATAPPID];
     
-    [WeiboSDK enableDebugMode:YES];
+    SDImageCache *sdImageCache = [SDImageCache sharedImageCache];
+    [sdImageCache setMaxCacheSize:1024];
+//    [sdImageCache setShouldDecompressImages:YES];
+    
+    [WXApi registerApp:WECHATAPPID];
+    [WeiboSDK enableDebugMode:NO];
     [WeiboSDK registerApp:SINAAPPID];
     
     return YES;

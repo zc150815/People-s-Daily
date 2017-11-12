@@ -34,7 +34,11 @@
     NSString *_Final;
     NSInteger _refreshTime;
 }
-
+-(void)didReceiveMemoryWarning{
+    [super didReceiveMemoryWarning];
+    [[SDWebImageManager sharedManager] cancelAll];
+    [[SDImageCache sharedImageCache] clearMemory];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -188,6 +192,8 @@
 #pragma mark 获取更多新闻
 -(void)loadNomalNewsMoreData{
     
+    [[SDImageCache sharedImageCache] clearMemory];
+
     [[PDNetworkingTools sharedNetWorkingTools]getChannelNomalNewsMoreDataWithType:self.title lastTime:_lastTime callBack:^(id response, NSError *error) {
         
         if (error) {
@@ -211,6 +217,7 @@
         if (dataModel.status != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            self.tableView.mj_footer.hidden = YES;
             return;
         }
         

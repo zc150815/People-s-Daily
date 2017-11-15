@@ -198,7 +198,8 @@
 
     switch ([[NSUserDefaults standardUserDefaults]integerForKey:PD_APPLOGINBY]) {
         case PDAPPLoginTypeWechat:{
-
+            
+            
         }
             break;
         case PDAPPLoginTypeSina:{

@@ -71,6 +71,9 @@
 		9D9784001FB3F29F00E5E54F /* PDSpecialNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9783FF1FB3F29F00E5E54F /* PDSpecialNewsController.m */; };
 		9D9784031FB4127300E5E54F /* PDSpecialHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9784021FB4127300E5E54F /* PDSpecialHeaderView.m */; };
 		9D9784081FB479A600E5E54F /* PDMeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9784071FB479A600E5E54F /* PDMeModel.m */; };
+		9D97840B1FB974A800E5E54F /* AppDelegate+WeixinService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D97840A1FB974A800E5E54F /* AppDelegate+WeixinService.m */; };
+		9D97840E1FB974BE00E5E54F /* AppDelegate+WeiboService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D97840D1FB974BE00E5E54F /* AppDelegate+WeiboService.m */; };
+		9D9784111FB976F300E5E54F /* AppDelegate+APPEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9784101FB976F300E5E54F /* AppDelegate+APPEnvironment.m */; };
 		9D9D5E041FAB311B00022EFD /* PDNewsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */; };
 		F6DED7AAB780A7F9E1F4F186 /* libPods-PeopleDailys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA79F5CFA6236F8C2A41E7CE /* libPods-PeopleDailys.a */; };
 /* End PBXBuildFile section */
@@ -190,6 +193,12 @@
 		9D9784021FB4127300E5E54F /* PDSpecialHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDSpecialHeaderView.m; sourceTree = "<group>"; };
 		9D9784061FB479A600E5E54F /* PDMeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDMeModel.h; sourceTree = "<group>"; };
 		9D9784071FB479A600E5E54F /* PDMeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDMeModel.m; sourceTree = "<group>"; };
+		9D9784091FB974A800E5E54F /* AppDelegate+WeixinService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+WeixinService.h"; sourceTree = "<group>"; };
+		9D97840A1FB974A800E5E54F /* AppDelegate+WeixinService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+WeixinService.m"; sourceTree = "<group>"; };
+		9D97840C1FB974BE00E5E54F /* AppDelegate+WeiboService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+WeiboService.h"; sourceTree = "<group>"; };
+		9D97840D1FB974BE00E5E54F /* AppDelegate+WeiboService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+WeiboService.m"; sourceTree = "<group>"; };
+		9D97840F1FB976F300E5E54F /* AppDelegate+APPEnvironment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+APPEnvironment.h"; sourceTree = "<group>"; };
+		9D9784101FB976F300E5E54F /* AppDelegate+APPEnvironment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+APPEnvironment.m"; sourceTree = "<group>"; };
 		9D9D5E021FAB311B00022EFD /* PDNewsDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsDetailController.h; sourceTree = "<group>"; };
 		9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNewsDetailController.m; sourceTree = "<group>"; };
 		BE4DAC07A65FCA2A6B78BCD2 /* Pods-PeopleDailys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeopleDailys.release.xcconfig"; path = "Pods/Target Support Files/Pods-PeopleDailys/Pods-PeopleDailys.release.xcconfig"; sourceTree = "<group>"; };
@@ -456,6 +465,12 @@
 				67E9CE7C1FA1A49900E9273F /* PrefixHeader.pch */,
 				67E9CE291FA19AB200E9273F /* AppDelegate.h */,
 				67E9CE2A1FA19AB200E9273F /* AppDelegate.m */,
+				9D9784091FB974A800E5E54F /* AppDelegate+WeixinService.h */,
+				9D97840A1FB974A800E5E54F /* AppDelegate+WeixinService.m */,
+				9D97840C1FB974BE00E5E54F /* AppDelegate+WeiboService.h */,
+				9D97840D1FB974BE00E5E54F /* AppDelegate+WeiboService.m */,
+				9D97840F1FB976F300E5E54F /* AppDelegate+APPEnvironment.h */,
+				9D9784101FB976F300E5E54F /* AppDelegate+APPEnvironment.m */,
 				67E9CE531FA19FA200E9273F /* Headers */,
 				67E9CE551FA1A0BC00E9273F /* Tools */,
 				67E9CE5A1FA1A2CA00E9273F /* Category */,
@@ -590,7 +605,7 @@
 					67E9CE221FA19AB200E9273F = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = YFJ578HBZ4;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -687,6 +702,7 @@
 				67D45AD01FB6CD1F008B1759 /* PDMainViewController.m in Sources */,
 				67E9CE2E1FA19AB200E9273F /* ViewController.m in Sources */,
 				678957721FA30C0700D03685 /* PDNewsListController.m in Sources */,
+				9D97840E1FB974BE00E5E54F /* AppDelegate+WeiboService.m in Sources */,
 				67E9CE751FA1A2CA00E9273F /* UIButton+ZCExtension.m in Sources */,
 				67E9CE781FA1A2CA00E9273F /* UINavigationBar+Awesome.m in Sources */,
 				9D8381D81FB0495500407C70 /* PDNotificationCell.m in Sources */,
@@ -697,6 +713,7 @@
 				67E336601FAF112700DFC519 /* PDSettingsController.m in Sources */,
 				67E9CE711FA1A2CA00E9273F /* Foundation+Log.m in Sources */,
 				9D8381D21FB0295C00407C70 /* PDCollectionsController.m in Sources */,
+				9D97840B1FB974A800E5E54F /* AppDelegate+WeixinService.m in Sources */,
 				9D8A8F661FA85D3100A116A9 /* PDMainModel.m in Sources */,
 				67E9CE881FA1A93C00E9273F /* PDNavigationController.m in Sources */,
 				67E9CE741FA1A2CA00E9273F /* NSString+Hash.m in Sources */,
@@ -708,6 +725,7 @@
 				9D8A8F6F1FA9988600A116A9 /* PDNewsListNomalCell.m in Sources */,
 				67E9CE731FA1A2CA00E9273F /* NSObject+Property.m in Sources */,
 				67E9CE281FA19AB200E9273F /* main.m in Sources */,
+				9D9784111FB976F300E5E54F /* AppDelegate+APPEnvironment.m in Sources */,
 				67E9CE4C1FA19E3D00E9273F /* PDTabBarController.m in Sources */,
 				67E9CE701FA1A2CA00E9273F /* CLLocation+YCLocation.m in Sources */,
 				67D45AD31FB7DD04008B1759 /* PDNewsListPhotosCell.m in Sources */,
@@ -854,11 +872,10 @@
 			baseConfigurationReference = F9C3DCE1A15443A52952395F /* Pods-PeopleDailys.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: United Electronics Co., Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: United Electronics Co., Ltd";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YFJ578HBZ4;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = PeopleDailys/Classes/Others/PrefixHeader.pch;
 				INFOPLIST_FILE = PeopleDailys/Info.plist;
@@ -898,8 +915,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ronglian.www.PeopleDailyTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "45dc4735-974e-4fe2-b398-5994e1a8de8c";
-				PROVISIONING_PROFILE_SPECIFIER = PeopleDailyTest;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -908,11 +925,10 @@
 			baseConfigurationReference = BE4DAC07A65FCA2A6B78BCD2 /* Pods-PeopleDailys.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: United Electronics Co., Ltd";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: United Electronics Co., Ltd";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YFJ578HBZ4;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = PeopleDailys/Classes/Others/PrefixHeader.pch;
 				INFOPLIST_FILE = PeopleDailys/Info.plist;
@@ -952,8 +968,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ronglian.www.PeopleDailyTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "45dc4735-974e-4fe2-b398-5994e1a8de8c";
-				PROVISIONING_PROFILE_SPECIFIER = PeopleDailyTest;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

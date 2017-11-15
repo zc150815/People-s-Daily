@@ -189,6 +189,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  */
 @protocol WeiboSDKDelegate <NSObject>
 
+@optional
 /**
  收到一个来自微博客户端程序的请求
  

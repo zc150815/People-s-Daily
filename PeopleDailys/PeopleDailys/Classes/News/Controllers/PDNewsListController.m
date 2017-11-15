@@ -117,12 +117,11 @@
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
         }
-        PD_NSLog(@"置顶新闻%@",response);
+//        PD_NSLog(@"置顶新闻%@",response);
         
         
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@置顶==201",self.title] duration:3];
-            return;
         }else{
             
             NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:response[DATA]];
@@ -159,7 +158,7 @@
             [self.tableView.mj_footer endRefreshing];
         }
         
-        PD_NSLog(@"普通新闻%@",response);
+//        PD_NSLog(@"普通新闻%@",response);
         
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:[NSString stringWithFormat:@"%@普通==201",self.title] duration:3];
@@ -207,7 +206,7 @@
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         
-        PD_NSLog(@"更多新闻\n%@",response);
+//        PD_NSLog(@"更多新闻\n%@",response);
         
         PDNewsModel *dataModel;
         if ([response isKindOfClass:[NSDictionary class]]) {
@@ -243,6 +242,11 @@
 #pragma mark 获取最新新闻
 -(void)loadUpdatedData{
     
+    if (!self.nomalNewsArr.count) {
+        [self loadStickyNewsData];
+        [self loadNomalNewsData];
+        return;
+    }
     if(_refreshTime > 3){
         // 已经下拉刷新了5次了，都还是旧数据，那么重新获取之前第一次的数据
         _refreshTime = 0;

@@ -42,7 +42,7 @@
     UILabel *titleLab = [[UILabel alloc]init];
     titleLab.textColor = [UIColor getColor:@"333333"];
     titleLab.font = PD_Font(TITLELAB_FONTSIZE);
-    titleLab.numberOfLines = 2;
+    titleLab.numberOfLines = 3;
     self.titleLab = titleLab;
     [self.contentView addSubview:titleLab];
     
@@ -139,11 +139,10 @@
         self.timeLab.y = CGRectGetMaxY(self.imgView.frame)-self.timeLab.height;
         
     }
-    
-//    _specialLab.hidden = !_model.contenttype.integerValue;
-//    _specialLab.x = CGRectGetMaxX(self.commentBtn.frame)+PD_Fit(15);
-//    _specialLab.y = self.commentBtn.y;
-////    [_specialLab sizeToFit];
+
+    [self.titleLab sizeToFit];
+    [self.timeLab sizeToFit];
+
 }
 
 

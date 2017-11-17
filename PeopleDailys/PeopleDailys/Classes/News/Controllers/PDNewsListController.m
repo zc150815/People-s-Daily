@@ -424,7 +424,8 @@
     CGSize titleSize = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]} context:nil].size;
     CGFloat lineH = [UIFont systemFontOfSize:fontSize].lineHeight;
     NSInteger rowCount = titleSize.height/lineH;
-    return (rowCount>=2)?2*lineH:lineH;
+    
+    return (rowCount>=3)?3*lineH:lineH*rowCount;
 }
 
 #pragma mark - setter/getter方法

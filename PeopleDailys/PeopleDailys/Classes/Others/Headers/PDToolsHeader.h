@@ -25,11 +25,11 @@
 
 
 
-#ifdef DEBUG
+//#ifdef DEBUG
 #define PD_NSLog(...) NSLog(__VA_ARGS__)
-#else
-#define PD_NSLog(...)
-#endif
+//#else
+//#define PD_NSLog(...)
+//#endif
 
 
 

@@ -187,7 +187,31 @@
     }];
 
 }
+//微信登录获取accessToken
+-(void)getWechatAccessTokenWithCode:(NSString*)code CallBack:(callBack)callBack{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", nil];
+    [manager GET:@"https://api.weixin.qq.com/sns/oauth2/access_token" parameters:@{@"appid":WECHATAPPID,@"secret":WECHATAPPSECRET,@"code":code,@"grant_type":@"authorization_code"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        callBack(responseObject,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        callBack(nil,error);
+    }];
 
+}
+//微信登录获取用户信息
+-(void)getWechatUserInfoWithCallBack:(callBack)callBack{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", nil];
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:PD_ACCESSTOKEN];
+    NSString *userID = [[NSUserDefaults standardUserDefaults]objectForKey:PD_USERID];
+    [manager GET:@"https://api.weixin.qq.com/sns/userinfo" parameters:@{@"access_token":accessToken,@"openid":userID,@"lang":@"en"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        callBack(responseObject,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        callBack(nil,error);
+    }];
+}
 //文本加载
 -(void)getArticleDataWithMark:(NSString*)mark CallBack:(callBack)callBack{
     NSString*url = @"api/article/article";

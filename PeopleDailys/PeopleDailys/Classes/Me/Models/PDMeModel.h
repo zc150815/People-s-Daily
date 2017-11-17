@@ -27,4 +27,18 @@
 @property (nonatomic,copy) NSString *nickname;
 @property (nonatomic,copy) NSString *create_time;
 
+
+
+//wechat
+@property (nonatomic,copy) NSString *expires_in;
+@property (nonatomic,copy) NSString *scope;
+@property (nonatomic,copy) NSString *access_token;
+@property (nonatomic,copy) NSString *refresh_token;
+
+
+
+
+
+
+
 @end

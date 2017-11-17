@@ -33,6 +33,8 @@
     [self judgeIsOnLine];//判断当前是否已经登录
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"WBAuthorizeResponseSuccessfulNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessful) name:@"WXAuthorizeResponseSuccessfulNotification" object:nil];
+
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
@@ -199,7 +201,19 @@
     switch ([[NSUserDefaults standardUserDefaults]integerForKey:PD_APPLOGINBY]) {
         case PDAPPLoginTypeWechat:{
             
-            
+            [[PDNetworkingTools sharedNetWorkingTools]getWechatUserInfoWithCallBack:^(id response, NSError *error) {
+                if (error) {
+                    [SVProgressHUD dismiss];
+                    [[PDPublicTools sharedPublicTools]showMessage:@"登录超时,请重新登录" duration:3];
+                    [self logoutSuccessful];
+                    PD_NSLog(@"error===error===%@",error);
+                    return;
+                }
+                PD_NSLog(@"加载微信用户信息\n%@",response);
+                NSString *name = response[@"nickname"];
+                NSString *url = response[@"headimgurl"];
+                [self pullLoginUserInfoWithLoginType:PDAPPLoginTypeSina userID:[[NSUserDefaults standardUserDefaults]objectForKey:PD_USERID] userName:name headeImagURL:url];
+            }];
         }
             break;
         case PDAPPLoginTypeSina:{
@@ -394,7 +408,8 @@
     
     SendAuthReq *request = [[SendAuthReq alloc]init];
     request.scope = @"snsapi_userinfo";
-    request.state = @"People's Daily";
+    request.state = @"People'sDailys";
+    request.openID = WECHATAPPID;
     
     if ([WXApi sendReq:request]) {
         PD_NSLog(@"成功成功");
@@ -402,6 +417,7 @@
         PD_NSLog(@"失败失败");
     }
 }
+
 //Twitter登入
 - (void)loginWithTwtter{
     
@@ -418,6 +434,7 @@
 //微信登出
 - (void)logoutWithWechat{
     
+    [self logoutSuccessful];
 }
 //Twitter登出
 - (void)logoutWithTwtter{

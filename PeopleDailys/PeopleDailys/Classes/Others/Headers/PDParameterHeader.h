@@ -38,8 +38,8 @@ static NSString * const DATA = @"data";//data
 //static NSString * const PhoneIDNum= @"861414032240161";//PHONEID
 
 
-static NSString * const WECHATAPPID = @"wxafd7241729c55e32";//微信APPID
-static NSString * const WECHATAPPSECRET = @"fb1202c6eedec8c7594578c462235814";//微信APPSECRET
+static NSString * const WECHATAPPID = @"wxcd5118d435ade7d7";//微信APPID
+static NSString * const WECHATAPPSECRET = @"0c57be6105293b459d66ef64eb8333c4";//微信APPSECRET
 
 static NSString * const SINAAPPID = @"363528080";//新浪AAPPID
 static NSString * const SINAREDIRECTURL = @"https://api.weibo.com/oauth2/default.html";//新浪REDIRECTURL

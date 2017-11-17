@@ -58,7 +58,10 @@ typedef void (^callBack)(id response,NSError* error);
 -(void)loginSuccessfulWithLoginType:(PDAPPLoginType)type userID:(NSString*)ID userName:(NSString*)name headeImagURL:(NSString*)URL CallBack:(callBack)callBack;
 //微博登录获取用户信息
 -(void)getWeiboUserInfoWithCallBack:(callBack)callBack;
-
+//微信登录获取accessToken
+-(void)getWechatAccessTokenWithCode:(NSString*)code CallBack:(callBack)callBack;
+//微信登录获取用户信息
+-(void)getWechatUserInfoWithCallBack:(callBack)callBack;
 -(void)getArticleDataWithMark:(NSString*)mark CallBack:(callBack)callBack;
 //获取收藏列表
 -(void)getCollectionDataWithPage:(NSInteger)page CallBack:(callBack)callBack;

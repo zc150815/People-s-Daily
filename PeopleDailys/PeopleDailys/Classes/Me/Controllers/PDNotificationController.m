@@ -35,7 +35,7 @@
         if (error) {
             [SVProgressHUD dismiss];
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
-            PD_NSLog(@"error===%@",error);
+//            PD_NSLog(@"error===%@",error);
             return;
         }
         

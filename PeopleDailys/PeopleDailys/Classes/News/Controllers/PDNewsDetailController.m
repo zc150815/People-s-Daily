@@ -80,11 +80,11 @@
         if (error) {
             [SVProgressHUD dismiss];
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
-            PD_NSLog(@"error===%@",error);
+//            PD_NSLog(@"error===%@",error);
             return;
         }
 
-        PD_NSLog(@"%@",response);
+//        PD_NSLog(@"%@",response);
         if ([response isKindOfClass:[NSDictionary class]]) {
             _model = [PDNewsModel mj_objectWithKeyValues:response];
         }
@@ -97,7 +97,7 @@
         if (error) {
             [SVProgressHUD dismiss];
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
-            PD_NSLog(@"error===%@",error);
+//            PD_NSLog(@"error===%@",error);
             return;
         }
         
@@ -119,7 +119,7 @@
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
             return ;
         }
-        PD_NSLog(@"%s%@",__FUNCTION__,response);
+//        PD_NSLog(@"%s%@",__FUNCTION__,response);
     }];
 }
 #pragma mark - WKNavigationDelegate代理方法
@@ -171,7 +171,7 @@
                 if (error) {
                     [SVProgressHUD dismiss];
                     [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
-                    PD_NSLog(@"error===%@",error);
+//                    PD_NSLog(@"error===%@",error);
                     return;
                 }
                 
@@ -200,7 +200,7 @@
                     [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
                     return ;
                 }
-                PD_NSLog(@"%s%@",__FUNCTION__,response);
+//                PD_NSLog(@"%s%@",__FUNCTION__,response);
                 PDMeModel *model = [PDMeModel mj_objectWithKeyValues:response];
                 NSArray *infoArr;
                 if ([response[STATUS] integerValue] == 200) {
@@ -264,7 +264,7 @@
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
             return ;
         }
-        PD_NSLog(@"%s%@",__FUNCTION__,response);
+//        PD_NSLog(@"%s%@",__FUNCTION__,response);
         if ([response[STATUS] integerValue] != 200) {
             [[PDPublicTools sharedPublicTools]showMessage:@"Error. Please try again" duration:3];
         }
@@ -310,9 +310,9 @@
     WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:messageObject authInfo:authRequest access_token:[[NSUserDefaults standardUserDefaults]objectForKey:PD_ACCESSTOKEN]];
     request.userInfo = @{@"ShareMessageFrom": @"PDNewsDetailController"};
     if ([WeiboSDK sendRequest:request]) {
-        PD_NSLog(@"成功成功");
+//        PD_NSLog(@"成功成功");
     }else{
-        PD_NSLog(@"失败失败");
+//        PD_NSLog(@"失败失败");
 
     }
 }
@@ -329,7 +329,7 @@
  数据准备失败回调
  */
 -(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error{
-    PD_NSLog(@"%@",error);
+//    PD_NSLog(@"%@",error);
     [SVProgressHUD dismiss];
 }
 

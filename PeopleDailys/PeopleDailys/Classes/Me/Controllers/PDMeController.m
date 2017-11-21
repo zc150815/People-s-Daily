@@ -206,7 +206,7 @@
                     [SVProgressHUD dismiss];
                     [[PDPublicTools sharedPublicTools]showMessage:@"登录超时,请重新登录" duration:3];
                     [self logoutSuccessful];
-                    PD_NSLog(@"error===error===%@",error);
+//                    PD_NSLog(@"error===error===%@",error);
                     return;
                 }
                 PD_NSLog(@"加载微信用户信息\n%@",response);
@@ -222,10 +222,10 @@
                     [SVProgressHUD dismiss];
                     [[PDPublicTools sharedPublicTools]showMessage:@"登录超时,请重新登录" duration:3];
                     [self logoutSuccessful];
-                    PD_NSLog(@"error===error===%@",error);
+//                    PD_NSLog(@"error===error===%@",error);
                     return;
                 }
-                PD_NSLog(@"加载新浪用户信息\n%@",response);
+//                PD_NSLog(@"加载新浪用户信息\n%@",response);
                 NSString *name = response[@"screen_name"];
                 NSString *url = response[@"profile_image_url"];
                 
@@ -364,7 +364,7 @@
             return;
         }
         
-        PD_NSLog(@"上传登录用户信息\n%@",response);
+//        PD_NSLog(@"上传登录用户信息\n%@",response);
         
         PDMeModel *model = [PDMeModel mj_objectWithKeyValues:response];
         [self updateUserInfoWithURL:model.data.img userName:model.data.nickname];
@@ -412,9 +412,9 @@
     request.openID = WECHATAPPID;
     
     if ([WXApi sendReq:request]) {
-        PD_NSLog(@"成功成功");
+//        PD_NSLog(@"成功成功");
     }else{
-        PD_NSLog(@"失败失败");
+//        PD_NSLog(@"失败失败");
     }
 }
 
@@ -448,7 +448,7 @@
 
 #pragma mark - WBHttpRequestDelegate代理方法
 - (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result{
-    PD_NSLog(@"收到一个来自微博Http请求的网络返回=%@",result);
+//    PD_NSLog(@"收到一个来自微博Http请求的网络返回=%@",result);
     NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
@@ -463,7 +463,7 @@
 }
 - (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error{
     [[PDPublicTools sharedPublicTools] showMessage:@"Logout failed" duration:3];
-    PD_NSLog(@"%@",error);
+//    PD_NSLog(@"%@",error);
 }
 
 

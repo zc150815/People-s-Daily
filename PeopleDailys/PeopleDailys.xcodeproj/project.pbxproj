@@ -40,6 +40,8 @@
 		67E9CE851FA1A8C900E9273F /* PDMeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9CE841FA1A8C900E9273F /* PDMeController.m */; };
 		67E9CE881FA1A93C00E9273F /* PDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9CE871FA1A93C00E9273F /* PDNavigationController.m */; };
 		67E9CEC11FA2C48600E9273F /* ZCSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9CEC01FA2C48600E9273F /* ZCSliderView.m */; };
+		9D71A41F1FC3FB4F00373B45 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D71A41E1FC3FB4400373B45 /* AdSupport.framework */; };
+		9D71A4291FC3FEF800373B45 /* GTSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D71A4271FC3FEF800373B45 /* GTSDK.framework */; };
 		9D7EE6F81FA85B070093D123 /* PDNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7EE6F71FA85B070093D123 /* PDNewsModel.m */; };
 		9D8381CF1FAC0DD700407C70 /* PDNewsDetailToolsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8381CE1FAC0DD700407C70 /* PDNewsDetailToolsView.m */; };
 		9D8381D21FB0295C00407C70 /* PDCollectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8381D11FB0295C00407C70 /* PDCollectionsController.m */; };
@@ -78,8 +80,6 @@
 		9DF706E71FC3F83C000FFAAD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7BA781FC3D717005307C1 /* MobileCoreServices.framework */; };
 		9DF706E81FC3F845000FFAAD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7BA7C1FC3D740005307C1 /* CoreLocation.framework */; };
 		9DF706E91FC3F84D000FFAAD /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7BA7E1FC3D76E005307C1 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		9DF706EF1FC3F963000FFAAD /* GTSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF706ED1FC3F963000FFAAD /* GTSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		9DF706F01FC3F963000FFAAD /* GTExtensionSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF706EE1FC3F963000FFAAD /* GTExtensionSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		9DF7BA831FC3D95A005307C1 /* AppDelegate+GetuiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7BA821FC3D95A005307C1 /* AppDelegate+GetuiService.m */; };
 		F6DED7AAB780A7F9E1F4F186 /* libPods-PeopleDailys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA79F5CFA6236F8C2A41E7CE /* libPods-PeopleDailys.a */; };
 /* End PBXBuildFile section */
@@ -169,6 +169,9 @@
 		67E9CE871FA1A93C00E9273F /* PDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDNavigationController.m; sourceTree = "<group>"; };
 		67E9CEBF1FA2C48600E9273F /* ZCSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCSliderView.h; sourceTree = "<group>"; };
 		67E9CEC01FA2C48600E9273F /* ZCSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCSliderView.m; sourceTree = "<group>"; };
+		9D71A41E1FC3FB4400373B45 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		9D71A4261FC3FEF700373B45 /* GTExtensionSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTExtensionSDK.framework; sourceTree = "<group>"; };
+		9D71A4271FC3FEF800373B45 /* GTSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTSDK.framework; sourceTree = "<group>"; };
 		9D7EE6F51FA859180093D123 /* PDThirdHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDThirdHeader.h; sourceTree = "<group>"; };
 		9D7EE6F61FA85B070093D123 /* PDNewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsModel.h; sourceTree = "<group>"; };
 		9D7EE6F71FA85B070093D123 /* PDNewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNewsModel.m; sourceTree = "<group>"; };
@@ -207,8 +210,6 @@
 		9D9784101FB976F300E5E54F /* AppDelegate+APPEnvironment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+APPEnvironment.m"; sourceTree = "<group>"; };
 		9D9D5E021FAB311B00022EFD /* PDNewsDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsDetailController.h; sourceTree = "<group>"; };
 		9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNewsDetailController.m; sourceTree = "<group>"; };
-		9DF706ED1FC3F963000FFAAD /* GTSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTSDK.framework; sourceTree = "<group>"; };
-		9DF706EE1FC3F963000FFAAD /* GTExtensionSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTExtensionSDK.framework; sourceTree = "<group>"; };
 		9DF7BA781FC3D717005307C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9DF7BA7A1FC3D734005307C1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9DF7BA7C1FC3D740005307C1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -227,6 +228,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D71A41F1FC3FB4F00373B45 /* AdSupport.framework in Frameworks */,
 				9DF706E91FC3F84D000FFAAD /* UserNotifications.framework in Frameworks */,
 				9DF706E81FC3F845000FFAAD /* CoreLocation.framework in Frameworks */,
 				9DF706E71FC3F83C000FFAAD /* MobileCoreServices.framework in Frameworks */,
@@ -235,7 +237,6 @@
 				9DF706E41FC3F80E000FFAAD /* CoreGraphics.framework in Frameworks */,
 				9DF706E31FC3F803000FFAAD /* Foundation.framework in Frameworks */,
 				9DF706E21FC3F7FB000FFAAD /* AVFoundation.framework in Frameworks */,
-				9DF706EF1FC3F963000FFAAD /* GTSDK.framework in Frameworks */,
 				9DF706E11FC3F7F6000FFAAD /* UIKit.framework in Frameworks */,
 				9DF706E01FC3F7EA000FFAAD /* CoreText.framework in Frameworks */,
 				9DF706DF1FC3F7E0000FFAAD /* CFNetwork.framework in Frameworks */,
@@ -243,8 +244,8 @@
 				9DF706DD1FC3F7C9000FFAAD /* Security.framework in Frameworks */,
 				9DF706DC1FC3F7BE000FFAAD /* SystemConfiguration.framework in Frameworks */,
 				9DF706DB1FC3F7AE000FFAAD /* ImageIO.framework in Frameworks */,
-				9DF706F01FC3F963000FFAAD /* GTExtensionSDK.framework in Frameworks */,
 				9DF706DA1FC3F7A6000FFAAD /* libsqlite3.0.tbd in Frameworks */,
+				9D71A4291FC3FEF800373B45 /* GTSDK.framework in Frameworks */,
 				9DF706D91FC3F79B000FFAAD /* libc++.tbd in Frameworks */,
 				9DF706D81FC3F791000FFAAD /* QuartzCore.framework in Frameworks */,
 				9DF706D71FC3F785000FFAAD /* libWeChatSDK.a in Frameworks */,
@@ -273,7 +274,7 @@
 			children = (
 				9D8382041FB17AAE00407C70 /* Weibo */,
 				67356A491FB0B2710084DF7B /* Wechat */,
-				9DF706EC1FC3F93A000FFAAD /* GeTui */,
+				9D71A4251FC3FEE900373B45 /* GeTui */,
 			);
 			path = ThirdSDK;
 			sourceTree = "<group>";
@@ -557,6 +558,15 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		9D71A4251FC3FEE900373B45 /* GeTui */ = {
+			isa = PBXGroup;
+			children = (
+				9D71A4261FC3FEF700373B45 /* GTExtensionSDK.framework */,
+				9D71A4271FC3FEF800373B45 /* GTSDK.framework */,
+			);
+			path = GeTui;
+			sourceTree = "<group>";
+		};
 		9D8382041FB17AAE00407C70 /* Weibo */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,18 +578,10 @@
 			path = Weibo;
 			sourceTree = "<group>";
 		};
-		9DF706EC1FC3F93A000FFAAD /* GeTui */ = {
-			isa = PBXGroup;
-			children = (
-				9DF706EE1FC3F963000FFAAD /* GTExtensionSDK.framework */,
-				9DF706ED1FC3F963000FFAAD /* GTSDK.framework */,
-			);
-			path = GeTui;
-			sourceTree = "<group>";
-		};
 		C5661263DF2F5EA05E09007A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D71A41E1FC3FB4400373B45 /* AdSupport.framework */,
 				9DF7BA841FC3DA71005307C1 /* CoreBluetooth.framework */,
 				9DF7BA7E1FC3D76E005307C1 /* UserNotifications.framework */,
 				9DF7BA7C1FC3D740005307C1 /* CoreLocation.framework */,

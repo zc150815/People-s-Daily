@@ -74,7 +74,7 @@
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
             return ;
         }
-        PD_NSLog(@"新闻专题报道%@",response);
+//        PD_NSLog(@"新闻专题报道%@",response);
         PDNewsModel *model = [PDNewsModel mj_objectWithKeyValues:response];
         NSArray *dataArr = [PDNewsModel mj_objectArrayWithKeyValuesArray:model.data.list];
         if (!dataArr.count) {

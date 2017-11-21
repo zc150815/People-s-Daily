@@ -62,7 +62,7 @@
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
             return ;
         }
-        PD_NSLog(@"%@",response);
+//        PD_NSLog(@"%@",response);
         PDNewsModel *model = [PDNewsModel mj_objectWithKeyValues:response];
         [self loadArticleWithModel:model];
     }];

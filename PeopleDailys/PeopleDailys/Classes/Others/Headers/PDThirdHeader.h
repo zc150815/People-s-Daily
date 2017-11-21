@@ -16,8 +16,7 @@
 
 #import "WXApi.h"
 #import "WeiboSDK.h"
-
-
+#import <GTSDK/GeTuiSdk.h>
 
 
 #endif /* PDThirdHeader_h */

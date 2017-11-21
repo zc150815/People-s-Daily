@@ -22,7 +22,7 @@
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class]){
         [SVProgressHUD dismiss];
         WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
-        PD_NSLog(@"\n响应状态:%ld\n响应UserInfo数据%@\n原请求UserInfo数据%@\nauthResponse%@",(long)response.statusCode,response.userInfo,response.requestUserInfo,sendMessageToWeiboResponse.authResponse);
+//        PD_NSLog(@"\n响应状态:%ld\n响应UserInfo数据%@\n原请求UserInfo数据%@\nauthResponse%@",(long)response.statusCode,response.userInfo,response.requestUserInfo,sendMessageToWeiboResponse.authResponse);
         switch (response.statusCode) {
             case WeiboSDKResponseStatusCodeSuccess:{
                 
@@ -57,7 +57,7 @@
         WBAuthorizeResponse* authResponse = (WBAuthorizeResponse*)response;
         
         //        PD_NSLog(@"%@",response);
-        PD_NSLog(@"\n响应状态:%ld\nuserId:%@\naccessToken:%@\n响应UserInfo数据:%@\n原请求UserInfo数据:%@\n认证过期时间:%@",(long)authResponse.statusCode,authResponse.userID,authResponse.accessToken,response.userInfo,response.requestUserInfo,authResponse.expirationDate);
+//        PD_NSLog(@"\n响应状态:%ld\nuserId:%@\naccessToken:%@\n响应UserInfo数据:%@\n原请求UserInfo数据:%@\n认证过期时间:%@",(long)authResponse.statusCode,authResponse.userID,authResponse.accessToken,response.userInfo,response.requestUserInfo,authResponse.expirationDate);
         
         switch (authResponse.statusCode) {
             case WeiboSDKResponseStatusCodeSuccess:{

@@ -16,7 +16,8 @@
 /// 使 个推回调时，需要添加"GeTuiSdkDelegate"
 /// iOS 10 及以上环境，需要添加 UNUserNotificationCenterDelegate 协议，才能使  UserNoti fications.framework 的回调
 
-@interface AppDelegate (GetuiService)
+@interface AppDelegate (GetuiService)<GeTuiSdkDelegate, UNUserNotificationCenterDelegate>
+
 
 
 -(void)initGetuiService;

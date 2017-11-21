@@ -13,8 +13,8 @@
 
 -(void)initAppEnvironment{
     
-    SDImageCache *sdImageCache = [SDImageCache sharedImageCache];
-    [sdImageCache setMaxCacheSize:1024];
+//    SDImageCache *sdImageCache = [SDImageCache sharedImageCache];
+//    [sdImageCache setMaxCacheSize:1024];
     //    [sdImageCache setShouldDecompressImages:YES];
     
     

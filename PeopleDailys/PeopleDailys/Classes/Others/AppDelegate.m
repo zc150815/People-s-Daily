@@ -12,7 +12,7 @@
 #import "AppDelegate+WeiboService.h"
 #import "AppDelegate+WeixinService.h"
 #import "AppDelegate+APPEnvironment.h"
-
+#import "AppDelegate+GetuiService.h"
 
 @interface AppDelegate ()
 
@@ -34,6 +34,9 @@
     [self initWeiboService];
     //初始化微信
     [self initWeixinService];
+    
+    //初始化个推
+    [self initGetuiService];
     return YES;
 }
 

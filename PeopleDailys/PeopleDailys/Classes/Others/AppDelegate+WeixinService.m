@@ -18,7 +18,7 @@
 //微信接收响应
 -(void)onResp:(BaseResp *)resp{
     [[PDPublicTools sharedPublicTools]showMessage:@"resp" duration:3];
-    PD_NSLog(@"req = %@",resp);
+//    PD_NSLog(@"req = %@",resp);
     if ([resp isKindOfClass:[SendAuthResp class]]) {
         SendAuthResp *response = (SendAuthResp*)resp;
         NSString *showM;
@@ -28,7 +28,7 @@
                     showM = [NSString stringWithFormat:@"code=%@\nstate=%@\nlang=%@\ncountry=%@",response.code,response.state,response.lang,response.country];
                     
                     [[PDPublicTools sharedPublicTools]showMessage:showM duration:5];
-                    PD_NSLog(@"%@",showM);
+//                    PD_NSLog(@"%@",showM);
                     [self WXOauthSuccessful:response.code];
                 }
             }
@@ -45,7 +45,7 @@
 
     }else if ([resp isKindOfClass:[SendMessageToWXResp class]]){
         SendMessageToWXResp *response = (SendMessageToWXResp*)resp;
-        PD_NSLog(@"\nlang:%@\ncounty:%@",response.lang,response.country);
+//        PD_NSLog(@"\nlang:%@\ncounty:%@",response.lang,response.country);
         
     }
 }
@@ -57,11 +57,11 @@
         if (error) {
             [SVProgressHUD dismiss];
             [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
-            PD_NSLog(@"error===%@",error);
+//            PD_NSLog(@"error===%@",error);
             return;
         }
         
-        PD_NSLog(@"%@",response);
+//        PD_NSLog(@"%@",response);
         PDMeModel *model = [PDMeModel mj_objectWithKeyValues:response];
         if (model.access_token.length) {
             NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];

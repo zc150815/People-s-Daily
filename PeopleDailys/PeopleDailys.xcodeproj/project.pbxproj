@@ -8,22 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		67356A4F1FB0B28D0084DF7B /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67356A4A1FB0B28C0084DF7B /* README.txt */; };
-		67356A501FB0B28D0084DF7B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A4C1FB0B28D0084DF7B /* libWeChatSDK.a */; };
-		67356A521FB0B3690084DF7B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A511FB0B3690084DF7B /* libsqlite3.0.tbd */; };
-		67356A541FB0B3760084DF7B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A531FB0B3760084DF7B /* libc++.tbd */; };
-		67356A561FB0B3860084DF7B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A551FB0B37F0084DF7B /* Security.framework */; };
-		67356A581FB0B3990084DF7B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A571FB0B3960084DF7B /* CFNetwork.framework */; };
 		6789576F1FA3014300D03685 /* PDSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6789576E1FA3014300D03685 /* PDSearchController.m */; };
 		678957721FA30C0700D03685 /* PDNewsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 678957711FA30C0700D03685 /* PDNewsListController.m */; };
-		678957AC1FA32E0500D03685 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957AB1FA32DF500D03685 /* SystemConfiguration.framework */; };
-		678957AE1FA32E1300D03685 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957AD1FA32E0D00D03685 /* QuartzCore.framework */; };
-		678957B01FA32E2200D03685 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957AF1FA32E1D00D03685 /* CoreTelephony.framework */; };
-		678957B21FA32E7C00D03685 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B11FA32E7C00D03685 /* libicucore.tbd */; };
-		678957B41FA32E9B00D03685 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B31FA32E9B00D03685 /* libz.tbd */; };
-		678957B61FA32EA700D03685 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B51FA32EA700D03685 /* libstdc++.tbd */; };
-		678957B81FA32EBE00D03685 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B71FA32EB700D03685 /* JavaScriptCore.framework */; };
-		678957BA1FA32ECD00D03685 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B91FA32EC900D03685 /* ImageIO.framework */; };
-		678957BC1FA32ED800D03685 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957BB1FA32ED800D03685 /* libsqlite3.tbd */; };
 		67D45AD01FB6CD1F008B1759 /* PDMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D45ACF1FB6CD1F008B1759 /* PDMainViewController.m */; };
 		67D45AD31FB7DD04008B1759 /* PDNewsListPhotosCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D45AD21FB7DD04008B1759 /* PDNewsListPhotosCell.m */; };
 		67D45AD61FB7DD26008B1759 /* PDPhotoNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D45AD51FB7DD26008B1759 /* PDPhotoNewsController.m */; };
@@ -59,15 +45,9 @@
 		9D8381D21FB0295C00407C70 /* PDCollectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8381D11FB0295C00407C70 /* PDCollectionsController.m */; };
 		9D8381D51FB0412800407C70 /* PDNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8381D41FB0412800407C70 /* PDNotificationController.m */; };
 		9D8381D81FB0495500407C70 /* PDNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8381D71FB0495500407C70 /* PDNotificationCell.m */; };
-		9D8381E11FB161E800407C70 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E01FB161E100407C70 /* CoreText.framework */; };
-		9D8381E31FB161FB00407C70 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E21FB161F400407C70 /* UIKit.framework */; };
-		9D8381E51FB1620D00407C70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E41FB1620800407C70 /* Foundation.framework */; };
-		9D8381E71FB1622100407C70 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E61FB1621B00407C70 /* CoreGraphics.framework */; };
 		9D83820A1FB17AAE00407C70 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9D8382071FB17AAE00407C70 /* WeiboSDK.bundle */; };
 		9D8A8F661FA85D3100A116A9 /* PDMainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8A8F651FA85D3100A116A9 /* PDMainModel.m */; };
 		9D8A8F6F1FA9988600A116A9 /* PDNewsListNomalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D8A8F6E1FA9988600A116A9 /* PDNewsListNomalCell.m */; };
-		9D9783F51FB189EE00E5E54F /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8382051FB17AAE00407C70 /* libWeiboSDK.a */; };
-		9D9783F71FB18A6E00E5E54F /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9783F61FB18A4B00E5E54F /* Photos.framework */; };
 		9D9784001FB3F29F00E5E54F /* PDSpecialNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9783FF1FB3F29F00E5E54F /* PDSpecialNewsController.m */; };
 		9D9784031FB4127300E5E54F /* PDSpecialHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9784021FB4127300E5E54F /* PDSpecialHeaderView.m */; };
 		9D9784081FB479A600E5E54F /* PDMeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9784071FB479A600E5E54F /* PDMeModel.m */; };
@@ -75,6 +55,32 @@
 		9D97840E1FB974BE00E5E54F /* AppDelegate+WeiboService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D97840D1FB974BE00E5E54F /* AppDelegate+WeiboService.m */; };
 		9D9784111FB976F300E5E54F /* AppDelegate+APPEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9784101FB976F300E5E54F /* AppDelegate+APPEnvironment.m */; };
 		9D9D5E041FAB311B00022EFD /* PDNewsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */; };
+		9DF706D31FC3F73B000FFAAD /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B11FA32E7C00D03685 /* libicucore.tbd */; };
+		9DF706D41FC3F74B000FFAAD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957BB1FA32ED800D03685 /* libsqlite3.tbd */; };
+		9DF706D51FC3F754000FFAAD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B31FA32E9B00D03685 /* libz.tbd */; };
+		9DF706D61FC3F769000FFAAD /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B51FA32EA700D03685 /* libstdc++.tbd */; };
+		9DF706D71FC3F785000FFAAD /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A4C1FB0B28D0084DF7B /* libWeChatSDK.a */; };
+		9DF706D81FC3F791000FFAAD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957AD1FA32E0D00D03685 /* QuartzCore.framework */; };
+		9DF706D91FC3F79B000FFAAD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A531FB0B3760084DF7B /* libc++.tbd */; };
+		9DF706DA1FC3F7A6000FFAAD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A511FB0B3690084DF7B /* libsqlite3.0.tbd */; };
+		9DF706DB1FC3F7AE000FFAAD /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957B91FA32EC900D03685 /* ImageIO.framework */; };
+		9DF706DC1FC3F7BE000FFAAD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957AB1FA32DF500D03685 /* SystemConfiguration.framework */; };
+		9DF706DD1FC3F7C9000FFAAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A551FB0B37F0084DF7B /* Security.framework */; };
+		9DF706DE1FC3F7D6000FFAAD /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 678957AF1FA32E1D00D03685 /* CoreTelephony.framework */; };
+		9DF706DF1FC3F7E0000FFAAD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67356A571FB0B3960084DF7B /* CFNetwork.framework */; };
+		9DF706E01FC3F7EA000FFAAD /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E01FB161E100407C70 /* CoreText.framework */; };
+		9DF706E11FC3F7F6000FFAAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E21FB161F400407C70 /* UIKit.framework */; };
+		9DF706E21FC3F7FB000FFAAD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7BA7A1FC3D734005307C1 /* AVFoundation.framework */; };
+		9DF706E31FC3F803000FFAAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E41FB1620800407C70 /* Foundation.framework */; };
+		9DF706E41FC3F80E000FFAAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8381E61FB1621B00407C70 /* CoreGraphics.framework */; };
+		9DF706E51FC3F823000FFAAD /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D8382051FB17AAE00407C70 /* libWeiboSDK.a */; };
+		9DF706E61FC3F832000FFAAD /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9783F61FB18A4B00E5E54F /* Photos.framework */; };
+		9DF706E71FC3F83C000FFAAD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7BA781FC3D717005307C1 /* MobileCoreServices.framework */; };
+		9DF706E81FC3F845000FFAAD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7BA7C1FC3D740005307C1 /* CoreLocation.framework */; };
+		9DF706E91FC3F84D000FFAAD /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF7BA7E1FC3D76E005307C1 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		9DF706EF1FC3F963000FFAAD /* GTSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF706ED1FC3F963000FFAAD /* GTSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		9DF706F01FC3F963000FFAAD /* GTExtensionSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF706EE1FC3F963000FFAAD /* GTExtensionSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		9DF7BA831FC3D95A005307C1 /* AppDelegate+GetuiService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7BA821FC3D95A005307C1 /* AppDelegate+GetuiService.m */; };
 		F6DED7AAB780A7F9E1F4F186 /* libPods-PeopleDailys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA79F5CFA6236F8C2A41E7CE /* libPods-PeopleDailys.a */; };
 /* End PBXBuildFile section */
 
@@ -201,6 +207,16 @@
 		9D9784101FB976F300E5E54F /* AppDelegate+APPEnvironment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+APPEnvironment.m"; sourceTree = "<group>"; };
 		9D9D5E021FAB311B00022EFD /* PDNewsDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDNewsDetailController.h; sourceTree = "<group>"; };
 		9D9D5E031FAB311B00022EFD /* PDNewsDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDNewsDetailController.m; sourceTree = "<group>"; };
+		9DF706ED1FC3F963000FFAAD /* GTSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTSDK.framework; sourceTree = "<group>"; };
+		9DF706EE1FC3F963000FFAAD /* GTExtensionSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTExtensionSDK.framework; sourceTree = "<group>"; };
+		9DF7BA781FC3D717005307C1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		9DF7BA7A1FC3D734005307C1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		9DF7BA7C1FC3D740005307C1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9DF7BA7E1FC3D76E005307C1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		9DF7BA801FC3D7C8005307C1 /* PeopleDailys.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeopleDailys.entitlements; sourceTree = "<group>"; };
+		9DF7BA811FC3D95A005307C1 /* AppDelegate+GetuiService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+GetuiService.h"; sourceTree = "<group>"; };
+		9DF7BA821FC3D95A005307C1 /* AppDelegate+GetuiService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+GetuiService.m"; sourceTree = "<group>"; };
+		9DF7BA841FC3DA71005307C1 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		BE4DAC07A65FCA2A6B78BCD2 /* Pods-PeopleDailys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeopleDailys.release.xcconfig"; path = "Pods/Target Support Files/Pods-PeopleDailys/Pods-PeopleDailys.release.xcconfig"; sourceTree = "<group>"; };
 		DA79F5CFA6236F8C2A41E7CE /* libPods-PeopleDailys.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PeopleDailys.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9C3DCE1A15443A52952395F /* Pods-PeopleDailys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeopleDailys.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PeopleDailys/Pods-PeopleDailys.debug.xcconfig"; sourceTree = "<group>"; };
@@ -211,26 +227,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D9783F71FB18A6E00E5E54F /* Photos.framework in Frameworks */,
-				9D9783F51FB189EE00E5E54F /* libWeiboSDK.a in Frameworks */,
-				9D8381E71FB1622100407C70 /* CoreGraphics.framework in Frameworks */,
-				9D8381E51FB1620D00407C70 /* Foundation.framework in Frameworks */,
-				9D8381E31FB161FB00407C70 /* UIKit.framework in Frameworks */,
-				9D8381E11FB161E800407C70 /* CoreText.framework in Frameworks */,
-				67356A581FB0B3990084DF7B /* CFNetwork.framework in Frameworks */,
-				678957B01FA32E2200D03685 /* CoreTelephony.framework in Frameworks */,
-				67356A561FB0B3860084DF7B /* Security.framework in Frameworks */,
-				678957AC1FA32E0500D03685 /* SystemConfiguration.framework in Frameworks */,
-				678957BA1FA32ECD00D03685 /* ImageIO.framework in Frameworks */,
-				67356A521FB0B3690084DF7B /* libsqlite3.0.tbd in Frameworks */,
-				67356A541FB0B3760084DF7B /* libc++.tbd in Frameworks */,
-				678957B81FA32EBE00D03685 /* JavaScriptCore.framework in Frameworks */,
-				678957AE1FA32E1300D03685 /* QuartzCore.framework in Frameworks */,
-				67356A501FB0B28D0084DF7B /* libWeChatSDK.a in Frameworks */,
-				678957B61FA32EA700D03685 /* libstdc++.tbd in Frameworks */,
-				678957B41FA32E9B00D03685 /* libz.tbd in Frameworks */,
-				678957BC1FA32ED800D03685 /* libsqlite3.tbd in Frameworks */,
-				678957B21FA32E7C00D03685 /* libicucore.tbd in Frameworks */,
+				9DF706E91FC3F84D000FFAAD /* UserNotifications.framework in Frameworks */,
+				9DF706E81FC3F845000FFAAD /* CoreLocation.framework in Frameworks */,
+				9DF706E71FC3F83C000FFAAD /* MobileCoreServices.framework in Frameworks */,
+				9DF706E61FC3F832000FFAAD /* Photos.framework in Frameworks */,
+				9DF706E51FC3F823000FFAAD /* libWeiboSDK.a in Frameworks */,
+				9DF706E41FC3F80E000FFAAD /* CoreGraphics.framework in Frameworks */,
+				9DF706E31FC3F803000FFAAD /* Foundation.framework in Frameworks */,
+				9DF706E21FC3F7FB000FFAAD /* AVFoundation.framework in Frameworks */,
+				9DF706EF1FC3F963000FFAAD /* GTSDK.framework in Frameworks */,
+				9DF706E11FC3F7F6000FFAAD /* UIKit.framework in Frameworks */,
+				9DF706E01FC3F7EA000FFAAD /* CoreText.framework in Frameworks */,
+				9DF706DF1FC3F7E0000FFAAD /* CFNetwork.framework in Frameworks */,
+				9DF706DE1FC3F7D6000FFAAD /* CoreTelephony.framework in Frameworks */,
+				9DF706DD1FC3F7C9000FFAAD /* Security.framework in Frameworks */,
+				9DF706DC1FC3F7BE000FFAAD /* SystemConfiguration.framework in Frameworks */,
+				9DF706DB1FC3F7AE000FFAAD /* ImageIO.framework in Frameworks */,
+				9DF706F01FC3F963000FFAAD /* GTExtensionSDK.framework in Frameworks */,
+				9DF706DA1FC3F7A6000FFAAD /* libsqlite3.0.tbd in Frameworks */,
+				9DF706D91FC3F79B000FFAAD /* libc++.tbd in Frameworks */,
+				9DF706D81FC3F791000FFAAD /* QuartzCore.framework in Frameworks */,
+				9DF706D71FC3F785000FFAAD /* libWeChatSDK.a in Frameworks */,
+				9DF706D61FC3F769000FFAAD /* libstdc++.tbd in Frameworks */,
+				9DF706D51FC3F754000FFAAD /* libz.tbd in Frameworks */,
+				9DF706D41FC3F74B000FFAAD /* libsqlite3.tbd in Frameworks */,
+				9DF706D31FC3F73B000FFAAD /* libicucore.tbd in Frameworks */,
 				F6DED7AAB780A7F9E1F4F186 /* libPods-PeopleDailys.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,6 +273,7 @@
 			children = (
 				9D8382041FB17AAE00407C70 /* Weibo */,
 				67356A491FB0B2710084DF7B /* Wechat */,
+				9DF706EC1FC3F93A000FFAAD /* GeTui */,
 			);
 			path = ThirdSDK;
 			sourceTree = "<group>";
@@ -298,6 +320,7 @@
 		67E9CE251FA19AB200E9273F /* PeopleDailys */ = {
 			isa = PBXGroup;
 			children = (
+				9DF7BA801FC3D7C8005307C1 /* PeopleDailys.entitlements */,
 				67E9CE3D1FA19DAC00E9273F /* Classes */,
 				67E9CE261FA19AB200E9273F /* Supporting Files */,
 			);
@@ -465,6 +488,8 @@
 				67E9CE7C1FA1A49900E9273F /* PrefixHeader.pch */,
 				67E9CE291FA19AB200E9273F /* AppDelegate.h */,
 				67E9CE2A1FA19AB200E9273F /* AppDelegate.m */,
+				9DF7BA811FC3D95A005307C1 /* AppDelegate+GetuiService.h */,
+				9DF7BA821FC3D95A005307C1 /* AppDelegate+GetuiService.m */,
 				9D9784091FB974A800E5E54F /* AppDelegate+WeixinService.h */,
 				9D97840A1FB974A800E5E54F /* AppDelegate+WeixinService.m */,
 				9D97840C1FB974BE00E5E54F /* AppDelegate+WeiboService.h */,
@@ -543,9 +568,23 @@
 			path = Weibo;
 			sourceTree = "<group>";
 		};
+		9DF706EC1FC3F93A000FFAAD /* GeTui */ = {
+			isa = PBXGroup;
+			children = (
+				9DF706EE1FC3F963000FFAAD /* GTExtensionSDK.framework */,
+				9DF706ED1FC3F963000FFAAD /* GTSDK.framework */,
+			);
+			path = GeTui;
+			sourceTree = "<group>";
+		};
 		C5661263DF2F5EA05E09007A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9DF7BA841FC3DA71005307C1 /* CoreBluetooth.framework */,
+				9DF7BA7E1FC3D76E005307C1 /* UserNotifications.framework */,
+				9DF7BA7C1FC3D740005307C1 /* CoreLocation.framework */,
+				9DF7BA7A1FC3D734005307C1 /* AVFoundation.framework */,
+				9DF7BA781FC3D717005307C1 /* MobileCoreServices.framework */,
 				9D9783F61FB18A4B00E5E54F /* Photos.framework */,
 				9D8381E61FB1621B00407C70 /* CoreGraphics.framework */,
 				9D8381E41FB1620800407C70 /* Foundation.framework */,
@@ -606,6 +645,14 @@
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = YFJ578HBZ4;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -730,6 +777,7 @@
 				67E9CE701FA1A2CA00E9273F /* CLLocation+YCLocation.m in Sources */,
 				67D45AD31FB7DD04008B1759 /* PDNewsListPhotosCell.m in Sources */,
 				67E9CEC11FA2C48600E9273F /* ZCSliderView.m in Sources */,
+				9DF7BA831FC3D95A005307C1 /* AppDelegate+GetuiService.m in Sources */,
 				6789576F1FA3014300D03685 /* PDSearchController.m in Sources */,
 				67E9CE791FA1A2CA00E9273F /* UITableView+Placeholder.m in Sources */,
 				9D7EE6F81FA85B070093D123 /* PDNewsModel.m in Sources */,
@@ -871,13 +919,29 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F9C3DCE1A15443A52952395F /* Pods-PeopleDailys.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: United Electronics Co., Ltd";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = PeopleDailys/PeopleDailys.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: chong zhang (73S3852TES)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				DEVELOPMENT_TEAM = YFJ578HBZ4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/GeTui",
+				);
 				GCC_PREFIX_HEADER = PeopleDailys/Classes/Others/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/MJExtension\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+				);
 				INFOPLIST_FILE = PeopleDailys/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -885,7 +949,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Wechat",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Weibo",
-					"$(SRCROOT)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -896,22 +959,6 @@
 					"-l\"Masonry\"",
 					"-l\"SDWebImage\"",
 					"-l\"SVProgressHUD\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"ImageIO\"",
-					"-framework",
-					"\"MobileCoreServices\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ronglian.www.PeopleDailyTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -924,13 +971,29 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE4DAC07A65FCA2A6B78BCD2 /* Pods-PeopleDailys.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: United Electronics Co., Ltd";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = PeopleDailys/PeopleDailys.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: chong zhang (73S3852TES)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				DEVELOPMENT_TEAM = YFJ578HBZ4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/GeTui",
+				);
 				GCC_PREFIX_HEADER = PeopleDailys/Classes/Others/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/MJExtension\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+				);
 				INFOPLIST_FILE = PeopleDailys/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -938,7 +1001,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Wechat",
 					"$(PROJECT_DIR)/PeopleDailys/Classes/Others/ThirdSDK/Weibo",
-					"$(SRCROOT)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -949,22 +1011,6 @@
 					"-l\"Masonry\"",
 					"-l\"SDWebImage\"",
 					"-l\"SVProgressHUD\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"ImageIO\"",
-					"-framework",
-					"\"MobileCoreServices\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ronglian.www.PeopleDailyTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";

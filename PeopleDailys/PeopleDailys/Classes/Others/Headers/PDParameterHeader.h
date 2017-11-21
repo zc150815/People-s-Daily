@@ -45,6 +45,11 @@ static NSString * const SINAAPPID = @"363528080";//新浪AAPPID
 static NSString * const SINAREDIRECTURL = @"https://api.weibo.com/oauth2/default.html";//新浪REDIRECTURL
 static NSString * const SINAAPPSECRET = @"b74b9e8e20c7df96a2708f613559c1ff";//新浪APPSECRET
 
+static NSString * const GETUIAPPID = @"EDchxZ91qfAxiCM8cQGM27";//个推APPID
+static NSString * const GETUIAPPSECRET = @"SyuC6MWwMkAy7WDiOam1r";//个推APPSECRET
+static NSString * const GETUIAPPKEY = @"SK6GmXbBFW7TcGL7s9JJa6";//个推APPKEY
+
+
 
 /****************************偏好设置**************************************/
 static NSString * const PD_APPUID = @"PD_APPUID";//APP后台用户id

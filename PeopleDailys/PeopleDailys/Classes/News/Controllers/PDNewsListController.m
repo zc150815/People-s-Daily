@@ -34,11 +34,6 @@
     NSString *_Final;
     NSInteger _refreshTime;
 }
--(void)didReceiveMemoryWarning{
-    [super didReceiveMemoryWarning];
-    [[SDWebImageManager sharedManager] cancelAll];
-    [[SDImageCache sharedImageCache] clearMemory];
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -98,6 +93,8 @@
 #pragma mark 获取置顶新闻
 -(void)loadStickyNewsData{
     
+//    [[SDImageCache sharedImageCache] setValue:nil forKey:@"memCache"];
+
     [SVProgressHUD show];
     //获取置顶新闻列表
     [[PDNetworkingTools sharedNetWorkingTools]getChannelTopNewsDataWithType:self.title isNomal:YES callBack:^(id response, NSError *error) {
@@ -138,6 +135,8 @@
 #pragma mark 获取普通新闻
 -(void)loadNomalNewsData{
     
+//    [[SDImageCache sharedImageCache] setValue:nil forKey:@"memCache"];
+
     [SVProgressHUD show];
     [[PDNetworkingTools sharedNetWorkingTools]getChannelNomalNewsDataWithType:self.title callBack:^(id response, NSError *error) {
         
@@ -191,8 +190,8 @@
 #pragma mark 获取更多新闻
 -(void)loadNomalNewsMoreData{
     
-    [[SDImageCache sharedImageCache] clearMemory];
-
+//    [[SDImageCache sharedImageCache] setValue:nil forKey:@"memCache"];
+    
     [[PDNetworkingTools sharedNetWorkingTools]getChannelNomalNewsMoreDataWithType:self.title lastTime:_lastTime callBack:^(id response, NSError *error) {
         
         if (error) {
@@ -242,6 +241,8 @@
 #pragma mark 获取最新新闻
 -(void)loadUpdatedData{
     
+//    [[SDImageCache sharedImageCache] setValue:nil forKey:@"memCache"];
+
     if (!self.nomalNewsArr.count) {
         [self loadStickyNewsData];
         [self loadNomalNewsData];

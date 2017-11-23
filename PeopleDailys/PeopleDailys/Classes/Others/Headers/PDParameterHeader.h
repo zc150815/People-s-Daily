@@ -37,18 +37,19 @@ static NSString * const DATA = @"data";//data
 
 //static NSString * const PhoneIDNum= @"861414032240161";//PHONEID
 
-
+//微信
 static NSString * const WECHATAPPID = @"wxcd5118d435ade7d7";//微信APPID
 static NSString * const WECHATAPPSECRET = @"0c57be6105293b459d66ef64eb8333c4";//微信APPSECRET
-
+//微博
 static NSString * const SINAAPPID = @"363528080";//新浪AAPPID
 static NSString * const SINAREDIRECTURL = @"https://api.weibo.com/oauth2/default.html";//新浪REDIRECTURL
 static NSString * const SINAAPPSECRET = @"b74b9e8e20c7df96a2708f613559c1ff";//新浪APPSECRET
-
+//个推
 static NSString * const GETUIAPPID = @"EDchxZ91qfAxiCM8cQGM27";//个推APPID
 static NSString * const GETUIAPPSECRET = @"SyuC6MWwMkAy7WDiOam1r";//个推APPSECRET
 static NSString * const GETUIAPPKEY = @"SK6GmXbBFW7TcGL7s9JJa6";//个推APPKEY
-
+//极光
+static NSString * const JPUSHAPPKEY = @"96999c3163960ab908f4ec91";//极光APPID
 
 
 /****************************偏好设置**************************************/

@@ -40,6 +40,7 @@
 		67E9CE851FA1A8C900E9273F /* PDMeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9CE841FA1A8C900E9273F /* PDMeController.m */; };
 		67E9CE881FA1A93C00E9273F /* PDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9CE871FA1A93C00E9273F /* PDNavigationController.m */; };
 		67E9CEC11FA2C48600E9273F /* ZCSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E9CEC01FA2C48600E9273F /* ZCSliderView.m */; };
+		9D09F7941FC6736F00D76427 /* AppDelegate+JPushService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D09F7931FC6736F00D76427 /* AppDelegate+JPushService.m */; };
 		9D71A41F1FC3FB4F00373B45 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D71A41E1FC3FB4400373B45 /* AdSupport.framework */; };
 		9D71A4291FC3FEF800373B45 /* GTSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D71A4271FC3FEF800373B45 /* GTSDK.framework */; };
 		9D7EE6F81FA85B070093D123 /* PDNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7EE6F71FA85B070093D123 /* PDNewsModel.m */; };
@@ -169,6 +170,8 @@
 		67E9CE871FA1A93C00E9273F /* PDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDNavigationController.m; sourceTree = "<group>"; };
 		67E9CEBF1FA2C48600E9273F /* ZCSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCSliderView.h; sourceTree = "<group>"; };
 		67E9CEC01FA2C48600E9273F /* ZCSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCSliderView.m; sourceTree = "<group>"; };
+		9D09F7921FC6736F00D76427 /* AppDelegate+JPushService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+JPushService.h"; sourceTree = "<group>"; };
+		9D09F7931FC6736F00D76427 /* AppDelegate+JPushService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+JPushService.m"; sourceTree = "<group>"; };
 		9D71A41E1FC3FB4400373B45 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		9D71A4261FC3FEF700373B45 /* GTExtensionSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTExtensionSDK.framework; sourceTree = "<group>"; };
 		9D71A4271FC3FEF800373B45 /* GTSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTSDK.framework; sourceTree = "<group>"; };
@@ -275,6 +278,7 @@
 				9D8382041FB17AAE00407C70 /* Weibo */,
 				67356A491FB0B2710084DF7B /* Wechat */,
 				9D71A4251FC3FEE900373B45 /* GeTui */,
+				9D09F7951FC6747F00D76427 /* JPush */,
 			);
 			path = ThirdSDK;
 			sourceTree = "<group>";
@@ -491,6 +495,8 @@
 				67E9CE2A1FA19AB200E9273F /* AppDelegate.m */,
 				9DF7BA811FC3D95A005307C1 /* AppDelegate+GetuiService.h */,
 				9DF7BA821FC3D95A005307C1 /* AppDelegate+GetuiService.m */,
+				9D09F7921FC6736F00D76427 /* AppDelegate+JPushService.h */,
+				9D09F7931FC6736F00D76427 /* AppDelegate+JPushService.m */,
 				9D9784091FB974A800E5E54F /* AppDelegate+WeixinService.h */,
 				9D97840A1FB974A800E5E54F /* AppDelegate+WeixinService.m */,
 				9D97840C1FB974BE00E5E54F /* AppDelegate+WeiboService.h */,
@@ -556,6 +562,13 @@
 				67E9CE6F1FA1A2CA00E9273F /* UIView+ZCExtension.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		9D09F7951FC6747F00D76427 /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = JPush;
 			sourceTree = "<group>";
 		};
 		9D71A4251FC3FEE900373B45 /* GeTui */ = {
@@ -744,6 +757,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D09F7941FC6736F00D76427 /* AppDelegate+JPushService.m in Sources */,
 				9D9784001FB3F29F00E5E54F /* PDSpecialNewsController.m in Sources */,
 				67D45AD61FB7DD26008B1759 /* PDPhotoNewsController.m in Sources */,
 				67E3365A1FAEDE7D00DFC519 /* ZCCoverScreenView.m in Sources */,

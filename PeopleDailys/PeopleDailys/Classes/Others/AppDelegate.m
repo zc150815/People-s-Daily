@@ -14,6 +14,8 @@
 #import "AppDelegate+APPEnvironment.h"
 #import "AppDelegate+GetuiService.h"
 
+#import "AppDelegate+JPushService.h"
+
 @interface AppDelegate ()
 
 @end

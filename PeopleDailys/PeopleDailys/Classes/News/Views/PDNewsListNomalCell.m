@@ -97,6 +97,9 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     
+//    [[SDImageCache sharedImageCache] setValue:nil forKey:@"memCache"];
+//    [[SDImageCache sharedImageCache] clearMemory];
+
     self.titleLab.x = TITLELAB_MARGIN_LEADING;
     self.titleLab.y = TITLELAB_MARGIN_TOP;
     self.timeLab.x = self.titleLab.x;
@@ -198,7 +201,7 @@
         UIImageView *picView = [[UIImageView alloc]init];
         picView.contentMode = UIViewContentModeScaleAspectFill;
         picView.clipsToBounds = YES;
-        [picView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"1%@",model.url]] placeholderImage:[UIImage imageNamed:@"default"] options:SDWebImageProgressiveDownload];
+        [picView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.url]] placeholderImage:[UIImage imageNamed:@"default"] options:SDWebImageLowPriority];
         CGFloat imgX = (imgCount==1)?0:i*(imgWith+PICTURE_MARGIN);
     
         picView.frame = CGRectMake(imgX, 0, imgWith, imgHeight);

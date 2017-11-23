@@ -200,7 +200,7 @@
                     [[PDPublicTools sharedPublicTools]showMessage:@"error" duration:3];
                     return ;
                 }
-//                PD_NSLog(@"%s%@",__FUNCTION__,response);
+                PD_NSLog(@"%s%@",__FUNCTION__,response);
                 PDMeModel *model = [PDMeModel mj_objectWithKeyValues:response];
                 NSArray *infoArr;
                 if ([response[STATUS] integerValue] == 200) {

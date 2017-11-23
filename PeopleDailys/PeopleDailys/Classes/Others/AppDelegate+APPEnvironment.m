@@ -28,4 +28,12 @@
 
 
 }
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
+    // 取消所有下载
+    [[SDWebImageManager sharedManager] cancelAll];
+    // 清除内存缓存
+    [[SDWebImageManager sharedManager].imageCache clearMemory];
+}
+
 @end

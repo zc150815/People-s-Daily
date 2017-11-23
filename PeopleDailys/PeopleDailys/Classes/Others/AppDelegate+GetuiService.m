@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate+GetuiService.h"
-
+#import "PDNewsDetailController.h"
 
 @implementation AppDelegate (GetuiService)
 
@@ -86,16 +86,7 @@
 /** APP已经接收到“远程”通知(推送) - (App运行在后台)  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     
-    // [ GTSdk ]：将收到的APNs信息传给个推统计
-    [GeTuiSdk handleRemoteNotification:userInfo];
-    
-//    // 显示APNs信息到页面
-//    NSString *record = [NSString stringWithFormat:@"[APN]%@, %@", [NSDate date], userInfo];
-//
-//    PD_NSLog(@"%@",record);
-    
     completionHandler(UIBackgroundFetchResultNewData);
-    
     //test
     [self showNotificationPageWithUserInfo:userInfo];
 }
@@ -214,7 +205,7 @@
 }
 
 
-//接收到透传消息显示页面
+/** SDK收到透传消息回调处理事件 */
 -(void)showNotificationPageWithPayloadData:(NSData*)payloadData andOffLine:(BOOL)offLine{
     
     // 数据转换
@@ -222,33 +213,46 @@
     if (payloadData) {
         payloadMsg = [[NSString alloc] initWithBytes:payloadData.bytes length:payloadData.length encoding:NSUTF8StringEncoding];
     }
-
     // 控制台打印日志
-    NSString *msg = [NSString stringWithFormat:@"%@\n%@\n%@", [self formateTime:[NSDate date]], payloadMsg, offLine ? @"<离线消息>" : @"<非离线消息>"];
+    NSString *msg = [NSString stringWithFormat:@"%@\npayloadMsg:%@\n%@", [self formateTime:[NSDate date]], payloadMsg, offLine ? @"<离线消息>" : @"<非离线消息>"];
     PD_NSLog(@">>[GTSdk ReceivePayload]:\n%@", msg);
-    
+    [[PDPublicTools sharedPublicTools]showMessage:msg duration:5];
+
     if (offLine) {  //离线推送
-        NSDictionary *payloadDic = [NSJSONSerialization JSONObjectWithData:payloadData options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *payloadDic = [NSJSONSerialization JSONObjectWithData:payloadData
+                                                                   options:NSJSONReadingMutableLeaves
+                                                                     error:nil];
         
         NSString *opernUrl = [payloadDic objectForKey:@"openurl"];
         if (opernUrl.length) {
             [[PDPublicTools sharedPublicTools]showMessage:opernUrl duration:5];
         }
+        [[PDPublicTools sharedPublicTools]showMessage:@"离线透传推送" duration:5];
+
     }else{  //非离线推送
         [[PDPublicTools sharedPublicTools]showMessage:@"非离线透传推送" duration:5];
     }
 }
+
 -(void)showNotificationPageWithUserInfo:(NSDictionary*)userInfo{
     
     // 显示APNs信息到页面
     NSString *record = [NSString stringWithFormat:@"[APN]%@\n%@", [NSDate date], userInfo];
     PD_NSLog(@"%@",record);
     
-    NSDictionary *payloadDic = [userInfo objectForKey:@"payload"];
-    
-    if (payloadDic && [payloadDic objectForKey:@"openurl"]) {
+    [[PDPublicTools sharedPublicTools]showMessage:record duration:5];
 
-        [[PDPublicTools sharedPublicTools]showMessage:[payloadDic objectForKey:@"openurl"] duration:5];
+    
+    NSData *jsonData = [[userInfo objectForKey:@"payload"] dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *payloadDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                               options:NSJSONReadingMutableContainers
+                                                                 error:nil];
+    if (payloadDic) {
+        NSString *ID = payloadDic[@"txt"];
+        PDNewsDetailController *detailVC = [[PDNewsDetailController alloc]init];
+        detailVC.ID = ID;
+        PDNavigationController *navVC =(PDNavigationController*) ((PDTabBarController*)self.window.rootViewController).selectedViewController;
+        [navVC pushViewController:detailVC animated:YES];
     }
 }
 

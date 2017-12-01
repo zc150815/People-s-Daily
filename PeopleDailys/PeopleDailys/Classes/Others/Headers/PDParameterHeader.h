@@ -45,9 +45,12 @@ static NSString * const SINAAPPID = @"363528080";//新浪AAPPID
 static NSString * const SINAREDIRECTURL = @"https://api.weibo.com/oauth2/default.html";//新浪REDIRECTURL
 static NSString * const SINAAPPSECRET = @"b74b9e8e20c7df96a2708f613559c1ff";//新浪APPSECRET
 //个推
-static NSString * const GETUIAPPID = @"EDchxZ91qfAxiCM8cQGM27";//个推APPID
-static NSString * const GETUIAPPSECRET = @"SyuC6MWwMkAy7WDiOam1r";//个推APPSECRET
-static NSString * const GETUIAPPKEY = @"SK6GmXbBFW7TcGL7s9JJa6";//个推APPKEY
+//static NSString * const GETUIAPPID = @"EDchxZ91qfAxiCM8cQGM27";//个推APPID
+//static NSString * const GETUIAPPSECRET = @"SyuC6MWwMkAy7WDiOam1r";//个推APPSECRET
+//static NSString * const GETUIAPPKEY = @"SK6GmXbBFW7TcGL7s9JJa6";//个推APPKEY
+static NSString * const GETUIAPPID = @"w32RlutEdLAeea7ri5DK85";//个推APPID
+static NSString * const GETUIAPPSECRET = @"rRHyuyEkfx9edqdLnQZ7i6";//个推APPSECRET
+static NSString * const GETUIAPPKEY = @"C72XoWKbez8t3yI0ujg2p7";//个推APPKEY
 //极光
 static NSString * const JPUSHAPPKEY = @"96999c3163960ab908f4ec91";//极光APPID
 
@@ -56,7 +59,6 @@ static NSString * const JPUSHAPPKEY = @"96999c3163960ab908f4ec91";//极光APPID
 static NSString * const PD_APPUID = @"PD_APPUID";//APP后台用户id
 static NSString * const PD_APPTOKEN = @"PD_APPTOKEN";//APP后台用户token
 static NSString * const PD_APPLOGINBY = @"PD_APPLOGINBY";//APP登入方式(微博:SINA,微信:WECHAT,推特:TWITTER,facebook:FACEBOOK)
-
 static NSString * const PD_ACCESSTOKEN = @"PD_ACCESSTOKEN";//accessToken
 static NSString * const PD_USERID = @"PD_USERID";//微博userId
 static NSString * const PD_REFRESHTOKEN = @"PD_REFRESHTOKEN";//微博refreshToken

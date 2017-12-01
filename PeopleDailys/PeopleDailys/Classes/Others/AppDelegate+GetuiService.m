@@ -88,6 +88,7 @@
     
     completionHandler(UIBackgroundFetchResultNewData);
     //test
+    PD_NSLog(@"%@",userInfo);
     [self showNotificationPageWithUserInfo:userInfo];
 }
 
@@ -109,6 +110,8 @@
     
     // [ GTSdk ]：将收到的APNs信息传给个推统计
     [GeTuiSdk handleRemoteNotification:response.notification.request.content.userInfo];
+    
+    
     completionHandler();
 
 }
@@ -243,10 +246,10 @@
     [[PDPublicTools sharedPublicTools]showMessage:record duration:5];
 
     
-    NSData *jsonData = [[userInfo objectForKey:@"payload"] dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *payloadDic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                               options:NSJSONReadingMutableContainers
-                                                                 error:nil];
+//    NSData *jsonData = [[userInfo objectForKey:@"category"] dataUsingEncoding:NSUTF8StringEncoding];
+//    NSDictionary *payloadDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+    NSDictionary *payloadDic = [userInfo objectForKey:@"category"];
+
     if (payloadDic) {
         NSString *ID = payloadDic[@"txt"];
         PDNewsDetailController *detailVC = [[PDNewsDetailController alloc]init];

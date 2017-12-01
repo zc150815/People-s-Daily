@@ -49,7 +49,6 @@
     //图片显示区域
     UIView *imgView = [[UIView alloc]init];
     imgView.backgroundColor = [UIColor whiteColor];
-    //    imgView.backgroundColor = PD_RandomColor;
     self.imgView = imgView;
     [self.contentView addSubview:imgView];
     

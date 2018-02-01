@@ -90,6 +90,7 @@
         vc.view.backgroundColor = [UIColor whiteColor];
         [self addChildViewController:vc];
     }
+    
 }
 
 #pragma mark - ZCSliderViewDelegateMethod

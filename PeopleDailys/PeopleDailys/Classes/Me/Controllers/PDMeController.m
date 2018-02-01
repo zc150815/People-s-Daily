@@ -13,7 +13,7 @@
 #import "PDNotificationController.h"
 #import "AppDelegate.h"
 #import "PDMeModel.h"
-
+#import "PDTestViewController.h"
 @interface PDMeController ()<UITableViewDelegate,UITableViewDataSource,WBHttpRequestDelegate>
 
 @property (nonatomic, strong) UIButton *userInfo;
@@ -178,7 +178,7 @@
 #pragma mark - 获取数据
 -(void)loadData{
     
-    self.dataArr = @[@{@"titleStr":@"Collections",@"detailStr":@"my_icon1"},@{@"titleStr":@"Notification",@"detailStr":@"my_icon2"},@{@"titleStr":@"Settings",@"detailStr":@"my_icon3"},@{@"titleStr":@"About Us",@"detailStr":@"my_icon4"}];
+    self.dataArr = @[@{@"titleStr":@"Collections",@"detailStr":@"my_icon1"},@{@"titleStr":@"Notification",@"detailStr":@"my_icon2"},@{@"titleStr":@"Settings",@"detailStr":@"my_icon3"},@{@"titleStr":@"About Us",@"detailStr":@"my_icon4"},@{@"titleStr":@"test",@"detailStr":@"my_icon4"}];
     [self.tableView reloadData];
 
 }
@@ -287,6 +287,10 @@
         PDNotificationController *notifVC = [[PDNotificationController alloc]init];
         notifVC.title = titleStr;
         [self.navigationController pushViewController:notifVC animated:YES];
+    }else{
+        PDTestViewController *test = [[PDTestViewController alloc]init];
+        test.title = titleStr;
+        [self.navigationController pushViewController:test animated:YES];
     }
     
 }

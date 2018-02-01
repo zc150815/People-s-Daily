@@ -44,7 +44,7 @@
         }
 
     }else if ([resp isKindOfClass:[SendMessageToWXResp class]]){
-        SendMessageToWXResp *response = (SendMessageToWXResp*)resp;
+//        SendMessageToWXResp *response = (SendMessageToWXResp*)resp;
 //        PD_NSLog(@"\nlang:%@\ncounty:%@",response.lang,response.country);
         
     }

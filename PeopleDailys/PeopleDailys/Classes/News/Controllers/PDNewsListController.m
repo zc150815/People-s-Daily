@@ -114,7 +114,7 @@
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
         }
-//        PD_NSLog(@"置顶新闻%@",response);
+        PD_NSLog(@"置顶新闻%@",response);
         
         
         if ([response[STATUS] integerValue] != 200) {
